@@ -341,6 +341,27 @@ class Money extends CI_Controller
 		endforeach;
 	}
 
+	function readCSVFile()
+	{
+		$path = trim($this -> input -> post('full_path'));
+		$user = $this -> ion_auth -> user() -> row();
+		$mdc = new LoggerMDC();
+		try {
+			$data = $this -> getcsv -> set_file_path($path) -> get_array();
+			echo json_encode($data);
+		} catch (Exception $e) {
+			echo show_error($e);
+		}
+//		$this -> load -> model('money_model');
+//		$datas = $this -> money_model -> addPaymentsCSV($data);
+//		$mdc -> put('username', 'encashmentRobot');
+//		foreach ($datas as $enchashment_row):
+//			$this -> log -> fatal($enchashment_row);
+//		endforeach;
+
+		//return $data;
+	}
+
 	function getAllPayById()
 	{
 		$id = trim($this -> input -> post('id'));

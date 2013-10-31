@@ -48,6 +48,7 @@
 		<script src="/assets/admin/js/hideshow.js" type="text/javascript"></script>
 		<script src="/assets/admin/js/jquery.dataTables.js" type="text/javascript"></script>
 		<script type="text/javascript" src="/assets/admin/js/ui.datepicker-ru.js"></script>
+		<script type="text/javascript" src="/assets/js/jquery.blockUI.js"></script>
 		<script type="text/javascript" src="/assets/admin/js/jquery.equalHeight.js"></script>
 		<script type="text/javascript" src="/assets/admin/js/jquery-ui-1.8.17.custom.min.js"></script>
 		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
