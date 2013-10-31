@@ -571,7 +571,6 @@ class Admin extends CI_Controller
 	/*
 	 *
 	 * Создание файла остатков
-	 *
 	 */
 
 	function compare()
