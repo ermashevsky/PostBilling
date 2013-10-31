@@ -570,15 +570,23 @@ class Admin extends CI_Controller
 
 	/*
 	 *
-	 *Создание файла остатков
-	 * 
+	 * Создание файла остатков
+	 *
 	 */
+
 	function compare()
 	{
-
-		$this -> load -> view('admin/header');
-		$this -> load -> view('admin/compare');
-		$this -> load -> view('admin/left_sidebar');
+		if ( ! $this -> ion_auth -> logged_in()) {
+			//redirect them to the login page
+			redirect('auth/login', 'refresh');
+		} elseif ( ! $this -> ion_auth -> is_admin()) {
+			//redirect them to the home page because they must be an administrator to view this
+			redirect($this -> config -> item('base_url'), 'refresh');
+		} else {
+			$this -> load -> view('admin/header');
+			$this -> load -> view('admin/compare');
+			$this -> load -> view('admin/left_sidebar');
+		}
 	}
 
 }
