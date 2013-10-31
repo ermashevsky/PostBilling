@@ -568,6 +568,11 @@ class Admin extends CI_Controller
 		$this -> log -> info('Пользователь установил новый тариф на номеклатуре. Дата начала действия тарифа ' . $new_date . ' на номеклатуре ' . $payment_name . ' ID лицевого счета: ' . $id_account . ' ID нового тарифа:' . $tariffs);
 	}
 
+	/*
+	 *
+	 *Создание файла остатков
+	 * 
+	 */
 	function compare()
 	{
 
