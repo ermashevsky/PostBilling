@@ -47,7 +47,9 @@ class Admin extends CI_Controller
 		$this -> load -> library('session');
 		$this -> load -> library('form_validation');
 		$this -> load -> database();
-		$this -> load -> helper('url');
+		$this -> load -> helper('url', 'form', 'date');
+		$this -> load -> helper('file');
+		$this -> load -> helper('number');
 		$this -> breadcrumbs = array();
 		$this -> breadcrumbs[] = anchor('', $this -> config -> item('breadcrumbs_index'));
 		//$this->output->enable_profiler(TRUE);

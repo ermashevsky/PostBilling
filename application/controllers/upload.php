@@ -148,6 +148,35 @@ class Upload extends CI_Controller
 		}
 	}
 
+	/**
+	 * Метод загрузки начальных файлов сверки на сервер
+	 *
+	 * @author Ермашевский Денис
+	 * @return array $data;
+	 */
+	function do_upload_sverka()
+	{
+		$config['upload_path'] = 'application/csv/' . $_POST['folder'] . '/';
+		$config['allowed_types'] = '*';
+		$config['max_size'] = '10240';
+		$config['max_width'] = '1024';
+		$config['max_height'] = '768';
+		$config['file_name'] = 'file_'.  date('Y-m-d',now()).'.csv';
+		$config['overwrite'] = TRUE;
+
+		$this -> load -> library('upload', $config);
+
+		if ( ! $this -> upload -> do_upload()) {
+			$error = array('error' => $this -> upload -> display_errors());
+			$this -> load -> view('admin/header');
+			$this -> load -> view('admin/compare', $error);
+			$this -> load -> view('admin/left_sidebar');
+		} else {
+			$data = array('upload_data' => $this -> upload -> data());
+			redirect('admin/compare', 'refresh');
+		}
+	}
+
 	function listDirs($where=NULL,$onclick=NULL)
 	{
 		echo "<table border=\"1\"><tr><td><b>Имя</b></td><td><b>Тип</b></td><td><b>Размер</b></td>";
