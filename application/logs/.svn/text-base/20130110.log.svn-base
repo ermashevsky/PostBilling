@@ -1,0 +1,70 @@
+
+ Пользователь administrator вызвал:  
+ 15:08:23 INFO [Clients]: Clients.index(/home/denic/web/ci.lcl/application/controllers/clients.php:67) 
+===========
+ Пользователь administrator вызвал:  
+ 15:08:24 INFO [Services]: Services.index(/home/denic/web/ci.lcl/application/controllers/services.php:70) 
+===========
+ Пользователь pozdnyakova вызвал:  
+ 15:11:30 INFO [Clients]: Clients.index(/home/denic/web/ci.lcl/application/controllers/clients.php:67) 
+===========
+ Пользователь administrator вызвал:  
+ 15:11:45 INFO [Clients]: Clients.index(/home/denic/web/ci.lcl/application/controllers/clients.php:67) 
+===========
+ Пользователь pozdnyakova вызвал:  
+ 15:11:57 INFO [Clients]: Clients.index(/home/denic/web/ci.lcl/application/controllers/clients.php:67) 
+===========
+ Пользователь pozdnyakova вызвал:  
+ 15:12:00 INFO [Clients]: Clients.index(/home/denic/web/ci.lcl/application/controllers/clients.php:67) 
+===========
+ Пользователь administrator вызвал:  
+ 15:12:36 INFO [Clients]: Clients.index(/home/denic/web/ci.lcl/application/controllers/clients.php:67) 
+===========
+ Пользователь  вызвал:  
+ 15:19:11 INFO [Services]: Services.getAssortmentInfoPayments(/home/denic/web/ci.lcl/application/controllers/services.php:362) 
+===========
+ Пользователь administrator вызвал:  
+ 15:20:21 INFO [Services]: Services.getAssortmentInfoPayments(/home/denic/web/ci.lcl/application/controllers/services.php:363) 
+===========
+ Пользователь pozdnyakova вызвал:  
+ 15:21:40 INFO [Clients]: Clients.index(/home/denic/web/ci.lcl/application/controllers/clients.php:67) 
+===========
+ Пользователь pozdnyakova вызвал:  
+ 15:22:00 INFO [Services]: Services.getAssortmentInfoPayments(/home/denic/web/ci.lcl/application/controllers/services.php:363) 
+===========
+ Пользователь denic_ermashevsky вызвал:  
+ 15:29:38 INFO [Clients]: Clients.index(/home/denic/web/ci.lcl/application/controllers/clients.php:67) 
+===========
+ Пользователь denic_ermashevsky вызвал:  
+ 15:29:49 INFO [Services]: Services.getAssortmentInfoPayments(/home/denic/web/ci.lcl/application/controllers/services.php:363) 
+===========
+ Пользователь pozdnyakova вызвал:  
+ 15:30:07 INFO [Services]: Services.getAssortmentInfoPayments(/home/denic/web/ci.lcl/application/controllers/services.php:363) 
+===========
+ Пользователь denic_ermashevsky вызвал:  
+ 15:32:30 INFO [Services]: Services.getAssortmentInfoPayments(/home/denic/web/ci.lcl/application/controllers/services.php:363) 
+===========
+ Пользователь pozdnyakova вызвал:  
+ 15:32:53 INFO [Services]: Services.getAssortmentInfoPayments(/home/denic/web/ci.lcl/application/controllers/services.php:363) 
+===========
+ Пользователь denic_ermashevsky вызвал:  
+ 15:33:11 INFO [Services]: Services.getAssortmentInfoPayments(/home/denic/web/ci.lcl/application/controllers/services.php:363) 
+===========
+ Пользователь denic_ermashevsky вызвал:  
+ 15:33:13 INFO [Services]: Services.getAssortmentInfoPayments(/home/denic/web/ci.lcl/application/controllers/services.php:363) 
+===========
+ Пользователь denic_ermashevsky957 вызвал:  
+ 15:36:22 INFO [Services]: Services.getAssortmentInfoPayments(/home/denic/web/ci.lcl/application/controllers/services.php:365) 
+===========
+ Пользователь denic_ermashevsky вызвал:  
+ 16:09:15 INFO [Services]: Services.getAssortmentInfoPayments(/home/denic/web/ci.lcl/application/controllers/services.php:365) 
+===========
+ Пользователь administrator вызвал:  
+ 16:09:34 INFO [Clients]: Clients.index(/home/denic/web/ci.lcl/application/controllers/clients.php:67) 
+===========
+ Пользователь administrator вызвал:  
+ 16:10:22 INFO [Clients]: Clients.index(/home/denic/web/ci.lcl/application/controllers/clients.php:67) 
+===========
+ Пользователь administrator вызвал:  
+ 16:16:07 INFO [Clients]: Clients.index(/home/denic/web/ci.lcl/application/controllers/clients.php:67) 
+===========

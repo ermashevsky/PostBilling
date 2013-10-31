@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/configurators
+END
+LoggerConfigurationAdapter.php
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/configurators/LoggerConfigurationAdapter.php
+END
+LoggerConfigurationAdapterINI.php
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/configurators/LoggerConfigurationAdapterINI.php
+END
+LoggerConfiguratorDefault.php
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/configurators/LoggerConfiguratorDefault.php
+END
+LoggerConfigurationAdapterXML.php
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/configurators/LoggerConfigurationAdapterXML.php
+END
+LoggerConfigurationAdapterPHP.php
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/configurators/LoggerConfigurationAdapterPHP.php
+END

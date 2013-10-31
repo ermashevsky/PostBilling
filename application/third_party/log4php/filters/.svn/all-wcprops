@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/filters
+END
+LoggerFilterLevelMatch.php
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/filters/LoggerFilterLevelMatch.php
+END
+LoggerFilterStringMatch.php
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/filters/LoggerFilterStringMatch.php
+END
+LoggerFilterDenyAll.php
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/filters/LoggerFilterDenyAll.php
+END
+LoggerFilterLevelRange.php
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/filters/LoggerFilterLevelRange.php
+END

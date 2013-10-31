@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<log4php:configuration xmlns:log4php="http://logging.apache.org/log4php/" threshold="all" debug="true">
+    <appender name="default" class="LoggerAppenderPDO">
+        <param name="dsn" value="mysql:host=localhost;dbname=post_billing" />
+        <param name="user" value="root" />
+        <param name="password" value="11235813" />
+        <param name="table" value="log4php_log" />
+		<param name="insertPattern" value="%date{Y-m-d H:i:s}, %c, %level, %method, %X{username}, %message [%X{service_description} %X{marker} %X{id} %X{pay_id} %X{id_account} %X{payment_name} %X{marker_service} %X{payment_type} %X{datepicker1} %X{end_date} %X{account} %X{date}  %X{tariff} %X{amount}] %newline, %pid, %file, %line" />
+
+	</appender>
+
+    <logger name="test">
+        <appender_ref ref="default" />
+    </logger>
+
+    <logger name="modules">
+        <appender_ref ref="default" />
+    </logger>
+
+    <root>
+        <level value="DEBUG" />
+        <appender_ref ref="default" />
+    </root>
+</log4php:configuration>

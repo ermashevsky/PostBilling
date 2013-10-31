@@ -1,0 +1,47 @@
+10
+
+dir
+720
+http://localhost/svn/codeigniter-pb/main/assets/admin
+http://localhost/svn/codeigniter-pb
+
+
+
+2013-07-23T06:55:44.112150Z
+720
+denic
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+faa9c019-714c-49d1-a7aa-3c7c28db8144
+
+
+
+
+
+
+0
+
+css
+dir
+
+images
+dir
+
+js
+dir
+
+swf
+dir
+

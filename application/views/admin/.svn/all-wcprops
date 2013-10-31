@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/codeigniter-pb/!svn/ver/721/main/application/views/admin
+END
+deactivate_user.php
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/codeigniter-pb/!svn/ver/723/main/application/views/admin/deactivate_user.php
+END
+for1c.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/codeigniter-pb/!svn/ver/777/main/application/views/admin/for1c.php
+END
+create_group.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/codeigniter-pb/!svn/ver/721/main/application/views/admin/create_group.php
+END
+header.php
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/codeigniter-pb/!svn/ver/777/main/application/views/admin/header.php
+END
+create_user.php
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/codeigniter-pb/!svn/ver/723/main/application/views/admin/create_user.php
+END
+edit_user.php
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/codeigniter-pb/!svn/ver/723/main/application/views/admin/edit_user.php
+END
+index.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/codeigniter-pb/!svn/ver/777/main/application/views/admin/index.php
+END
+left_sidebar.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/codeigniter-pb/!svn/ver/777/main/application/views/admin/left_sidebar.php
+END
+viewLogs.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/codeigniter-pb/!svn/ver/777/main/application/views/admin/viewLogs.php
+END
+changeTariff.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/codeigniter-pb/!svn/ver/740/main/application/views/admin/changeTariff.php
+END

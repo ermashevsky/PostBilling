@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/appenders
+END
+LoggerAppenderRollingFile.php
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/appenders/LoggerAppenderRollingFile.php
+END
+LoggerAppenderSocket.php
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/appenders/LoggerAppenderSocket.php
+END
+LoggerAppenderFirePHP.php
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/appenders/LoggerAppenderFirePHP.php
+END
+LoggerAppenderMongoDB.php
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/appenders/LoggerAppenderMongoDB.php
+END
+LoggerAppenderEcho.php
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/appenders/LoggerAppenderEcho.php
+END
+LoggerAppenderMailEvent.php
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/appenders/LoggerAppenderMailEvent.php
+END
+LoggerAppenderDailyFile.php
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/appenders/LoggerAppenderDailyFile.php
+END
+LoggerAppenderMail.php
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/appenders/LoggerAppenderMail.php
+END
+LoggerAppenderNull.php
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/appenders/LoggerAppenderNull.php
+END
+LoggerAppenderSyslog.php
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/appenders/LoggerAppenderSyslog.php
+END
+LoggerAppenderConsole.php
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/appenders/LoggerAppenderConsole.php
+END
+LoggerAppenderPhp.php
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/appenders/LoggerAppenderPhp.php
+END
+LoggerAppenderFile.php
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/appenders/LoggerAppenderFile.php
+END
+LoggerAppenderPDO.php
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/appenders/LoggerAppenderPDO.php
+END

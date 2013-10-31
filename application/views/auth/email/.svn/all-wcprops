@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/codeigniter-pb/!svn/ver/2/main/application/views/auth/email
+END
+forgot_password.tpl.php
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/codeigniter-pb/!svn/ver/2/main/application/views/auth/email/forgot_password.tpl.php
+END
+new_password.tpl.php
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/codeigniter-pb/!svn/ver/2/main/application/views/auth/email/new_password.tpl.php
+END
+activate.tpl.php
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/codeigniter-pb/!svn/ver/2/main/application/views/auth/email/activate.tpl.php
+END

@@ -1,0 +1,29 @@
+/*
+Uploadify
+Copyright (c) 2012 Reactive Apps, Ronnie Garcia
+Released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
+*/
+#upload_button{
+    margin:30px 200px; padding:8px 5px 8px 5px;
+    font-weight:normal; font-size:1em;
+    font-family:Georgia,Arial, Helvetica, sans-serif;
+    text-align:center;
+    background:#000000;
+    color:#ffffff;
+    border:2px solid #DADADA;
+    width:150px;
+    cursor:pointer !important;
+    -moz-border-radius:5px; -webkit-border-radius:5px;
+}
+
+#status_message{
+    font-family:Arial; padding:5px;
+    color:#b00000;
+    font-size:12px;
+    font-weight:bold;
+}
+ul#files_list{ list-style:none; padding:0; margin:0; }
+ul#files_list li{ padding:10px; margin-bottom:2px; width:200px; float:left; margin-right:10px; text-align:center;color:#ffffff;}
+ul#files_list li img{ max-width:180px; max-height:150px; }
+.success{ background:#000000; border:1px solid #cccccc; }
+.error{ background:#f0c6c3; border:1px solid #cc6622; }

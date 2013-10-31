@@ -1,0 +1,30 @@
+<div id="menus_wrapper">
+                                    <div id="breadcrumb">
+                                    <?php echo set_breadcrumb(); ?>
+                                    </div>
+                                </div>
+		<!-- End Small Nav -->
+
+                <div class="section_content">
+
+	<div id="page_header"><h2>Блокировка аккаунта</h2></div>
+
+	<p>Вы действительно хотите заблокировать пользователя  <b>'<?php echo $user->username; ?>'</b> ?</p>
+	
+    <?php echo form_open("auth/deactivate/".$user->id);?>
+    	
+      <p>
+      	<label for="confirm">Да:</label>
+		<input type="radio" name="confirm" value="yes" checked="checked" />
+      	<label for="confirm">Нет:</label>
+		<input type="radio" name="confirm" value="no" />
+      </p>
+      
+      <?php echo form_hidden($csrf); ?>
+      <?php echo form_hidden(array('id'=>$user->id)); ?>
+      
+      <p><?php echo form_submit('submit', 'Блокировать');?></p>
+
+    <?php echo form_close();?>
+
+</div>

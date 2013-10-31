@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/layouts
+END
+LoggerLayoutPattern.php
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/layouts/LoggerLayoutPattern.php
+END
+LoggerLayoutTTCC.php
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/layouts/LoggerLayoutTTCC.php
+END
+LoggerLayoutSimple.php
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/layouts/LoggerLayoutSimple.php
+END
+LoggerLayoutXml.php
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/layouts/LoggerLayoutXml.php
+END
+LoggerLayoutSerialized.php
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/layouts/LoggerLayoutSerialized.php
+END
+LoggerLayoutHtml.php
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/layouts/LoggerLayoutHtml.php
+END

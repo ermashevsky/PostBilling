@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/renderers
+END
+LoggerRendererMap.php
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/renderers/LoggerRendererMap.php
+END
+LoggerRendererException.php
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/renderers/LoggerRendererException.php
+END
+LoggerRendererDefault.php
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/renderers/LoggerRendererDefault.php
+END
+LoggerRenderer.php
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/renderers/LoggerRenderer.php
+END

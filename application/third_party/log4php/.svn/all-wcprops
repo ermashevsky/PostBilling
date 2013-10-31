@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php
+END
+LoggerReflectionUtils.php
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/LoggerReflectionUtils.php
+END
+LoggerAppender.php
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/LoggerAppender.php
+END
+LoggerLayout.php
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/LoggerLayout.php
+END
+LoggerMDC.php
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/LoggerMDC.php
+END
+LoggerThrowableInformation.php
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/LoggerThrowableInformation.php
+END
+LoggerNDC.php
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/LoggerNDC.php
+END
+LoggerException.php
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/LoggerException.php
+END
+LoggerConfigurator.php
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/LoggerConfigurator.php
+END
+LoggerHierarchy.php
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/LoggerHierarchy.php
+END
+LoggerFilter.php
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/LoggerFilter.php
+END
+LoggerConfigurable.php
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/LoggerConfigurable.php
+END
+LoggerLoggingEvent.php
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/LoggerLoggingEvent.php
+END
+Logger.php
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/Logger.php
+END
+LoggerAutoloader.php
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/LoggerAutoloader.php
+END
+LoggerRoot.php
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/LoggerRoot.php
+END
+LoggerAppenderPool.php
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/LoggerAppenderPool.php
+END
+LoggerLocationInfo.php
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/LoggerLocationInfo.php
+END
+LoggerLevel.php
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/codeigniter-pb/!svn/ver/617/main/application/third_party/log4php/LoggerLevel.php
+END

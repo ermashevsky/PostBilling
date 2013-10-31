@@ -1,0 +1,18 @@
+<div class="sidebar_menu">
+        
+            <div class="box-head">Тут блок</div>
+            <div class="box-content">
+            <p><a href="<?php echo site_url('auth/create_user');?>">Новый пользователь</a></p>
+            </div>
+        
+        </div> 
+<div class="sidebar_menu">
+        
+            <div class="box-head">Меню</div>
+            <div class="box-content">
+            <p><a href="<?php echo site_url('clients');?>">Список клиентов</a></p>
+            <p><a href="<?php echo site_url('services');?>">Список групп номенклатур</a></p>
+            <p><a href="<?php echo site_url('auth/add_assortment');?>">Создание номеклатуры</a></p>
+            </div>
+        
+        </div>
