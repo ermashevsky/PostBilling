@@ -379,7 +379,7 @@ class Money_model extends CI_Model
 		//INNER JOIN customer_service ON customer_service.id_account = clients_accounts.id
 		//WHERE customer_service.identifier =  'АвтоЛайф'
 		$balance = str_replace(',', ".", $balance);
-		$this -> db -> select('bindings_name, accounts,'.$balance.' as `balance`', FALSE);
+		$this -> db -> select('id, bindings_name, accounts,'.$balance.' as `balance`', FALSE);
 		$this -> db -> from('clients_accounts');
 		$this -> db -> join('customer_service', 'customer_service.id_account = clients_accounts.id','left');
 		$this -> db -> where('customer_service.identifier', $identifier);
@@ -390,10 +390,11 @@ class Money_model extends CI_Model
 			foreach ($res -> result_array() as $row):
 				$money = new Money_model();
 				$money -> date = date('d.m.Y');
+				$money -> id = $row['id'];
 				$money -> bindings_name = $row['bindings_name'];
 				$money -> accounts = $row['accounts'];
 				$money -> balance = $row['balance'];
-				$data[$money -> bindings_name] = $money;
+				$data[$money -> id] = $money;
 			endforeach;
 			}
 			return $data;
