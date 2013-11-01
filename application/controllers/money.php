@@ -677,6 +677,21 @@ class Money extends CI_Controller
 		return $myarray;
 	}
 
+//	SELECT  `bindings_name` ,  `accounts` , 35.30 AS ostatok
+//FROM  `clients_accounts`
+//INNER JOIN customer_service ON customer_service.id_account = clients_accounts.id
+//WHERE customer_service.identifier =  'АвтоЛайф'
+
+	function searchAccountByIdentifier(){
+
+		$identifier = $this -> input -> post('identifier');
+		$balance = $this -> input -> post('balance');
+
+		$this -> load -> model('money_model');
+		$data = $this -> money_model -> searchAccountByIdentifier($identifier, $balance);
+		echo json_encode($data);
+	}
+
 }
 
 //End of file money.php

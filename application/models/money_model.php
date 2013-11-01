@@ -373,6 +373,32 @@ class Money_model extends CI_Model
 
 	}
 
+	function searchAccountByIdentifier($identifier, $balance){
+		//	SELECT  `bindings_name` ,  `accounts` , 35.30 AS ostatok
+		//FROM  `clients_accounts`
+		//INNER JOIN customer_service ON customer_service.id_account = clients_accounts.id
+		//WHERE customer_service.identifier =  'АвтоЛайф'
+		$this -> db -> select('bindings_name, accounts,'.$balance.' as balance', FALSE);
+		$this -> db -> from('clients_accounts');
+		$this -> db -> join('customer_service', 'customer_service.id_account = clients_accounts.id','left');
+		$this -> db -> where('customer_service.identifier', $identifier);
+		$res = $this -> db -> get();
+		$data = array();
+
+			if (0 < $res -> num_rows) {
+			foreach ($res -> result_array() as $row):
+				$money = new Money_model();
+				$date = new DateTime($row->date);
+				$money -> date = $date->format('d.m.Y');
+				$money -> bindings_name = $row -> bindings_name;
+				$money -> accounts = $row -> accounts;
+				$money -> balance = $row -> balance;
+				$data[$money -> bindings_name] = $money;
+			endforeach;
+			}
+			return $data;
+	}
+
 }
 
 //End of file money_model.php
