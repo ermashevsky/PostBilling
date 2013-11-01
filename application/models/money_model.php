@@ -388,8 +388,7 @@ class Money_model extends CI_Model
 			if (0 < $res -> num_rows) {
 			foreach ($res -> result_array() as $row):
 				$money = new Money_model();
-				$date = new DateTime(now());
-				$money -> date = $date->format('d.m.Y');
+				$money -> date = date('d.m.Y');
 				$money -> bindings_name = $row['bindings_name'];
 				$money -> accounts = $row['accounts'];
 				$money -> balance = $row['balance'];
