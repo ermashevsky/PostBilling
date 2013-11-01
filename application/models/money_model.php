@@ -390,9 +390,9 @@ class Money_model extends CI_Model
 				$money = new Money_model();
 				$date = new DateTime($row->date);
 				$money -> date = $date->format('d.m.Y');
-				$money -> bindings_name = $row -> bindings_name;
-				$money -> accounts = $row -> accounts;
-				$money -> balance = $row -> balance;
+				$money -> bindings_name = $row['bindings_name'];
+				$money -> accounts = $row['accounts'];
+				$money -> balance = $row['balance'];
 				$data[$money -> bindings_name] = $money;
 			endforeach;
 			}
