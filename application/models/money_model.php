@@ -379,7 +379,7 @@ class Money_model extends CI_Model
 		//INNER JOIN customer_service ON customer_service.id_account = clients_accounts.id
 		//WHERE customer_service.identifier =  'АвтоЛайф'
 		$balance = str_replace(',', ".", $balance);
-		$this -> db -> select('id, bindings_name, accounts,'.$balance.' as `balance`', FALSE);
+		$this -> db -> select('clients_accounts.id as id, bindings_name, accounts,'.$balance.' as `balance`', FALSE);
 		$this -> db -> from('clients_accounts');
 		$this -> db -> join('customer_service', 'customer_service.id_account = clients_accounts.id','left');
 		$this -> db -> where('customer_service.identifier', $identifier);
