@@ -12,7 +12,7 @@
 				identifier = data[i].client_name+'_bill25';
 				balance = data[i].ostatok;
 
-				$.post('<?=site_url('money/searchAccountByIdentifier');?>',{'identifier':identifier, 'balance': balance, period: period, source_selector: source_selector},
+				$.post('<?=site_url('money/searchAccountByIdentifier');?>',{'identifier':identifier, 'balance': balance, 'period': period, 'source_selector': source_selector},
 				function(data){
 					console.info(data);
 				},'json');
