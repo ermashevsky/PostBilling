@@ -406,13 +406,13 @@ class Money_model extends CI_Model
 
 	function insertCompareData($data){
 		foreach ($data as $value):
-			$this->db->set('insert_date', $value);
-			$this->db->set('id_account', $value);
-			$this->db->set('bindings_name', $value);
-			$this->db->set('account', $value);
-			$this->db->set('balance', $value);
-			$this->db->set('period', $value);
-			$this->db->set('source_type', $value);
+			$this->db->set('insert_date', $value->insert_date);
+			$this->db->set('id_account', $value->id_account);
+			$this->db->set('bindings_name', $value->bindings_name);
+			$this->db->set('account', $value->account);
+			$this->db->set('balance', $value->balance);
+			$this->db->set('period', $value->period);
+			$this->db->set('source_type', $value->source_type);
 		endforeach;
 		$this -> db ->  insert('compare_balance');
 	}
