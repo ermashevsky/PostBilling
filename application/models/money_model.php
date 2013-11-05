@@ -26,7 +26,7 @@ error_reporting(E_ALL);
  */
 class Money_model extends CI_Model
 {
-
+	var $id;
 	/**
 	 * Унифицированный метод-конструктор __construct()
 	 *
