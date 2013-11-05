@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="/assets/admin/css/jquery.dataTables.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="/assets/admin/css/jquery-ui-1.8.17.custom.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="/assets/styles/TableTools.css" type="text/css" media="all" />
+
 		<style>
 			table#flex1{
 				font-size:13px;
@@ -54,6 +55,7 @@
 		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 		<script type="text/javascript" src="/assets/admin/js/ZeroClipboard.js"></script>
 		<script type="text/javascript" src="/assets/admin/js/TableTools.js"></script>
+		<script type="text/javascript" src="/assets/admin/js/ui.datepicker-ru.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function()
 			{
@@ -66,9 +68,8 @@
 					"bAutoWidth": true
 				});
 
-
-			}
-		);
+			$('input#datepicker').datepicker($.datepicker.regional["ru"]);
+			});
 
 			function selectRegion(){
 				var marker = $('select[name="serviceList"]').val();

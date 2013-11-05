@@ -1,6 +1,9 @@
 <script type="text/javascript">
+
 	function importData(full_path)
 	{	$.blockUI({ message: '<h1><img src="/assets/images/busy.gif" /> Импортируем...</h1>' });
+		period = $('#datepicker').val();
+		source_selector = $('#source_selector').val();
 		$.post('<?=site_url('money/readCSVFile');?>',{'full_path':full_path},
         function(data){
 			$.each(data, function(i, val) {
@@ -9,7 +12,7 @@
 				identifier = data[i].client_name+'_bill25';
 				balance = data[i].ostatok;
 
-				$.post('<?=site_url('money/searchAccountByIdentifier');?>',{'identifier':identifier, 'balance': balance},
+				$.post('<?=site_url('money/searchAccountByIdentifier');?>',{'identifier':identifier, 'balance': balance, period: period, source_selector: source_selector},
 				function(data){
 					console.info(data);
 				},'json');
@@ -26,7 +29,7 @@
 		</header>
 		<div class="module_content">
 			<fieldset>
-				<label>Загрузка входных данных:</label><br/>
+				<label>Загрузка входных данных:</label><br/><br/><br/>
 
 				<?php
 				$dir = "application/csv/sverka/";   //задаём имя директории
@@ -34,11 +37,19 @@
 				$today_file = 'file_' . date('Y-m-d', now()) . '.csv';
 
 				if (file_exists($dir . $today_file)) {
-					echo '<div>';
-					echo "<table border=\"1\" style='width:50%;'><tr><td><b>Имя файла</b></td><td><b>Размер</b></td><td><b>Разрешения</b></td>";
+					echo '<div style="margin:10px;">';
+					echo "<table border=\"1\"><tr align='center'><td><b>Имя файла</b></td><td><b>Размер</b></td><td><b>Разрешения</b></td><td><b>Период</b></td><td><b>Источник данных</b></td>";
 					echo "<td><b>Действие</b></td></tr>";
 					$file_attr = get_file_info($dir . $today_file, 'name,size,fileperms');
 					echo '<tr><td>' . $file_attr['name'] . '</td><td>' . byte_format($file_attr['size']) . '</td><td>' . symbolic_permissions($file_attr['fileperms']) . '</td>';
+					echo '<td>
+						<input type="text" id="datepicker" style="width:80px;"/>
+						</td>
+						<td style="width:100px;">
+						<select name="source_selector" id="source_selector" style="width:90px;">
+							<option value="file_25">25 биллинг</option>
+							<option value="file_52">52 биллинг</option>
+						</select></td>';
 					echo '<td><a href="#" onclick=importData("' . $dir . $today_file . '");return false;> Импорт данных</a></td></tr>';
 					echo "</table>";
 					echo '</div>';

@@ -373,7 +373,7 @@ class Money_model extends CI_Model
 
 	}
 
-	function searchAccountByIdentifier($identifier, $balance){
+	function searchAccountByIdentifier($identifier, $balance, $period, $source_selector){
 		//	SELECT  `bindings_name` ,  `accounts` , 35.30 AS ostatok
 		//FROM  `clients_accounts`
 		//INNER JOIN customer_service ON customer_service.id_account = clients_accounts.id
@@ -389,11 +389,13 @@ class Money_model extends CI_Model
 			if (0 < $res -> num_rows) {
 			foreach ($res -> result_array() as $row):
 				$money = new Money_model();
-				$money -> date = date('d.m.Y');
-				$money -> id = $row['id'];
+				$money -> insert_date = date('d.m.Y');
+				$money -> id_account = $row['id'];
 				$money -> bindings_name = $row['bindings_name'];
-				$money -> accounts = $row['accounts'];
+				$money -> account = $row['accounts'];
 				$money -> balance = $row['balance'];
+				$money -> period = $period;
+				$money -> source_type = $source_selector;
 				$data[$money -> id] = $money;
 			endforeach;
 			}
