@@ -398,10 +398,24 @@ class Money_model extends CI_Model
 				$money -> source_type = $source_selector;
 				$data[$money -> id_account] = $money;
 			endforeach;
+			$this->insertCompareData($data);
 			}
+
 			return $data;
 	}
 
+	function insertCompareData($data){
+		foreach ($data as $value):
+			$this->db->set('insert_date', $value);
+			$this->db->set('id_account', $value);
+			$this->db->set('bindings_name', $value);
+			$this->db->set('account', $value);
+			$this->db->set('balance', $value);
+			$this->db->set('period', $value);
+			$this->db->set('source_type', $value);
+		endforeach;
+		$this -> db ->  insert('compare_balance');
+	}
 }
 
 //End of file money_model.php
