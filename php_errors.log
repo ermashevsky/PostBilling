@@ -12190,3 +12190,46 @@ Stack trace:
 [10-Sep-2013 11:17:44] PHP   3. call_user_func_array() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
 [10-Sep-2013 11:17:44] PHP   4. Admin->buildReport() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
 [10-Sep-2013 11:17:44] PHP   5. Admin_model->buildReport() /home/denic/web/ci.lcl/application/controllers/admin.php:122
+[31-Oct-2013 13:27:33] PHP Fatal error:  Class 'Admin_model' not found in /home/denic/web/ci.lcl/application/views/admin/compare.php on line 10
+[31-Oct-2013 13:27:33] PHP Stack trace:
+[31-Oct-2013 13:27:33] PHP   1. {main}() /home/denic/web/ci.lcl/index.php:0
+[31-Oct-2013 13:27:33] PHP   2. require_once() /home/denic/web/ci.lcl/index.php:202
+[31-Oct-2013 13:27:33] PHP   3. call_user_func_array() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[31-Oct-2013 13:27:33] PHP   4. Admin->compare() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[31-Oct-2013 13:27:33] PHP   5. CI_Loader->view() /home/denic/web/ci.lcl/application/controllers/admin.php:586
+[31-Oct-2013 13:27:33] PHP   6. CI_Loader->_ci_load() /home/denic/web/ci.lcl/system/core/Loader.php:419
+[31-Oct-2013 13:27:33] PHP   7. include() /home/denic/web/ci.lcl/system/core/Loader.php:833
+[31-Oct-2013 14:08:42] PHP Fatal error:  Call to undefined function get_file_info() in /home/denic/web/ci.lcl/application/views/admin/compare.php on line 26
+[31-Oct-2013 14:08:42] PHP Stack trace:
+[31-Oct-2013 14:08:42] PHP   1. {main}() /home/denic/web/ci.lcl/index.php:0
+[31-Oct-2013 14:08:42] PHP   2. require_once() /home/denic/web/ci.lcl/index.php:202
+[31-Oct-2013 14:08:42] PHP   3. call_user_func_array() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[31-Oct-2013 14:08:42] PHP   4. Admin->compare() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[31-Oct-2013 14:08:42] PHP   5. CI_Loader->view() /home/denic/web/ci.lcl/application/controllers/admin.php:586
+[31-Oct-2013 14:08:42] PHP   6. CI_Loader->_ci_load() /home/denic/web/ci.lcl/system/core/Loader.php:419
+[31-Oct-2013 14:08:42] PHP   7. include() /home/denic/web/ci.lcl/system/core/Loader.php:833
+[31-Oct-2013 14:11:06] PHP Fatal error:  Call to undefined function get_file_info() in /home/denic/web/ci.lcl/application/views/admin/compare.php on line 26
+[31-Oct-2013 14:11:06] PHP Stack trace:
+[31-Oct-2013 14:11:06] PHP   1. {main}() /home/denic/web/ci.lcl/index.php:0
+[31-Oct-2013 14:11:06] PHP   2. require_once() /home/denic/web/ci.lcl/index.php:202
+[31-Oct-2013 14:11:06] PHP   3. call_user_func_array() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[31-Oct-2013 14:11:06] PHP   4. Admin->compare() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[31-Oct-2013 14:11:06] PHP   5. CI_Loader->view() /home/denic/web/ci.lcl/application/controllers/admin.php:586
+[31-Oct-2013 14:11:06] PHP   6. CI_Loader->_ci_load() /home/denic/web/ci.lcl/system/core/Loader.php:419
+[31-Oct-2013 14:11:06] PHP   7. include() /home/denic/web/ci.lcl/system/core/Loader.php:833
+[31-Oct-2013 15:57:25] PHP Fatal error:  Maximum execution time of 300 seconds exceeded in /home/denic/web/ci.lcl/system/libraries/Getcsv.php on line 41
+[31-Oct-2013 15:57:25] PHP Stack trace:
+[31-Oct-2013 15:57:25] PHP   1. {main}() /home/denic/web/ci.lcl/index.php:0
+[31-Oct-2013 15:57:25] PHP   2. require_once() /home/denic/web/ci.lcl/index.php:202
+[31-Oct-2013 15:57:25] PHP   3. call_user_func_array() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[31-Oct-2013 15:57:25] PHP   4. Money->readCSVFile() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[31-Oct-2013 15:57:25] PHP   5. Getcsv->get_array() /home/denic/web/ci.lcl/application/controllers/money.php:350
+[31-Oct-2013 15:57:25] PHP   6. fgetcsv() /home/denic/web/ci.lcl/system/libraries/Getcsv.php:41
+[31-Oct-2013 16:59:33] PHP Fatal error:  Maximum execution time of 300 seconds exceeded in /home/denic/web/ci.lcl/system/core/Common.php on line 41
+[31-Oct-2013 16:59:33] PHP Stack trace:
+[31-Oct-2013 16:59:33] PHP   1. {main}() /home/denic/web/ci.lcl/index.php:0
+[31-Oct-2013 16:59:33] PHP   2. require_once() /home/denic/web/ci.lcl/index.php:202
+[31-Oct-2013 16:59:33] PHP   3. call_user_func_array() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[31-Oct-2013 16:59:33] PHP   4. Money->readCSVFile() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[31-Oct-2013 16:59:33] PHP   5. Getcsv->get_array() /home/denic/web/ci.lcl/application/controllers/money.php:350
+[31-Oct-2013 16:59:33] PHP   6. fgetcsv() /home/denic/web/ci.lcl/system/libraries/Getcsv.php:41
