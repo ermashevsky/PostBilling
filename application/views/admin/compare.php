@@ -7,12 +7,13 @@
 		$.post('<?=site_url('money/readCSVFile');?>',{'full_path':full_path},
         function(data){
 			$.each(data, function(i, val) {
-				console.info(data[i].client_name+'_bill25 ==> '+data[i].ostatok);
+				
 				if(source_selector == 'file_25'){
 					identifier = data[i].client_name+'_bill25';
-					
+					console.info(data[i].client_name+'_bill25 ==> '+data[i].ostatok);
 				}else{
 					identifier = data[i].client_name;
+					console.info(data[i].client_name+'==> '+data[i].ostatok);
 				}
 				balance = data[i].ostatok;
 
