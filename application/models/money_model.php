@@ -407,7 +407,7 @@ class Money_model extends CI_Model
 	function insertCompareData($data)
 	{
 		foreach ($data as $value):
-			if ($value -> bindings_name != 'TTK-IP' || $value -> bindings_name != 'Собственные'):
+			if ($value -> bindings_name != 'ТТК-IP' || $value -> bindings_name != 'Собственные'):
 				$this -> db -> set('insert_date', $value -> insert_date);
 				$this -> db -> set('id_account', $value -> id_account);
 				$this -> db -> set('bindings_name', $value -> bindings_name);
