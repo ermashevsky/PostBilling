@@ -390,13 +390,13 @@ class Money_model extends CI_Model
 			foreach ($res -> result_array() as $row):
 				$money = new Money_model();
 				$money -> insert_date = date('d.m.Y');
-				$money -> id = $row['id'];
+				$money -> id_account = $row['id'];
 				$money -> bindings_name = $row['bindings_name'];
 				$money -> account = $row['accounts'];
 				$money -> balance = $row['balance'];
 				$money -> period = $period;
 				$money -> source_type = $source_selector;
-				$data[$money -> id] = $money;
+				$data[$money -> id_account] = $money;
 			endforeach;
 			}
 			return $data;
