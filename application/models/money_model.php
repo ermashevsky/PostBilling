@@ -389,7 +389,7 @@ class Money_model extends CI_Model
 
 		if (0 < $res -> num_rows) {
 			foreach ($res -> result_array() as $row):
-				if ($row -> bindings_name != 'ТТК-IP' && $row -> bindings_name != 'Собственные'):
+				if ($row['bindings_name'] != 'ТТК-IP' || $row['bindings_name'] != 'Собственные'):
 					$money = new Money_model();
 					$money -> insert_date = date('d.m.Y');
 					$money -> id_account = $row['id'];
