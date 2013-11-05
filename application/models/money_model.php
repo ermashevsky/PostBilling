@@ -373,49 +373,52 @@ class Money_model extends CI_Model
 
 	}
 
-	function searchAccountByIdentifier($identifier, $balance, $period, $source_selector){
+	function searchAccountByIdentifier($identifier, $balance, $period, $source_selector)
+	{
 		//	SELECT  `bindings_name` ,  `accounts` , 35.30 AS ostatok
 		//FROM  `clients_accounts`
 		//INNER JOIN customer_service ON customer_service.id_account = clients_accounts.id
 		//WHERE customer_service.identifier =  'АвтоЛайф'
 		$balance = str_replace(',', ".", $balance);
-		$this -> db -> select('clients_accounts.id as id, bindings_name, accounts,'.$balance.' as `balance`', FALSE);
+		$this -> db -> select('clients_accounts.id as id, bindings_name, accounts,' . $balance . ' as `balance`', FALSE);
 		$this -> db -> from('clients_accounts');
-		$this -> db -> join('customer_service', 'customer_service.id_account = clients_accounts.id','left');
+		$this -> db -> join('customer_service', 'customer_service.id_account = clients_accounts.id', 'left');
 		$this -> db -> where('customer_service.identifier', $identifier);
 		$res = $this -> db -> get();
 		$data = array();
 
-			if (0 < $res -> num_rows) {
+		if (0 < $res -> num_rows) {
 			foreach ($res -> result_array() as $row):
-				$money = new Money_model();
-				$money -> insert_date = date('d.m.Y');
-				$money -> id_account = $row['id'];
-				$money -> bindings_name = $row['bindings_name'];
-				$money -> account = $row['accounts'];
-				$money -> balance = $row['balance'];
-				$money -> period = $period;
-				$money -> source_type = $source_selector;
-				$data[$money -> id_account] = $money;
+				if ($row -> bindings_name != 'ТТК-IP' || $row -> bindings_name != 'Собственные'):
+					$money = new Money_model();
+					$money -> insert_date = date('d.m.Y');
+					$money -> id_account = $row['id'];
+					$money -> bindings_name = $row['bindings_name'];
+					$money -> account = $row['accounts'];
+					$money -> balance = $row['balance'];
+					$money -> period = $period;
+					$money -> source_type = $source_selector;
+					$data[$money -> id_account] = $money;
+				endif;
 			endforeach;
-			$this->insertCompareData($data);
-			}
+			$this -> insertCompareData($data);
+		}
 
-			return $data;
+		return $data;
 	}
 
 	function insertCompareData($data)
 	{
 		foreach ($data as $value):
-			if ($value -> bindings_name != 'ТТК-IP' || $value -> bindings_name != 'Собственные'):
-				$this -> db -> set('insert_date', $value -> insert_date);
-				$this -> db -> set('id_account', $value -> id_account);
-				$this -> db -> set('bindings_name', $value -> bindings_name);
-				$this -> db -> set('account', $value -> account);
-				$this -> db -> set('balance', $value -> balance);
-				$this -> db -> set('period', $value -> period);
-				$this -> db -> set('source_type', $value -> source_type);
-			endif;
+
+			$this -> db -> set('insert_date', $value -> insert_date);
+			$this -> db -> set('id_account', $value -> id_account);
+			$this -> db -> set('bindings_name', $value -> bindings_name);
+			$this -> db -> set('account', $value -> account);
+			$this -> db -> set('balance', $value -> balance);
+			$this -> db -> set('period', $value -> period);
+			$this -> db -> set('source_type', $value -> source_type);
+
 		endforeach;
 		$this -> db -> insert('compare_balance');
 	}
