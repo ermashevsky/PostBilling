@@ -8,8 +8,11 @@
         function(data){
 			$.each(data, function(i, val) {
 				console.info(data[i].client_name+'_bill25 ==> '+data[i].ostatok);
-
-				identifier = data[i].client_name+'_bill25';
+				if(source_selector=='file_25'){
+					identifier = data[i].client_name+'_bill25';
+				}else{
+					identifier = data[i].client_name;
+				}
 				balance = data[i].ostatok;
 
 				$.post('<?=site_url('money/searchAccountByIdentifier');?>',{'identifier':identifier, 'balance': balance, 'period': period, 'source_selector': source_selector},
