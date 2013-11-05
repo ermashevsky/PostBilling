@@ -404,17 +404,20 @@ class Money_model extends CI_Model
 			return $data;
 	}
 
-	function insertCompareData($data){
+	function insertCompareData($data)
+	{
 		foreach ($data as $value):
-			$this->db->set('insert_date', $value->insert_date);
-			$this->db->set('id_account', $value->id_account);
-			$this->db->set('bindings_name', $value->bindings_name);
-			$this->db->set('account', $value->account);
-			$this->db->set('balance', $value->balance);
-			$this->db->set('period', $value->period);
-			$this->db->set('source_type', $value->source_type);
+			if ($value -> bindings_name != 'TTK-IP' && $value -> bindings_name != 'Собственные'):
+				$this -> db -> set('insert_date', $value -> insert_date);
+				$this -> db -> set('id_account', $value -> id_account);
+				$this -> db -> set('bindings_name', $value -> bindings_name);
+				$this -> db -> set('account', $value -> account);
+				$this -> db -> set('balance', $value -> balance);
+				$this -> db -> set('period', $value -> period);
+				$this -> db -> set('source_type', $value -> source_type);
+			endif;
 		endforeach;
-		$this -> db ->  insert('compare_balance');
+		$this -> db -> insert('compare_balance');
 	}
 }
 
