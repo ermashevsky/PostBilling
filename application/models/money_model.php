@@ -396,7 +396,7 @@ class Money_model extends CI_Model
 				$money -> balance = $row['balance'];
 				$money -> period = $period;
 				$money -> source_type = $source_selector;
-				$data[$money -> id] = $money;
+				$data[$money -> id_account] = $money;
 			endforeach;
 			}
 			return $data;
