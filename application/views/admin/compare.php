@@ -61,6 +61,10 @@
 				} else {
 					?>
 				<div style="margin:10px;">
+					<?php
+						$get = new Admin();
+						$get -> getCountRow();
+					?>
 					<?php echo form_open_multipart('upload/do_upload_sverka', 'id=form2'); ?>
 					<input type="hidden" name="folder" size="20" value="sverka"/>
 					<input type="file" name="userfile" size="20"/>
@@ -73,8 +77,10 @@
 
 			</fieldset>
 			<fieldset>
-				<label>Список номенклатуры</label>
-				<div name="selectAssortmentList" style="float:left;"></div>
+				<label>Сбор и анализ данных</label><br/><br/>
+				<div name="divContainer" style="float:left; margin:10px;">
+					<input type="button" name="getDataSet" id="getDataSet" value="Получить данные" onclick="alert('Clicked');"/>
+				</div>
 			</fieldset>
 			<fieldset>
 				<label>Список тарифов</label>

@@ -277,6 +277,10 @@ class Admin_model extends CI_Model
 		return $reportArray;
 	}
 
+	function getData()
+	{
+		echo $this -> db -> count_all_results('compare_balance');
+	}
 }
 
 //End of file admin_model.php
