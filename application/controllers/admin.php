@@ -590,6 +590,11 @@ class Admin extends CI_Controller
 		}
 	}
 
+	function getCountRow()
+	{
+		$this -> load -> model('admin_model');
+
+	}
 }
 
 //End of file auth.php
