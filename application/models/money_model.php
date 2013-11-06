@@ -440,7 +440,20 @@ class Money_model extends CI_Model
 		$this -> db -> where_in('clients_accounts.id', '$id_array');
 		$this -> db -> group_by('clients_accounts.accounts');
 		$res = $this -> db -> get();
-		return $res;
+		$data = array();
+
+			if (0 < $res -> num_rows) {
+			foreach ($res -> result_array() as $row):
+				$money = new Money_model();
+				$money -> id_account = $row -> id_account;
+				$money -> name = $row -> name;
+				$money -> account = $row -> account;
+				$money -> amount = $row -> amount;
+				$money -> payment = $row -> payment;
+				$data[$money -> id_account] = $money;
+			endforeach;
+			}
+			return $res->result_array();
 	}
 //	SELECT  `id` ,  `id_account` ,  `account` , GROUP_CONCAT(  `identifier` ) ,  `bindings_name` ,  `period` , GROUP_CONCAT(  `source_type` ) , SUM(  `balance` ) AS billings_amount
 //FROM  `compare_balance`
