@@ -453,7 +453,7 @@ class Money_model extends CI_Model
 				$data[$money -> id_account] = $money;
 			endforeach;
 			}
-			return $res->result_array();
+			return $data;
 	}
 //	SELECT  `id` ,  `id_account` ,  `account` , GROUP_CONCAT(  `identifier` ) ,  `bindings_name` ,  `period` , GROUP_CONCAT(  `source_type` ) , SUM(  `balance` ) AS billings_amount
 //FROM  `compare_balance`
