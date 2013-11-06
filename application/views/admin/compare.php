@@ -61,7 +61,7 @@
 				} else {
 					?>
 				<div style="margin:10px;">
-					<p>В базе содержится:
+					<p style="font-size: large; color:#79C20D;">В базе содержится:
 					<?php
 						$get = new Admin();
 						$get -> getCountRow();
