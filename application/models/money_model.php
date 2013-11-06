@@ -429,7 +429,14 @@ class Money_model extends CI_Model
 
 	function getPostBillingData()
 	{
-		$this -> db -> select('clients_accounts.bindings_name AS name, clients_accounts.accounts AS account, clients_accounts.id AS id_account, SUM( customer_payments.amount ) AS amount, IFNULL( ROUND( payment.payments, 2 ) , "00.00" ) AS payment', FALSE);
+		$this -> db -> select('id_account', FALSE);
+		$this -> db -> from('compare_balance');
+		$this -> db -> group_by('id_account');
+		$ids = $this -> db -> get();
+		$ids->result_array();
+
+		if (0 < $ids -> num_rows) {
+		$this -> db -> select('clients_accounts.bindings_name AS bindings_name, clients_accounts.accounts AS account, clients_accounts.id AS id_account, SUM( customer_payments.amount ) AS amount, IFNULL( ROUND( payment.payments, 2 ) , "00.00" ) AS payment', FALSE);
 		$this -> db -> from('clients');
 		$this -> db -> join('clients_accounts', 'clients_accounts.id_clients =  clients.id', 'left');
 		$this -> db -> join('customer_payments', 'customer_payments.id_account =  clients_accounts.id', 'left');
@@ -437,7 +444,7 @@ class Money_model extends CI_Model
 		FROM customer_encashment
 		GROUP BY id_account
 		) AS payment', 'payment.id_account =  clients_accounts.id', FALSE);
-		$this -> db -> where_in('clients_accounts.id', '1494');
+		$this -> db -> where_in('clients_accounts.id', $ids->result_array());
 		$this -> db -> group_by('clients_accounts.accounts');
 		$res = $this -> db -> get();
 		$data = array();
@@ -446,13 +453,14 @@ class Money_model extends CI_Model
 			foreach ($res -> result() as $row):
 				$money = new Money_model();
 				$money -> id_account = $row -> id_account;
-				$money -> name = $row -> name;
+				$money -> bindings_name = $row -> bindings_name;
 				$money -> account = $row -> account;
 				$money -> amount = $row -> amount;
 				$money -> payment = $row -> payment;
 				$data[$money -> id_account] = $money;
 			endforeach;
 			}
+	}
 			return $data;
 	}
 //	SELECT  `id` ,  `id_account` ,  `account` , GROUP_CONCAT(  `identifier` ) ,  `bindings_name` ,  `period` , GROUP_CONCAT(  `source_type` ) , SUM(  `balance` ) AS billings_amount
