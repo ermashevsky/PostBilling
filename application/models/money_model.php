@@ -397,6 +397,7 @@ class Money_model extends CI_Model
 					$money -> bindings_name = $row['bindings_name'];
 					$money -> account = $row['accounts'];
 					$money -> balance = $row['balance'];
+					$money -> identifier = $identifier;
 					$money -> period = $period;
 					$money -> source_type = $source_selector;
 					$data[$money -> id_account] = $money;
@@ -419,11 +420,18 @@ class Money_model extends CI_Model
 			$this -> db -> set('account', $value -> account);
 			$this -> db -> set('balance', $value -> balance);
 			$this -> db -> set('period', $value -> period);
+			$this -> db -> set('identifier', $value -> identifier);
 			$this -> db -> set('source_type', $value -> source_type);
 
 		endforeach;
 		$this -> db -> insert('compare_balance');
 	}
+
+	//	SELECT `id_account`, `account`, `bindings_name`, `period`, GROUP_CONCAT( `source_type` ), SUM( `balance` ) AS amount
+	//FROM `compare_balance`
+	//GROUP BY `account`
+
+
 }
 
 //End of file money_model.php
