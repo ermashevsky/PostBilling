@@ -443,7 +443,7 @@ class Money_model extends CI_Model
 		$data = array();
 
 			if (0 < $res -> num_rows) {
-			foreach ($res -> result_array() as $row):
+			foreach ($res -> result() as $row):
 				$money = new Money_model();
 				$money -> id_account = $row -> id_account;
 				$money -> name = $row -> name;
