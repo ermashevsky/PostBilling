@@ -34,7 +34,7 @@
 		</header>
 		<div class="module_content">
 			<fieldset>
-				<label>Загрузка входных данных:</label><br/><br/><br/>
+				<label>Загрузка входных данных:</label><br/><br/>
 
 				<?php
 				$dir = "application/csv/sverka/";   //задаём имя директории
@@ -60,13 +60,13 @@
 					echo '</div>';
 				} else {
 					?>
-
+				<div style="margin:10px;">
 					<?php echo form_open_multipart('upload/do_upload_sverka', 'id=form2'); ?>
 					<input type="hidden" name="folder" size="20" value="sverka"/>
 					<input type="file" name="userfile" size="20"/>
 					<input type="submit" value="Загрузить" />
 					</form>
-
+				</div>
 					<?php
 				}
 				?>

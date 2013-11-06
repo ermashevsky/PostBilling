@@ -427,9 +427,10 @@ class Money_model extends CI_Model
 		$this -> db -> insert('compare_balance');
 	}
 
-	//	SELECT `id_account`, `account`, `bindings_name`, `period`, GROUP_CONCAT( `source_type` ), SUM( `balance` ) AS amount
-	//FROM `compare_balance`
-	//GROUP BY `account`
+//	SELECT  `id` ,  `id_account` ,  `account` , GROUP_CONCAT(  `identifier` ) ,  `bindings_name` ,  `period` , GROUP_CONCAT(  `source_type` ) , SUM(  `balance` ) AS billings_amount
+//FROM  `compare_balance`
+//GROUP BY  `account`
+//ORDER BY id
 
 
 }
