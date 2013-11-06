@@ -434,8 +434,9 @@ class Money_model extends CI_Model
 		$this -> db -> group_by('id_account');
 		$ids = $this -> db -> get();
 		$ids->result_array();
-
+		$my_array = array();
 		if (0 < $ids -> num_rows) {
+		print_r($ids->result_array());
 		$this -> db -> select('clients_accounts.bindings_name AS bindings_name, clients_accounts.accounts AS account, clients_accounts.id AS id_account, SUM( customer_payments.amount ) AS amount, IFNULL( ROUND( payment.payments, 2 ) , "00.00" ) AS payment', FALSE);
 		$this -> db -> from('clients');
 		$this -> db -> join('clients_accounts', 'clients_accounts.id_clients =  clients.id', 'left');
