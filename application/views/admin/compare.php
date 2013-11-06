@@ -61,10 +61,12 @@
 				} else {
 					?>
 				<div style="margin:10px;">
+					<p>В базе содержится:
 					<?php
 						$get = new Admin();
 						$get -> getCountRow();
 					?>
+					штук записей.</p>
 					<?php echo form_open_multipart('upload/do_upload_sverka', 'id=form2'); ?>
 					<input type="hidden" name="folder" size="20" value="sverka"/>
 					<input type="file" name="userfile" size="20"/>
