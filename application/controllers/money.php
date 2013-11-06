@@ -689,6 +689,13 @@ class Money extends CI_Controller
 		echo json_encode($data);
 	}
 
+	function getPostBillingData()
+	{
+		$this -> load -> model('money_model');
+		$data = $this -> money_model -> getPostBillingData();
+		echo json_encode($data);
+	}
+
 }
 
 //End of file money.php

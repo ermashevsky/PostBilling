@@ -427,7 +427,21 @@ class Money_model extends CI_Model
 		$this -> db -> insert('compare_balance');
 	}
 
-	
+	function getPostBillingData()
+	{
+		$this -> db -> select('clients_accounts.bindings_name AS name, clients_accounts.accounts AS account, clients_accounts.id AS id_account, SUM( customer_payments.amount ) AS amount, IFNULL( ROUND( payment.payments, 2 ) , "00.00" ) AS payment', FALSE);
+		$this -> db -> from('clients');
+		$this -> db -> join('clients_accounts', 'clients_accounts.id_clients =  clients.id', 'left');
+		$this -> db -> join('customer_payments', 'customer_payments.id_account =  clients_accounts.id', 'left');
+		$this -> db -> join('(SELECT * , ROUND( SUM( REPLACE( amount,  "," , "." ) ) , 2 ) AS payments
+		FROM customer_encashment
+		GROUP BY id_account
+		) AS payment', 'payment.id_account =  clients_accounts.id', FALSE);
+		$this -> db -> where_in('clients_accounts.id', '$id_array');
+		$this -> db -> group_by('clients_accounts.accounts');
+		$res = $this -> db -> get();
+		return $res;
+	}
 //	SELECT  `id` ,  `id_account` ,  `account` , GROUP_CONCAT(  `identifier` ) ,  `bindings_name` ,  `period` , GROUP_CONCAT(  `source_type` ) , SUM(  `balance` ) AS billings_amount
 //FROM  `compare_balance`
 //GROUP BY  `account`

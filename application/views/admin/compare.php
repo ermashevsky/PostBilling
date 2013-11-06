@@ -26,6 +26,15 @@
 			$.unblockUI();
 		},'json');
 	}
+
+	function getPostBillingData()
+	{
+		$.post('<?=site_url('money/getPostBillingData');?>',
+        function(data){
+			console.info(data);
+		},'json');
+
+	}
 </script>
 
 <section id="main" class="column">
@@ -81,7 +90,7 @@
 			<fieldset>
 				<label>Сбор и анализ данных</label><br/><br/>
 				<div name="divContainer" style="float:left; margin:10px;">
-					<input type="button" name="getDataSet" id="getDataSet" value="Получить данные" onclick="alert('Clicked');"/>
+					<input type="button" name="getDataSet" id="getDataSet" value="Получить данные" onclick="getPostBillingData();"/>
 				</div>
 			</fieldset>
 			<fieldset>
