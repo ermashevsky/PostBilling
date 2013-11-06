@@ -593,6 +593,7 @@ class Admin extends CI_Controller
 	function getCountRow()
 	{
 		$this -> load -> model('admin_model');
+		$this ->admin_model->getData();
 
 	}
 }
