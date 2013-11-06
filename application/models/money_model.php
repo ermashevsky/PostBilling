@@ -436,7 +436,6 @@ class Money_model extends CI_Model
 
 		$my_array = array();
 		if (0 < $ids -> num_rows) {
-		$my_res = implode(',', $ids->row()->id_account);
 		$this -> db -> select('clients_accounts.bindings_name AS bindings_name, clients_accounts.accounts AS account, clients_accounts.id AS id_account, SUM( customer_payments.amount ) AS amount, IFNULL( ROUND( payment.payments, 2 ) , "00.00" ) AS payment', FALSE);
 		$this -> db -> from('clients');
 		$this -> db -> join('clients_accounts', 'clients_accounts.id_clients =  clients.id', 'left');
@@ -445,7 +444,7 @@ class Money_model extends CI_Model
 		FROM customer_encashment
 		GROUP BY id_account
 		) AS payment', 'payment.id_account =  clients_accounts.id', FALSE);
-		$this -> db -> where_in('clients_accounts.id', $my_res);
+		$this -> db -> where_in('clients_accounts.id', $ids->row()->id_account);
 		$this -> db -> group_by('clients_accounts.accounts');
 		$res = $this -> db -> get();
 		$data = array();
