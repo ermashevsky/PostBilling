@@ -437,7 +437,7 @@ class Money_model extends CI_Model
 		FROM customer_encashment
 		GROUP BY id_account
 		) AS payment', 'payment.id_account =  clients_accounts.id', FALSE);
-		$this -> db -> where_in('clients_accounts.id', '$id_array');
+		$this -> db -> where_in('clients_accounts.id', '2465');
 		$this -> db -> group_by('clients_accounts.accounts');
 		$res = $this -> db -> get();
 		$data = array();
