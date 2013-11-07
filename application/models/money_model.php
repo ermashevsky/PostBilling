@@ -503,6 +503,34 @@ class Money_model extends CI_Model
 //GROUP BY  `account`
 //ORDER BY id
 
+	function buildCompareDataTable()
+	{
+		$this -> db -> select('compare_balance`.`id` ,  `compare_balance`.`id_account` ,  `compare_balance`.`account` , GROUP_CONCAT(  `identifier` ) as identifier,  `compare_balance`.`bindings_name` ,  `compare_balance`.`period` , GROUP_CONCAT( `source_type` ) as source_type, SUM(  `compare_balance`.`balance` ) AS billings_amount, compare_balance_pb.balance AS postbilling_amount');
+		$this -> db -> from('compare_balance');
+		$this -> db -> join('compare_balance_pb', 'compare_balance_pb.id_account = compare_balance.id_account', 'left');
+		$this -> db -> group_by('account');
+		$this -> db -> order_by('id', 'asc');
+		$res = $this -> db -> get();
+		$data = array();
+
+		if (0 < $res -> num_rows) {
+
+			foreach ($res -> result() as $row):
+				$money = new Money_model();
+				$money -> id_account = $row -> id_account;
+				$money -> bindings_name = $row -> bindings_name;
+				$money -> account = $row -> account;
+				$money -> insert_date = $row -> insert_date;
+				$money -> period = $row -> period;
+				$money -> amount = $row -> amount;
+				$money -> payment = $row -> payment;
+				(double) $money -> postbilling_amount = (double) $row -> amount - (double) $row -> payment;
+				$data[$money -> id_account] = $money;
+			endforeach;
+		}
+		return $data;
+	}
+
 }
 
 //End of file money_model.php

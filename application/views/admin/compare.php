@@ -36,6 +36,44 @@
 		},'json');
 
 	}
+
+	function buildCompareDataTable(){
+				$('#compareData').empty();
+
+				$.post('<?php echo site_url('/money/buildCompareDataTable'); ?>',
+				function(data){
+					$('#compareData').append('<table  id="DataTable" class="table_wrapper_inner"><thead><th>Лицевой счет</th><th>Номенклатура</th><th>Количество</th><th>Цена</th><th>Сумма</th></thead><tbody></tbody></table>');
+					$.each(data, function(i, val) {
+						$('#DataTable').append('<tr><td>'+data[i].account+'</td><td>'+data[i].identifier+'</td><td>'+data[i].bindings_name+'</td><td>'+data[i].billings_amount+'</td><td>'+data[i].postbilling_amount+'</td></tr>');
+					});
+
+					oTable = $('#reportDataTable').dataTable({
+						"aaSorting": [[0, 'asc']],
+						"bJQueryUI": false,
+						"bProcessing":true,
+						"sPaginationType": "full_numbers",
+						"oLanguage": {
+							"sUrl": "/assets/admin/js/russian-language-DataTables.txt"
+						},
+						"bAutoWidth": true,
+						"bDestroy": true,
+						"sScrollY": "320px",
+						"sDom": 'T<"clear">lfrtip',
+						"oTableTools": {
+							"aButtons": [
+								{
+									"sExtends": "csv",
+									"sButtonText": "Сохранить в CSV"
+								}
+							],
+							"sSwfPath": "/assets/admin/swf/copy_csv_xls_pdf.swf"
+						}
+					});
+					$('#report1C').show();
+				},'json');
+
+			}
+
 </script>
 
 <section id="main" class="column">
@@ -107,13 +145,18 @@
 			</fieldset>
 			<fieldset>
 				<label>Сводная таблица остатков</label>
-				<div name="selectTariffs" style="float:left;"></div>
+				<div style="float:left;">
+					<div id="compareData" style="display:none;">
+
+					</div>
+
+				</div>
 			</fieldset>
 			<div class="clear"></div>
 		</div>
 		<footer>
-			<div class="submit_link" style="display:none;">
-				<input type="submit" value="Поиск" onclick="searchTariff();return false;">
+			<div class="submit_link">
+				<input type="submit" value="Поиск" class="alt_btn" onclick="buildCompareDataTable();return false;">
 			</div>
 		</footer>
 	</article><!-- end of content manager article -->
