@@ -596,6 +596,11 @@ class Admin extends CI_Controller
 		$this ->admin_model->getData();
 
 	}
+
+	function getCountRowPostBillingData(){
+		$this -> load -> model('admin_model');
+		$this ->admin_model->getDataPostbilling();
+	}
 }
 
 //End of file auth.php

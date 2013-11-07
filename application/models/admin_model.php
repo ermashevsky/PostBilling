@@ -281,6 +281,11 @@ class Admin_model extends CI_Model
 	{
 		echo $this -> db -> count_all_results('compare_balance');
 	}
+
+	function getDataPostbilling()
+	{
+		echo $this -> db -> count_all_results('compare_balance_pb');
+	}
 }
 
 //End of file admin_model.php

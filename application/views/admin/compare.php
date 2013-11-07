@@ -91,6 +91,12 @@
 			<fieldset>
 				<label>Сбор и анализ данных</label><br/><br/>
 				<div name="divContainer" style="float:left; margin:10px;">
+					<p style="font-size: large; color:#79C20D;">В базе содержится:
+					<?php
+						$get = new Admin();
+						$get -> getCountRowPostBillingData();
+					?>
+					штук записей.</p>
 					<p>
 
 					<input type="text" id="datepicker_postbilling" style="width:80px;" name="datepicker_postbilling"/>

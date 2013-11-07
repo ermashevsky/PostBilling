@@ -497,6 +497,12 @@ class Money_model extends CI_Model
 //ORDER BY id
 
 
+//SELECT  `compare_balance`.`id` ,  `compare_balance`.`id_account` ,  `compare_balance`.`account` , GROUP_CONCAT(  `identifier` ) ,  `compare_balance`.`bindings_name` ,  `compare_balance`.`period` , GROUP_CONCAT( `source_type` ) , SUM(  `compare_balance`.`balance` ) AS billings_amount, compare_balance_pb.balance AS postbilling_amount
+//FROM  `compare_balance`
+//INNER JOIN compare_balance_pb ON compare_balance_pb.id_account = compare_balance.id_account
+//GROUP BY  `account`
+//ORDER BY id
+
 }
 
 //End of file money_model.php
