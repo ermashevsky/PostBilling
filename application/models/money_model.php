@@ -433,7 +433,7 @@ class Money_model extends CI_Model
 		$this -> db -> from('compare_balance');
 		$this -> db -> group_by('id_account');
 		$ids = $this -> db -> get();
-		foreach ($ids->result as $val):
+		foreach ($ids->result() as $val):
 			echo $val->id_account;
 		endforeach;
 		$my_array = array();
