@@ -434,8 +434,9 @@ class Money_model extends CI_Model
 		$this -> db -> group_by('id_account');
 		$ids = $this -> db -> get();
 		$myarr = array();
+		$count = 0;
 		foreach ($ids->result() as $val):
-			$myarr = $val->id_account;
+			$myarr[$count++] = $val->id_account;
 		endforeach;
 
 		if (0 < $ids -> num_rows) {
