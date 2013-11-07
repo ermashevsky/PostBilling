@@ -486,9 +486,9 @@ class Money_model extends CI_Model
 			$this -> db -> set('account', $value -> account);
 			$this -> db -> set('balance', $value -> postbilling_amount);
 			$this -> db -> set('period', $value -> period);
-			$this -> db -> insert('compare_balance_pb');
-		endforeach;
 
+		endforeach;
+		$this -> db -> insert('compare_balance_pb');
 	}
 
 //	SELECT  `id` ,  `id_account` ,  `account` , GROUP_CONCAT(  `identifier` ) ,  `bindings_name` ,  `period` , GROUP_CONCAT(  `source_type` ) , SUM(  `balance` ) AS billings_amount
