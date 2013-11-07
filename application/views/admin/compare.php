@@ -43,7 +43,7 @@
 				$.post('<?php echo site_url('/money/buildCompareDataTable'); ?>',
 				function(data){
 					console.info(data)
-					$('#compareData').append('<table  id="DataTable" class="table_wrapper_inner"><thead><th>Лицевой счет</th><th>Идентификаторы</th><th>Наименование клиента</th><th>Период</th><th>Остаток по биллингу</th><th>Остаток по постбиллингу</th></thead><tbody></tbody></table>');
+					$('#compareData').append('<table  id="DataTable" class="table_wrapper_inner"><thead><th>ЛС</th><th>Идентификаторы</th><th>Клиент</th><th>Период</th><th>Остаток по биллингу</th><th>Остаток по постбиллингу</th></thead><tbody></tbody></table>');
 					$.each(data, function(i, val) {
 						$('#DataTable').append('<tr><td>'+data[i].account+'</td><td>'+data[i].identifier+'</td><td>'+data[i].bindings_name+'</td><td>'+data[i].period+'</td><td>'+data[i].billings_amount+'</td><td>'+data[i].postbilling_amount+'</td></tr>');
 					});
