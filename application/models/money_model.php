@@ -431,7 +431,7 @@ class Money_model extends CI_Model
 	{
 		$this -> db -> select('id_account', FALSE);
 		$this -> db -> from('compare_balance');
-		$this -> db -> group_by('id_account');
+		$this -> db -> group_by('id');
 		$ids = $this -> db -> get();
 		$myarr = array();
 		$count = 0;
