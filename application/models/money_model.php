@@ -521,7 +521,6 @@ class Money_model extends CI_Model
 				$money -> identifier = $row -> identifier;
 				$money -> bindings_name = $row -> bindings_name;
 				$money -> account = $row -> account;
-				$money -> insert_date = $row -> insert_date;
 				$money -> period = $row -> period;
 				$money -> source_type = $row -> source_type;
 				$money -> billings_amount = $row -> billings_amount;
