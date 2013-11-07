@@ -463,7 +463,7 @@ class Money_model extends CI_Model
 					$money -> account = $row -> account;
 					$money -> amount = $row -> amount;
 					$money -> payment = $row -> payment;
-					$money -> postbilling_amount = $row -> amount - $row -> payment;
+					$money -> postbilling_amount = (double)$row -> amount - (double)$row -> payment;
 					$data[$money -> id_account] = $money;
 				endforeach;
 			}
