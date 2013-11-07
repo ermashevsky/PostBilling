@@ -440,11 +440,11 @@ class Money_model extends CI_Model
 		endforeach;
 
 		if (0 < $ids -> num_rows) {
-			$this -> db -> select('clients_accounts.bindings_name AS bindings_name, clients_accounts.accounts AS account, clients_accounts.id AS id_account, SUM( customer_payments.amount ) AS amount, IFNULL( ROUND( payment.payments, 2 ) , "00.00" ) AS payment', FALSE);
+			$this -> db -> select('clients_accounts.bindings_name AS bindings_name, clients_accounts.accounts AS account, clients_accounts.id AS id_account, IFNULL( SUM( customer_payments.amount ),"0.00") AS amount, IFNULL( ROUND( payment.payments, 2 ) , "0.00" ) AS payment', FALSE);
 			$this -> db -> from('clients');
 			$this -> db -> join('clients_accounts', 'clients_accounts.id_clients =  clients.id', 'left');
 			$this -> db -> join('customer_payments', 'customer_payments.id_account =  clients_accounts.id', 'left');
-			$this -> db -> join('(SELECT * , IFNULL( ROUND( SUM( REPLACE( amount,  "," , "." ) ) , 2 ), "00.00") AS payments
+			$this -> db -> join('(SELECT * , ROUND( SUM( REPLACE( amount,  "," , "." ) ) , 2 ) AS payments
 		FROM customer_encashment
 		GROUP BY id_account
 		) AS payment', 'payment.id_account =  clients_accounts.id', FALSE);
