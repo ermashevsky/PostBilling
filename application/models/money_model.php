@@ -444,7 +444,7 @@ class Money_model extends CI_Model
 			$this -> db -> from('clients');
 			$this -> db -> join('clients_accounts', 'clients_accounts.id_clients =  clients.id', 'left');
 			$this -> db -> join('customer_payments', 'customer_payments.id_account =  clients_accounts.id', 'left');
-			$this -> db -> join('(SELECT * , ROUND( SUM( REPLACE( amount,  "," , "." ) ) , 2 ) AS payments
+			$this -> db -> join('(SELECT * , IFNULL( ROUND( SUM( REPLACE( amount,  "," , "." ) ) , 2 ), "00.00") AS payments
 		FROM customer_encashment
 		GROUP BY id_account
 		) AS payment', 'payment.id_account =  clients_accounts.id', FALSE);
