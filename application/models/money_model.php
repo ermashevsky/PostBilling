@@ -449,7 +449,7 @@ class Money_model extends CI_Model
 		GROUP BY id_account
 		) AS payment', 'payment.id_account =  clients_accounts.id', FALSE);
 
-			$this -> db -> where_in('clients_accounts.id_clients', $myarr);
+			$this -> db -> where_in('clients_accounts.id', $myarr);
 
 			$this -> db -> group_by('clients_accounts.id');
 			$res = $this -> db -> get();
