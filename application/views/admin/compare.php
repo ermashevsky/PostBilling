@@ -146,13 +146,13 @@
 			</fieldset>
 			<fieldset>
 				<label>Сводная таблица остатков</label>
-				<div style="float:left;">
+			</fieldset>
+			
 					<div id="compareData" style="display:none;">
 
 					</div>
 
-				</div>
-			</fieldset>
+
 			<div class="clear"></div>
 		</div>
 		<footer>
