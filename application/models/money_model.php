@@ -465,7 +465,12 @@ class Money_model extends CI_Model
 					$money -> period = $period;
 					$money -> amount = $row -> amount;
 					$money -> payment = $row -> payment;
+					if(is_null($row -> payment)):
+					(double)$money -> postbilling_amount = (double)$row -> amount;
+					else:
 					(double)$money -> postbilling_amount = (double)$row -> amount - (double)$row -> payment;
+					endif;
+
 					$data[$money -> id_account] = $money;
 					$this -> insertCompareDataPostBilling($data);
 				endforeach;
