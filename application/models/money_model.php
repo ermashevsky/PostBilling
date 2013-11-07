@@ -518,13 +518,14 @@ class Money_model extends CI_Model
 			foreach ($res -> result() as $row):
 				$money = new Money_model();
 				$money -> id_account = $row -> id_account;
+				$money -> identifier = $row -> identifier;
 				$money -> bindings_name = $row -> bindings_name;
 				$money -> account = $row -> account;
 				$money -> insert_date = $row -> insert_date;
 				$money -> period = $row -> period;
-				$money -> amount = $row -> amount;
-				$money -> payment = $row -> payment;
-				(double) $money -> postbilling_amount = (double) $row -> amount - (double) $row -> payment;
+				$money -> source_type = $row -> source_type;
+				$money -> billings_amount = $row -> billings_amount;
+				$money -> postbilling_amount = $row -> postbilling_amount;
 				$data[$money -> id_account] = $money;
 			endforeach;
 		}
