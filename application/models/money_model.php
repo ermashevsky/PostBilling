@@ -433,7 +433,9 @@ class Money_model extends CI_Model
 		$this -> db -> from('compare_balance');
 		$this -> db -> group_by('id_account');
 		$ids = $this -> db -> get();
-
+		foreach ($ids->result as $val):
+			echo $val->id_account;
+		endforeach;
 		$my_array = array();
 		if (0 < $ids -> num_rows) {
 		$this -> db -> select('clients_accounts.bindings_name AS bindings_name, clients_accounts.accounts AS account, clients_accounts.id AS id_account, SUM( customer_payments.amount ) AS amount, IFNULL( ROUND( payment.payments, 2 ) , "00.00" ) AS payment', FALSE);
@@ -444,9 +446,9 @@ class Money_model extends CI_Model
 		FROM customer_encashment
 		GROUP BY id_account
 		) AS payment', 'payment.id_account =  clients_accounts.id', FALSE);
-		foreach ($ids->result() as $value):
+
 		$this -> db -> where_in('clients_accounts.id', $value->id_account);
-		endforeach;
+
 		$this -> db -> group_by('clients_accounts.accounts');
 		$res = $this -> db -> get();
 		$data = array();
