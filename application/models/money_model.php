@@ -451,7 +451,7 @@ class Money_model extends CI_Model
 
 			$this -> db -> where_in('clients_accounts.id', $myarr);
 
-			//$this -> db -> group_by('clients_accounts.accounts');
+			$this -> db -> group_by('clients_accounts.accounts');
 			$res = $this -> db -> get();
 			$data = array();
 
