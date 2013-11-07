@@ -29,7 +29,8 @@
 
 	function getPostBillingData()
 	{
-		$.post('<?=site_url('money/getPostBillingData');?>',
+		period = $('#datepicker_postbilling').val();
+		$.post('<?=site_url('money/getPostBillingData');?>',{'period': period},
         function(data){
 			console.info(data);
 		},'json');
@@ -90,7 +91,12 @@
 			<fieldset>
 				<label>Сбор и анализ данных</label><br/><br/>
 				<div name="divContainer" style="float:left; margin:10px;">
+					<p>
+
+					<input type="text" id="datepicker_postbilling" style="width:80px;" name="datepicker_postbilling"/>
+
 					<input type="button" name="getDataSet" id="getDataSet" value="Получить данные" onclick="getPostBillingData();"/>
+					</p>
 				</div>
 			</fieldset>
 			<fieldset>

@@ -69,6 +69,7 @@
 				});
 
 			$('input#datepicker').datepicker($.datepicker.regional["ru"]);
+			$('input#datepicker_postbilling').datepicker($.datepicker.regional["ru"]);
 			});
 
 			function selectRegion(){

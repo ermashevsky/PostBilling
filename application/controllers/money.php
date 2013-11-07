@@ -691,8 +691,9 @@ class Money extends CI_Controller
 
 	function getPostBillingData()
 	{
+		$period = $this -> input -> post('period');
 		$this -> load -> model('money_model');
-		$data = $this -> money_model -> getPostBillingData();
+		$data = $this -> money_model -> getPostBillingData($period);
 		echo json_encode($data);
 	}
 

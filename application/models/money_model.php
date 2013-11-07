@@ -427,7 +427,7 @@ class Money_model extends CI_Model
 		$this -> db -> insert('compare_balance');
 	}
 
-	function getPostBillingData()
+	function getPostBillingData($period)
 	{
 		$this -> db -> select('id_account', FALSE);
 		$this -> db -> from('compare_balance');
@@ -461,6 +461,8 @@ class Money_model extends CI_Model
 					$money -> id_account = $row -> id_account;
 					$money -> bindings_name = $row -> bindings_name;
 					$money -> account = $row -> account;
+					$money -> insert_date = date('d.m.Y');
+					$money -> period = $period;
 					$money -> amount = $row -> amount;
 					$money -> payment = $row -> payment;
 					(double)$money -> postbilling_amount = (double)$row -> amount - (double)$row -> payment;
