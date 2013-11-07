@@ -71,12 +71,12 @@
 				} else {
 					?>
 				<div style="margin:10px;">
-					<p style="font-size: large; color:#79C20D;">В базе содержится:
+					<p style="font-size: large; color:#79C20D;">В таблице содержится
 					<?php
 						$get = new Admin();
 						$get -> getCountRow();
 					?>
-					штук записей.</p>
+					записей.</p>
 					<?php echo form_open_multipart('upload/do_upload_sverka', 'id=form2'); ?>
 					<input type="hidden" name="folder" size="20" value="sverka"/>
 					<input type="file" name="userfile" size="20"/>
@@ -91,12 +91,12 @@
 			<fieldset>
 				<label>Сбор и анализ данных</label><br/><br/>
 				<div name="divContainer" style="float:left; margin:10px;">
-					<p style="font-size: large; color:#79C20D;">В базе содержится:
+					<p style="font-size: large; color:#79C20D;">В таблице содержится
 					<?php
 						$get = new Admin();
 						$get -> getCountRowPostBillingData();
 					?>
-					штук записей.</p>
+					записей.</p>
 					<p>
 
 					<input type="text" id="datepicker_postbilling" style="width:80px;" name="datepicker_postbilling"/>
@@ -106,17 +106,10 @@
 				</div>
 			</fieldset>
 			<fieldset>
-				<label>Список тарифов</label>
+				<label>Сводная таблица остатков</label>
 				<div name="selectTariffs" style="float:left;"></div>
 			</fieldset>
-			<fieldset style="width:48%; float:left; margin-right: 3%;"> <!-- to make two field float next to one another, adjust values accordingly -->
-				<label for="date">Дата начала действия</label>
-				<input type="text" name="date_change_tariff" id="date_change_tariff" style="width:92%;">
-			</fieldset>
-			<fieldset style="width:48%; float:left;"> <!-- to make two field float next to one another, adjust values accordingly -->
-				<label>Новый тарифный план</label>
-				<div name="selectNewTariffs" style="float:left; width: 92%;"></div>
-			</fieldset><div class="clear"></div>
+			<div class="clear"></div>
 		</div>
 		<footer>
 			<div class="submit_link" style="display:none;">
