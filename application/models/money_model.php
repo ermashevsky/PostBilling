@@ -468,10 +468,28 @@ class Money_model extends CI_Model
 					(double)$money -> postbilling_amount = (double)$row -> amount - (double)$row -> payment;
 					$data[$money -> id_account] = $money;
 				endforeach;
+				$this -> insertCompareDataPostBilling($data);
 			}
 		}
 		return $data;
 	}
+
+
+	function insertCompareDataPostBilling($data)
+	{
+		foreach ($data as $value):
+
+			$this -> db -> set('insert_date', $value -> insert_date);
+			$this -> db -> set('id_account', $value -> id_account);
+			$this -> db -> set('bindings_name', $value -> bindings_name);
+			$this -> db -> set('account', $value -> account);
+			$this -> db -> set('balance', $value -> postbilling_amount);
+			$this -> db -> set('period', $value -> period);
+
+		endforeach;
+		$this -> db -> insert('compare_balance_pb');
+	}
+	
 //	SELECT  `id` ,  `id_account` ,  `account` , GROUP_CONCAT(  `identifier` ) ,  `bindings_name` ,  `period` , GROUP_CONCAT(  `source_type` ) , SUM(  `balance` ) AS billings_amount
 //FROM  `compare_balance`
 //GROUP BY  `account`
