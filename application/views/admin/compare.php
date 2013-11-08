@@ -28,11 +28,12 @@
 	}
 
 	function getPostBillingData()
-	{
+	{	$.blockUI({ message: '<h1><img src="/assets/images/busy.gif" /> Получаем данные...</h1>' });
 		period = $('#datepicker_postbilling').val();
 		$.post('<?= site_url('money/getPostBillingData'); ?>',{'period': period},
         function(data){
 			console.info(data);
+			$.unblockUI();
 		},'json');
 
 	}
@@ -56,7 +57,7 @@
 				"oLanguage": {
 					"sUrl": "/assets/admin/js/russian-language-DataTables.txt"
 				},
-				"bAutoWidth": true,
+				"bAutoWidth": false,
 				"bDestroy": true,
 				"sScrollY": "320px",
 				"sDom": 'T<"clear">lfrtip',
