@@ -77,7 +77,7 @@ class Clients extends CI_Controller
 	 * Возвращает список лицевых счетов клиента
 	 * 
 	 * @param int $id идентификатор
-	 * 1111
+	 * 
 	 * @author Ермашевский Денис
 	 * @return array $data;
 	 */
