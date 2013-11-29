@@ -419,7 +419,7 @@ class Admin extends CI_Controller
 	}
 
 	//activate the user
-	function activate($id, $code = false)
+	function activate($id, $code = FALSE)
 	{
 		if ($code !== false) {
 			$activation = $this -> ion_auth -> activate($id, $code);
