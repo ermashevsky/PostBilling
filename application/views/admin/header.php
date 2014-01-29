@@ -292,6 +292,7 @@
 
 				$.post('<?php echo site_url('/admin/buildReport'); ?>',{month: month, id_service: id_service },
 				function(data){
+					console.info(data);
 					$('#report1C').append('<table  id="reportDataTable" class="table_wrapper_inner"><thead><th>Лицевой счет</th><th>Номенклатура</th><th>Количество</th><th>Цена</th><th>Сумма</th></thead><tbody></tbody></table>');
 					$.each(data, function(i, val) {
 						$('#reportDataTable').append('<tr><td>'+data[i].accounts+'</td><td>'+data[i].payment_name+'</td><td>'+data[i].counter+'</td><td>'+data[i].price+'</td><td>'+data[i].summ+'</td></tr>');

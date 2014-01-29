@@ -233,6 +233,7 @@ class Admin_model extends CI_Model
 			$this -> db -> join('tariffs', 'tariffs.id =  customer_service.tariffs', 'inner');
 			$this -> db -> where('customer_service.tariffs!=', '""', FALSE);
 			$this -> db -> where('customer_service.end_date', null);
+			$this -> db -> where('clients_accounts.id_service !=', 8);
 			$this -> db -> or_where('customer_service.end_date >=', date($end_date_period));
 			$this -> db -> or_where('customer_service.end_date between ' . date($start_date_period) . ' and ' . date($end_date_period));
 			$this -> db -> where('customer_service.datepicker1 <=', date($start_date_period));
@@ -251,6 +252,7 @@ class Admin_model extends CI_Model
 			$this -> db -> join('clients_accounts', 'clients_accounts.id =  customer_service.id_account', 'inner');
 			$this -> db -> join('tariffs', 'tariffs.id =  customer_service.tariffs', 'inner');
 			$this -> db -> where('customer_service.tariffs!=', '""', FALSE);
+			$this -> db -> where('clients_accounts.id_service !=', 8);
 			$this -> db -> where('customer_service.end_date', null);
 			$this -> db -> or_where('customer_service.end_date >=', date($end_date_period));
 			$this -> db -> or_where('customer_service.end_date between ' . date($start_date_period) . ' and ' . date($end_date_period));
@@ -262,8 +264,34 @@ class Admin_model extends CI_Model
 			$this -> db -> having('clients_accounts.id_service', $id_service);
 			$report_rows = $this -> db -> get();
 		}
+		if($id_service == '8') {
+			$createDate = DateTime::createFromFormat('m', $month);
+			$start_date_period = $createDate -> format('2013-m-01');
+			$end_date_period = $createDate -> format('2013-m-t');
+			$this -> db -> select('customer_payments.id, accounts, SUM( amount ) AS price');
+			$this -> db -> from('customer_payments');
+			$this -> db -> join('clients_accounts', 'clients_accounts.id =  customer_payments.id_account', 'inner');
+			$this -> db -> where('clients_accounts.id_service', $id_service);
+			$this -> db -> where('customer_payments.period_start between "'.date($start_date_period).'" and "'.date($end_date_period).'"');
+			$this -> db -> where('customer_payments.period_end between "'.date($start_date_period).'" and "'.date($end_date_period).'"');
+			$this -> db -> group_by('customer_payments.id_account');
+			$this -> db -> group_by('clients_accounts.bindings_name');
+			
+			$report_rows = $this -> db -> get();
+		}
 		if (0 < $report_rows -> num_rows) {
 			foreach ($report_rows -> result() as $row) {
+				if(empty($row->payment_name)){
+					$tmp = new Admin_model();
+				$tmp -> id = $row -> id;
+				$tmp -> accounts = $row -> accounts;
+				$tmp -> payment_name = 'Услуги связи';
+				$tmp -> counter = 1;
+				$tmp -> price = $row -> price;
+				$tmp -> summ = $row -> price;
+				$reportArray[$tmp -> id] = $tmp;
+					
+				}else{
 				$tmp = new Admin_model();
 				$tmp -> id = $row -> id;
 				$tmp -> accounts = $row -> accounts;
@@ -272,6 +300,7 @@ class Admin_model extends CI_Model
 				$tmp -> price = $row -> price;
 				$tmp -> summ = $row -> summ;
 				$reportArray[$tmp -> id] = $tmp;
+				}
 			}
 		}
 		return $reportArray;
