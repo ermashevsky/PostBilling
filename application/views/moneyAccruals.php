@@ -10,7 +10,7 @@
 
 			//demo 3
 			$('select#valueAA, select#valueBB').selectToUISlider({
-				labels: 48
+				labels: 63
 			});
 
 			//fix color
@@ -58,6 +58,13 @@
 		<fieldset>
 			<label for="valueAA">Начало периода:</label>
 			<select name="valueAA" id="valueAA" disabled="disabled" >
+				<optgroup label="2012">
+					<option value="08/12" selected="selected">Август 2012</option>
+					<option value="09/12">Сентябрь 2012</option>
+					<option value="10/12">Октябрь 2012</option>
+					<option value="11/12">Ноябрь 2012</option>
+					<option value="12/12">Декабрь 2012</option>
+				</optgroup>
 				<optgroup label="2013">
 					<option value="01/13">Январь 2013</option>
 					<option value="02/13">Февраль 2013</option>
@@ -69,7 +76,7 @@
 					<option value="08/13">Август 2013</option>
 					<option value="09/13">Сентябрь 2013</option>
 					<option value="10/13">Октябрь 2013</option>
-					<option value="11/13" selected="selected">Ноябрь 2013</option>
+					<option value="11/13">Ноябрь 2013</option>
 					<option value="12/13">Декабрь 2013</option>
 				</optgroup>
 				<optgroup label="2014">
@@ -90,6 +97,13 @@
 
 			<label for="valueBB">Конец периода:</label>
 			<select name="valueBB" id="valueBB" disabled="disabled">
+				<optgroup label="2012">
+					<option value="08/12">Август 2012</option>
+					<option value="09/12">Сентябрь 2012</option>
+					<option value="10/12">Октябрь 2012</option>
+					<option value="11/12">Ноябрь 2012</option>
+					<option value="12/12">Декабрь 2012</option>
+				</optgroup>
 				<optgroup label="2013">
 					<option value="01/13">Январь 2013</option>
 					<option value="02/13">Февраль 2013</option>
