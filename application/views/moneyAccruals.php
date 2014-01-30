@@ -10,7 +10,7 @@
 
 			//demo 3
 			$('select#valueAA, select#valueBB').selectToUISlider({
-				labels: 12
+				labels: 48
 			});
 
 			//fix color
@@ -58,13 +58,38 @@
 		<fieldset>
 			<label for="valueAA">Начало периода:</label>
 			<select name="valueAA" id="valueAA" disabled="disabled" >
-				<optgroup label="2012">
-					<option value="08/12" selected="selected">Август 2012</option>
-					<option value="09/12">Сентябрь 2012</option>
-					<option value="10/12">Октябрь 2012</option>
-					<option value="11/12">Ноябрь 2012</option>
-					<option value="12/12">Декабрь 2012</option>
+				<optgroup label="2013">
+					<option value="01/13">Январь 2013</option>
+					<option value="02/13">Февраль 2013</option>
+					<option value="03/13">Март 2013</option>
+					<option value="04/13">Апрель 2013</option>
+					<option value="05/13">Май 2013</option>
+					<option value="06/13">Июнь 2013</option>
+					<option value="07/13">Июль 2013</option>
+					<option value="08/13">Август 2013</option>
+					<option value="09/13">Сентябрь 2013</option>
+					<option value="10/13">Октябрь 2013</option>
+					<option value="11/13" selected="selected">Ноябрь 2013</option>
+					<option value="12/13">Декабрь 2013</option>
 				</optgroup>
+				<optgroup label="2014">
+					<option value="01/14">Январь 2014</option>
+					<option value="02/14">Февраль 2014</option>
+					<option value="03/14">Март 2014</option>
+					<option value="04/14">Апрель 2014</option>
+					<option value="05/14">Май 2014</option>
+					<option value="06/14">Июнь 2014</option>
+					<option value="07/14">Июль 2014</option>
+					<option value="08/14">Август 2014</option>
+					<option value="09/14">Сентябрь 2014</option>
+					<option value="10/14">Октябрь 2014</option>
+					<option value="11/14">Ноябрь 2014</option>
+					<option value="12/14">Декабрь 2014</option>
+				</optgroup>
+			</select>
+
+			<label for="valueBB">Конец периода:</label>
+			<select name="valueBB" id="valueBB" disabled="disabled">
 				<optgroup label="2013">
 					<option value="01/13">Январь 2013</option>
 					<option value="02/13">Февраль 2013</option>
@@ -79,31 +104,19 @@
 					<option value="11/13">Ноябрь 2013</option>
 					<option value="12/13">Декабрь 2013</option>
 				</optgroup>
-
-			</select>
-
-			<label for="valueBB">Конец периода:</label>
-			<select name="valueBB" id="valueBB" disabled="disabled">
-				<optgroup label="2012">
-					<option value="08/12">Август 2012</option>
-					<option value="09/12">Сентябрь 2012</option>
-					<option value="10/12">Октябрь 2012</option>
-					<option value="11/12">Ноябрь 2012</option>
-					<option value="12/12">Декабрь 2012</option>
-				</optgroup>
-				<optgroup label="2013">
-					<option value="01/13">Январь 2013</option>
-					<option value="02/13">Февраль 2013</option>
-					<option value="03/13"  selected="selected">Март 2013</option>
-					<option value="04/13">Апрель 2013</option>
-					<option value="05/13">Май 2013</option>
-					<option value="06/13">Июнь 2013</option>
-					<option value="07/13">Июль 2013</option>
-					<option value="08/13">Август 2013</option>
-					<option value="09/13">Сентябрь 2013</option>
-					<option value="10/13">Октябрь 2013</option>
-					<option value="11/13">Ноябрь 2013</option>
-					<option value="12/13">Декабрь 2013</option>
+				<optgroup label="2014">
+					<option value="01/14" selected="selected">Январь 2014</option>
+					<option value="02/14">Февраль 2014</option>
+					<option value="03/14">Март 2014</option>
+					<option value="04/14">Апрель 2014</option>
+					<option value="05/14">Май 2014</option>
+					<option value="06/14">Июнь 2014</option>
+					<option value="07/14">Июль 2014</option>
+					<option value="08/14">Август 2014</option>
+					<option value="09/14">Сентябрь 2014</option>
+					<option value="10/14">Октябрь 2014</option>
+					<option value="11/14">Ноябрь 2014</option>
+					<option value="12/14">Декабрь 2014</option>
 				</optgroup>
 			</select>
 		</fieldset>
