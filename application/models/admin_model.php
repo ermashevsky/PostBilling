@@ -227,40 +227,33 @@ class Admin_model extends CI_Model
 			$start_date_period = $createDate -> format('Y-m-01');
 			$end_date_period = $createDate -> format('Y-m-t');
 
-			$this -> db -> select('customer_service.id, clients_accounts.accounts, customer_service.payment_name, COUNT(payment_name) as counter, tariffs.price as price, COUNT( payment_name ) * price AS summ');
-			$this -> db -> from('customer_service');
-			$this -> db -> join('clients_accounts', 'clients_accounts.id =  customer_service.id_account', 'inner');
-			$this -> db -> join('tariffs', 'tariffs.id =  customer_service.tariffs', 'inner');
-			$this -> db -> where('customer_service.tariffs!=', '""', FALSE);
-			$this -> db -> where('customer_service.end_date', null);
+			$this -> db -> select('customer_payments.id , accounts , SUM( amount ) AS summ, payment_name, amount as price,COUNT( payment_name ) AS counter');
+			$this -> db -> from('customer_payments');
+			$this -> db -> join('clients_accounts', 'clients_accounts.id =  customer_payments.id_account', 'inner');
+			$this -> db -> join('customer_service', 'customer_service.id =  customer_payments.id_assortment_customer', 'inner');
+			$this -> db -> where('customer_payments.period_start between "'.date($start_date_period).'" and "'.date($end_date_period).'"');
+			$this -> db -> where('customer_payments.period_end between "'.date($start_date_period).'" and "'.date($end_date_period).'"');
 			$this -> db -> where('clients_accounts.id_service !=', 8);
-			$this -> db -> or_where('customer_service.end_date >=', date($end_date_period));
-			$this -> db -> or_where('customer_service.end_date between ' . date($start_date_period) . ' and ' . date($end_date_period));
-			$this -> db -> where('customer_service.datepicker1 <=', date($start_date_period));
-			$this -> db -> or_where('customer_service.datepicker1 between ' . date($start_date_period) . ' and ' . date($end_date_period));
-			$this -> db -> group_by('customer_service.payment_name', FALSE);
-			$this -> db -> group_by('customer_service.id_account');
-			$this -> db -> group_by('price');
+			$this -> db -> group_by('customer_payments.id_account');
+			$this -> db -> group_by('clients_accounts.bindings_name');
+			$this -> db -> group_by('customer_service.payment_name');
 			$report_rows = $this -> db -> get();
+			
 		} else {
 			$createDate = DateTime::createFromFormat('m', $month);
 			$start_date_period = $createDate -> format('Y-m-01');
 			$end_date_period = $createDate -> format('Y-m-t');
 
-			$this -> db -> select('customer_service.id, clients_accounts.accounts, customer_service.payment_name, COUNT(payment_name) as counter, tariffs.price as price, COUNT( payment_name ) * price AS summ, clients_accounts.id_service');
-			$this -> db -> from('customer_service');
-			$this -> db -> join('clients_accounts', 'clients_accounts.id =  customer_service.id_account', 'inner');
-			$this -> db -> join('tariffs', 'tariffs.id =  customer_service.tariffs', 'inner');
-			$this -> db -> where('customer_service.tariffs!=', '""', FALSE);
+			$this -> db -> select('customer_payments.id , accounts , SUM( amount ) AS summ, payment_name, amount as price,COUNT( payment_name ) AS counter');
+			$this -> db -> from('customer_payments');
+			$this -> db -> join('clients_accounts', 'clients_accounts.id =  customer_payments.id_account', 'inner');
+			$this -> db -> join('customer_service', 'customer_service.id =  customer_payments.id_assortment_customer', 'inner');
+			$this -> db -> where('customer_payments.period_start between "'.date($start_date_period).'" and "'.date($end_date_period).'"');
+			$this -> db -> where('customer_payments.period_end between "'.date($start_date_period).'" and "'.date($end_date_period).'"');
 			$this -> db -> where('clients_accounts.id_service !=', 8);
-			$this -> db -> where('customer_service.end_date', null);
-			$this -> db -> or_where('customer_service.end_date >=', date($end_date_period));
-			$this -> db -> or_where('customer_service.end_date between ' . date($start_date_period) . ' and ' . date($end_date_period));
-			$this -> db -> or_where('customer_service.datepicker1 between ' . date($start_date_period) . ' and ' . date($end_date_period));
-			$this -> db -> where('customer_service.datepicker1 <=', date($start_date_period));
-			$this -> db -> group_by('customer_service.payment_name', FALSE);
-			$this -> db -> group_by('customer_service.id_account');
-			$this -> db -> group_by('price');
+			$this -> db -> group_by('customer_payments.id_account');
+			$this -> db -> group_by('clients_accounts.bindings_name');
+			$this -> db -> group_by('customer_service.payment_name');
 			$this -> db -> having('clients_accounts.id_service', $id_service);
 			$report_rows = $this -> db -> get();
 		}
