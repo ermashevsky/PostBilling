@@ -251,16 +251,17 @@ class Admin_model extends CI_Model
 			$this -> db -> where('customer_payments.period_start between "'.date($start_date_period).'" and "'.date($end_date_period).'"');
 			$this -> db -> where('customer_payments.period_end between "'.date($start_date_period).'" and "'.date($end_date_period).'"');
 			$this -> db -> where('clients_accounts.id_service !=', 8);
+			$this -> db -> where('clients_accounts.id_service', $id_service);
 			$this -> db -> group_by('customer_payments.id_account');
 			$this -> db -> group_by('clients_accounts.bindings_name');
 			$this -> db -> group_by('customer_service.payment_name');
-			$this -> db -> having('clients_accounts.id_service', $id_service);
+			
 			$report_rows = $this -> db -> get();
 		}
 		if($id_service == '8') {
 			$createDate = DateTime::createFromFormat('m', $month);
-			$start_date_period = $createDate -> format('2013-m-01');
-			$end_date_period = $createDate -> format('2013-m-t');
+			$start_date_period = $createDate -> format('Y-m-01');
+			$end_date_period = $createDate -> format('Y-m-t');
 			$this -> db -> select('customer_payments.id, accounts, SUM( amount ) AS price');
 			$this -> db -> from('customer_payments');
 			$this -> db -> join('clients_accounts', 'clients_accounts.id =  customer_payments.id_account', 'inner');
@@ -275,7 +276,7 @@ class Admin_model extends CI_Model
 		if (0 < $report_rows -> num_rows) {
 			foreach ($report_rows -> result() as $row) {
 				if(empty($row->payment_name)){
-					$tmp = new Admin_model();
+				$tmp = new Admin_model();
 				$tmp -> id = $row -> id;
 				$tmp -> accounts = $row -> accounts;
 				$tmp -> payment_name = 'Услуги связи';
