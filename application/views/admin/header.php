@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="/assets/admin/css/jquery.dataTables.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="/assets/admin/css/jquery-ui-1.8.17.custom.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="/assets/styles/TableTools.css" type="text/css" media="all" />
+		<link rel="stylesheet" href="/assets/styles/jquery.multiselect.css" type="text/css" media="all" />
 
 		<style>
 			table#flex1{
@@ -56,9 +57,22 @@
 		<script type="text/javascript" src="/assets/admin/js/ZeroClipboard.js"></script>
 		<script type="text/javascript" src="/assets/admin/js/TableTools.js"></script>
 		<script type="text/javascript" src="/assets/admin/js/ui.datepicker-ru.js"></script>
+		<script type="text/javascript" src="/assets/js/jquery.multiselect.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function()
 			{
+				$("#services").multiselect({
+					noneSelectedText:'Выберите пункт',
+					checkAllText:'Всё',
+					uncheckAllText:'Ничего',
+					selectedText: "# из # выбрано"
+					
+				});
+				$("#month").multiselect({
+					multiple:false,
+					width:'200',
+					selectedText: "# выбрано"
+				});
 				$('#flex1').dataTable({
 					"bJQueryUI": false,
 					"sPaginationType": "full_numbers",
@@ -287,10 +301,14 @@
 
 			function buildReport(){
 				$('#report1C').empty();
-				id_service = $('#services').val();
+				//id_service = $('#services').val();
+				var array_of_checked_values = $("#services").multiselect("getChecked").map(function(){
+					return this.value;    
+				}).get();
+				console.info(array_of_checked_values);
 				month = $('#month').val();
-
-				$.post('<?php echo site_url('/admin/buildReport'); ?>',{month: month, id_service: id_service },
+		
+				$.post('<?php echo site_url('/admin/buildReport'); ?>',{month: month, id_service: array_of_checked_values },
 				function(data){
 					console.info(data);
 					$('#report1C').append('<table  id="reportDataTable" class="table_wrapper_inner"><thead><th>Лицевой счет</th><th>Номенклатура</th><th>Количество</th><th>Цена</th><th>Сумма</th></thead><tbody></tbody></table>');

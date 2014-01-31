@@ -9,21 +9,23 @@
 		</header>
 
 			<div class="module_content">
-						<fieldset style="width:48%; float:left; margin-right: 3%;"> <!-- to make two field float next to one another, adjust values accordingly -->
+						<fieldset style="width:48%; float:left; margin-right: 1%; padding-left:10px;"> <!-- to make two field float next to one another, adjust values accordingly -->
 							<label>Тип услуги:</label>
 								<?php
 								$service = new Admin();
-								$a['all'] = 'Все';
+								
 								foreach ($service->getServiceList() as $row):
 								$a[$row->id] = $row->service_description;
 								endforeach;
-
-								echo form_dropdown('services', $a, '1','id="services"');
+								
+								echo form_dropdown('services', $a, '','id="services" style="width:20%; multiple="multiple"');
+								
 								?>
 						</fieldset>
-						<fieldset style="width:48%; float:left;"> <!-- to make two field float next to one another, adjust values accordingly -->
+				
+						<fieldset style="width:48%; float:left; padding-left:10px;" > <!-- to make two field float next to one another, adjust values accordingly -->
 							<label>Отчетный месяц:</label>
-							<select style="width:92%;" id="month">
+							<select style="width:20%;" id="month">
 								<option value="01">Январь</option>
 								<option value="02">Февраль</option>
 								<option value="03">Март</option>

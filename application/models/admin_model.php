@@ -222,10 +222,10 @@ class Admin_model extends CI_Model
 	{
 
 		$reportArray = array();
-		if ($id_service == 'all') {
+		if(!in_array (8, $id_service)) {
 			$createDate = DateTime::createFromFormat('m', $month);
-			$start_date_period = $createDate -> format('Y-m-01');
-			$end_date_period = $createDate -> format('Y-m-t');
+			$start_date_period = $createDate -> format('2013-m-01');
+			$end_date_period = $createDate -> format('2013-m-t');
 
 			$this -> db -> select('customer_payments.id , accounts , SUM( amount ) AS summ, payment_name, amount as price,COUNT( payment_name ) AS counter');
 			$this -> db -> from('customer_payments');
@@ -234,42 +234,24 @@ class Admin_model extends CI_Model
 			$this -> db -> where('customer_payments.period_start between "'.date($start_date_period).'" and "'.date($end_date_period).'"');
 			$this -> db -> where('customer_payments.period_end between "'.date($start_date_period).'" and "'.date($end_date_period).'"');
 			$this -> db -> where('clients_accounts.id_service !=', 8);
-			$this -> db -> group_by('customer_payments.id_account');
-			$this -> db -> group_by('clients_accounts.bindings_name');
-			$this -> db -> group_by('customer_service.payment_name');
-			$report_rows = $this -> db -> get();
-			
-		} else {
-			$createDate = DateTime::createFromFormat('m', $month);
-			$start_date_period = $createDate -> format('Y-m-01');
-			$end_date_period = $createDate -> format('Y-m-t');
-
-			$this -> db -> select('customer_payments.id , accounts , SUM( amount ) AS summ, payment_name, amount as price,COUNT( payment_name ) AS counter');
-			$this -> db -> from('customer_payments');
-			$this -> db -> join('clients_accounts', 'clients_accounts.id =  customer_payments.id_account', 'inner');
-			$this -> db -> join('customer_service', 'customer_service.id =  customer_payments.id_assortment_customer', 'inner');
-			$this -> db -> where('customer_payments.period_start between "'.date($start_date_period).'" and "'.date($end_date_period).'"');
-			$this -> db -> where('customer_payments.period_end between "'.date($start_date_period).'" and "'.date($end_date_period).'"');
-			$this -> db -> where('clients_accounts.id_service !=', 8);
-			$this -> db -> where('clients_accounts.id_service', $id_service);
+			$this -> db -> where_in('clients_accounts.id_service', $id_service);
 			$this -> db -> group_by('customer_payments.id_account');
 			$this -> db -> group_by('clients_accounts.bindings_name');
 			$this -> db -> group_by('customer_service.payment_name');
 			
 			$report_rows = $this -> db -> get();
-		}
-		if($id_service == '8') {
+		}else{
 			$createDate = DateTime::createFromFormat('m', $month);
-			$start_date_period = $createDate -> format('Y-m-01');
-			$end_date_period = $createDate -> format('Y-m-t');
+			$start_date_period = $createDate -> format('2013-m-01');
+			$end_date_period = $createDate -> format('2013-m-t');
 			$this -> db -> select('customer_payments.id, accounts, SUM( amount ) AS price');
 			$this -> db -> from('customer_payments');
 			$this -> db -> join('clients_accounts', 'clients_accounts.id =  customer_payments.id_account', 'inner');
-			$this -> db -> where('clients_accounts.id_service', $id_service);
+			$this -> db -> where_in('clients_accounts.id_service', $id_service);
 			$this -> db -> where('customer_payments.period_start between "'.date($start_date_period).'" and "'.date($end_date_period).'"');
 			$this -> db -> where('customer_payments.period_end between "'.date($start_date_period).'" and "'.date($end_date_period).'"');
 			$this -> db -> group_by('customer_payments.id_account');
-			$this -> db -> group_by('clients_accounts.bindings_name');
+			$this -> db -> group_by('clients_accounts.binings_name');
 			
 			$report_rows = $this -> db -> get();
 		}
