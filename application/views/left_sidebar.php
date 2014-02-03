@@ -11,6 +11,7 @@
             <p><a href="<?php echo site_url('upload');?>">ИМПОРТ НАЧИСЛЕНИЙ</a></p>
 			<p><a href="<?php echo site_url('money/calculationPayments');?>">ПЛАТЕЖИ</a></p>
 			<p><a href="<?php echo site_url('upload/client_data');?>">ИМПОРТ КЛИЕНТОВ</a></p>
+			<p><a href="<?php echo site_url('clients/search_engine');?>">ПОИСК</a></p>
             </div>
 
         </div>

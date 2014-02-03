@@ -1078,15 +1078,30 @@ $('button#add_account_button2.add_account_button').click(function(){
 				var date   = $('#addPayDate').val();
 				var amount = $('#addPayAmount').val().replace(/,/g, ".");
 				var comment   = $('#addPayComment').val();
-
+				var amount_type = $('#amount_type').val();
 				console.info(comment);
+				
+				
+				if(amount_type === 'add_pay'){
+					url = '<?=site_url('money/addPay');?>';
+					alert(url);
+				}
+				else if(amount_type === 'add_discount'){
+					url = '<?=site_url('money/addDiscount');?>';
+					alert(url);
+				}
+				else if(amount_type === 'add_adjust_amount'){
+					url = '<?=site_url('money/addAdjustAmount');?>';
+					alert(url);
+				}
+				
 
-				$.post('<?=site_url('money/addPay');?>',{'date':date,'amount':amount,'id_account':id,'id_client':id_client,'comment':comment},
+				$.post(url,{'date':date,'amount':amount,'id_account':id,'id_client':id_client,'comment':comment},
                             function(data){
                                $('#addPay').dialog("close");
 								location.reload();
                                //Доработать
-                            })
+                            });
                    },
                "Закрыть": function() {
                 $('#addPay').dialog("close");
@@ -1166,11 +1181,12 @@ $('button#add_account_button2.add_account_button').click(function(){
 			n=1;
 		$('#allPay').append('<table border="1" id="tablesorter"><tr><th>№</th><th>Дата</th><th>Сумма</th><th>Действия</th></tr></table>');
 		   $.each(data, function(i, val) {
-			 if(!data[i].comment){
+		   if(!data[i].comment){
 			   $('#tablesorter').append('<tr id="row_'+row+++'" ><td>'+n+++'</td><td>'+data[i].date+'</td><td>'+data[i].amount+'</td><td><a href="#" onclick=editPay('+data[i].id+',"'+account+'");return false;>edit</a> | <a href="#" onclick="deletePay('+data[i].id+');return false;">delete</a></td></tr>');
 		   }else{
 			   $('#tablesorter').append('<tr id="row_'+row+++'" ><td>'+n+++'</td><td>'+data[i].date+'</td><td><a href="#" id="tooltip_'+row+'" onclick="getPayComment('+data[i].id_comment+','+row+++')" style="color:green;">'+data[i].amount+'</a></td><td><a href="#" onclick=editPay('+data[i].id+',"'+account+'",'+data[i].id_comment+');return false;>edit</a> | <a href="#" onclick="deletePay('+data[i].id+','+data[i].id_comment+');return false;">delete</a></td></tr>');
 		   }
+		   
 		   })
 		},'json')
 
@@ -1294,6 +1310,13 @@ $('button#add_account_button2.add_account_button').click(function(){
 							<p>Дата:<br />
 								<input type="text" name="date" id="addPayDate" value="<?php echo date('d.m.Y',now());?>"/>
 							</p>
+							<p>Тип суммы:<br />
+								<select id="amount_type">
+									<option value="add_pay" selected="selected">Оплата</option>
+									<option value="add_discount">Скидка</option>
+									<option value="add_adjust_amount">Корректировка</option>
+								</select>
+							</p>
 							<p>Сумма:<br />
 								<input type="text" name="amount" id="addPayAmount" />
 							</p>
@@ -1329,6 +1352,7 @@ echo '<tr>
 		<th>Лицевой счет</th>
 		<th>Начислено</th>
 		<th>Оплачено</th>
+		<th>Скидка(руб)</th>
 		<th>Действия</th>
 	  </tr>';
     foreach($payment as $clients_account) {
@@ -1337,6 +1361,7 @@ echo '<tr>
 		echo '<td>'.anchor("", $clients_account->accounts, array('id' => 'add_menu','onclick'=>"getCustomerGroup('$clients_account->id_account','$clients_account->id_service','$clients_account->id_client'); return false;")).'</td>';
 		echo '<td>'.$clients_account->amount.'</td>';
 		echo '<td>'.$clients_account->payment.'</td>';
+		echo '<td>'.$clients_account->discount.'</td>';
 		if($clients_account->payment!=0){
 		echo '<td>'.anchor("#", "Редактировать", array('id' => '','onclick'=>"getAllPay('$clients_account->id_account','$clients_account->accounts'); return false;")).' | '.anchor("#", "Добавить оплату", array('id' => '','onclick'=>"addPay('$clients_account->id_account','$clients_account->id_client'); return false;")).'</td>';
 		}else{

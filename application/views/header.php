@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-	<title>Система X</title>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		<title>Система X</title>
         <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
         <script type="text/javascript" src="/assets/js/jquery.cookie.js"></script>
 		<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -26,7 +26,9 @@
 		<script type="text/javascript" src="/assets/js/TableTools.js"></script>
 		<script type="text/javascript" src="/assets/js/jquery.blockUI.js"></script>
 		<script type="text/javascript" src="/assets/js/selectToUISlider.jQuery.js"></script>
-		
+		<script type="text/javascript" src="/assets/js/jquery.highlight-4.js"></script>
+		<script type="text/javascript" src="/assets/js/jquery.datetimepicker.js"></script>
+
 
         <link href="/assets/images/icons/favicon.ico" rel="shortcut icon" type="image/ico" />
 
@@ -42,26 +44,32 @@
 		<link rel="stylesheet" href="/assets/styles/TableTools.css" type="text/css" media="all" />
 		<link rel="stylesheet" href="/assets/styles/ui.slider.extras.css" type="text/css" media="all" />
 		<link rel="stylesheet" href="/assets/styles/jquery.ui.selectmenu.css" type="text/css" media="all" />
-</head>
-<body>
-<!-- Header -->
-<div id="head">
+		<link rel="stylesheet" href="/assets/styles/jquery.datetimepicker.css" type="text/css" media="all" />
+		
+	</head>
+	<body>
+		<!-- Header -->
+		<div id="head">
             <div id="logo_user_details">
                 <h2 id="logo">Post Billing</h2>
                 <div id="user_details">
                     <ul id="user_details_menu">
-                        <li>Welcome, <a href="#"><strong><?php $user = $this->data['user'] = $this->ion_auth->user($this->session->userdata('user_id'))->row();
-echo $user->username;
-?></strong></a></li>
+						
+                        <li>Welcome, <a href="#"><strong><?php
+									$user = $this -> data['user'] = $this -> ion_auth -> user($this -> session -> userdata('user_id')) -> row();
+									echo $user -> username;
+									?></strong></a></li>
                         <li>
                             <ul id="user_access">
-								<?php if($this -> ion_auth -> is_admin()): ?>
-                                <li class="first"><a href="<? echo site_url(); ?>admin">Админка</a></li>
-								<?php endif; ?>
+								<?php if ($this -> ion_auth -> is_admin()): ?>
+	                                <li class="first"><a href="<? echo site_url(); ?>admin">Админка</a></li>
+<?php endif; ?>
                                 <li class="last"><a href="<? echo site_url(); ?>auth/logout">Выйти</a></li>
                             </ul>
                         </li>
+
                 </div>
 			</div>
 
-</div>
+		</div>
+		

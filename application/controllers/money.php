@@ -461,6 +461,46 @@ class Money extends CI_Controller
 		$this -> load -> model('money_model');
 		$data = $this -> money_model -> editPayComment($id_comment, $comment);
 	}
+	
+	function addDiscount()
+	{
+		$id_account = trim($this -> input -> post('id_account'));
+		$date = trim($this -> input -> post('date'));
+		$amount = trim($this -> input -> post('amount'));
+		$id_client = trim($this -> input -> post('id_client'));
+		$comment = $this -> input -> post('comment');
+
+		$user = $this -> ion_auth -> user() -> row();
+		$mdc = new LoggerMDC();
+		$mdc -> put('username', $user -> username);
+		$mdc -> put('amount', 'Cумма: ' . $amount);
+		$mdc -> put('id_account', 'ID лицевого счета : ' . $id_account);
+		$mdc -> put('date', 'Дата оплаты: ' . $date);
+		$this -> log -> info('Пользователь добавил скидку на ЛС ');
+
+		$this -> load -> model('money_model');
+		$data = $this -> money_model -> addDiscount($id_account, $date, $amount, $id_client, $comment);
+	}
+	
+	function addAdjustAmount()
+	{
+		$id_account = trim($this -> input -> post('id_account'));
+		$date = trim($this -> input -> post('date'));
+		$amount = trim($this -> input -> post('amount'));
+		$id_client = trim($this -> input -> post('id_client'));
+		$comment = $this -> input -> post('comment');
+
+		$user = $this -> ion_auth -> user() -> row();
+		$mdc = new LoggerMDC();
+		$mdc -> put('username', $user -> username);
+		$mdc -> put('amount', 'Cумма: ' . $amount);
+		$mdc -> put('id_account', 'ID лицевого счета : ' . $id_account);
+		$mdc -> put('date', 'Дата оплаты: ' . $date);
+		$this -> log -> info('Пользователь добавил сумму корректировки на ЛС ');
+
+		$this -> load -> model('money_model');
+		$data = $this -> money_model -> addAdjustAmount($id_account, $date, $amount, $id_client, $comment);
+	}
 
 	/**
 	 * Сверка остатков PB и 1С. Формирование сводной таблицы.

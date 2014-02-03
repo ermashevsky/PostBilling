@@ -242,16 +242,17 @@ class Admin_model extends CI_Model
 			$report_rows = $this -> db -> get();
 		}else{
 			$createDate = DateTime::createFromFormat('m', $month);
-			$start_date_period = $createDate -> format('2013-m-01');
-			$end_date_period = $createDate -> format('2013-m-t');
-			$this -> db -> select('customer_payments.id, accounts, SUM( amount ) AS price');
+			$start_date_period = $createDate -> format('Y-m-01');
+			$end_date_period = $createDate -> format('Y-m-t');
+			$this -> db -> select('customer_payments.id, accounts, SUM( customer_payments.amount ) AS price, IFNULL(round(SUM(REPLACE( customer_discounts.amount, ",","." )),2),"00.00") as discount', FALSE);
 			$this -> db -> from('customer_payments');
-			$this -> db -> join('clients_accounts', 'clients_accounts.id =  customer_payments.id_account', 'inner');
+			$this -> db -> join('clients_accounts', 'clients_accounts.id =  customer_payments.id_account', 'left');
+			$this -> db -> join('customer_discounts', 'customer_discounts.id_account =  customer_payments.id_account', 'left');
 			$this -> db -> where_in('clients_accounts.id_service', $id_service);
 			$this -> db -> where('customer_payments.period_start between "'.date($start_date_period).'" and "'.date($end_date_period).'"');
 			$this -> db -> where('customer_payments.period_end between "'.date($start_date_period).'" and "'.date($end_date_period).'"');
 			$this -> db -> group_by('customer_payments.id_account');
-			$this -> db -> group_by('clients_accounts.binings_name');
+			$this -> db -> group_by('clients_accounts.bindings_name');
 			
 			$report_rows = $this -> db -> get();
 		}
@@ -263,8 +264,8 @@ class Admin_model extends CI_Model
 				$tmp -> accounts = $row -> accounts;
 				$tmp -> payment_name = 'Услуги связи';
 				$tmp -> counter = 1;
-				$tmp -> price = $row -> price;
-				$tmp -> summ = $row -> price;
+				$tmp -> price = $row -> price - $row->discount;
+				$tmp -> summ = $row -> price - $row->discount;
 				$reportArray[$tmp -> id] = $tmp;
 					
 				}else{

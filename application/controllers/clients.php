@@ -95,6 +95,25 @@ class Clients extends CI_Controller
 			$this -> load -> view('left_sidebar');
 		}
 	}
+	
+	/**
+	 * Возвращает список лицевых счетов клиента
+	 * 
+	 * @param int $id идентификатор
+	 * 
+	 * @author Ермашевский Денис
+	 * @return array $data;
+	 */
+	function search_engine()
+	{
+		if ( ! $this -> ion_auth -> logged_in()) {
+			redirect('auth/login', 'refresh');
+		} else {
+			$this -> load -> view('header');
+			$this -> load -> view('search_engine');
+			$this -> load -> view('left_sidebar');
+		}
+	}
 
 	function countAccount($id_client)
 	{
@@ -179,6 +198,34 @@ class Clients extends CI_Controller
         $search=  $this->input->post('search');
 		$this -> load -> model('clients_model');
         $query = $this -> clients_model -> getAccount($search);
+        echo json_encode ($query);
+        //$this->load->view('add_clients', $query);
+    }
+	
+	/**
+	 * Метод поиска лицевого счета при копировании
+	 * со счета на счет.
+	 * @author Денис Ермашевский <egrad77@mail.ru>
+	 * @return array Retun Array
+	 */
+	public function searchByAccount(){
+        $search=  $this->input->post('search');
+		$this -> load -> model('clients_model');
+        $query = $this -> clients_model -> getByAccount($search);
+        echo json_encode ($query);
+        //$this->load->view('add_clients', $query);
+    }
+	
+	/**
+	 * Метод поиска лицевого счета при копировании
+	 * со счета на счет.
+	 * @author Денис Ермашевский <egrad77@mail.ru>
+	 * @return array Retun Array
+	 */
+	public function searchByPhone(){
+        $search=  $this->input->post('search');
+		$this -> load -> model('clients_model');
+        $query = $this -> clients_model -> getByPhone($search);
         echo json_encode ($query);
         //$this->load->view('add_clients', $query);
     }

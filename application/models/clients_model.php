@@ -129,6 +129,13 @@ class Clients_model extends CI_Model
 	 * @var $id Clients_model
 	 */
 	var $type_resources;
+	
+	/**
+	 * Identity.
+	 *
+	 * @var $id Clients_model
+	 */
+	var $discount;
 
 	/**
 	 * Унифицированный метод-конструктор __construct()
@@ -235,11 +242,32 @@ class Clients_model extends CI_Model
     }
 
 	function getAccount($search){
-        $this->db->select("id, bindings_name, accounts");
+        $this->db->select("id, id_clients, bindings_name, accounts");
         //$whereCondition = array('client_name' =>$search);
         $this->db->like('accounts',$search);
         $this->db->from('clients_accounts');
         $query = $this->db->get();
+        return $query->result();
+    }
+	
+	function getByAccount($search){
+        $this->db->select("id, id_clients, bindings_name, accounts");
+        //$whereCondition = array('client_name' =>$search);
+        $this->db->like('accounts',$search);
+        $this->db->from('clients_accounts');
+		$this->db->group_by('id_clients');
+        $query = $this->db->get();
+        return $query->result();
+    }
+	
+	function getByPhone($search){
+        $this->db->select("clients_accounts.id, clients_accounts.id_clients, clients_accounts.bindings_name, clients_accounts.accounts");
+        $this->db->like('free_phone_pool.resources',$search);
+        $this->db->from('clients_accounts');
+		$this->db->group_by('clients_accounts.bindings_name');
+		$this->db->join('customer_service', 'customer_service.id_account =  clients_accounts.id','inner');
+		$this->db->join('free_phone_pool', 'free_phone_pool.id =  customer_service.resources','inner');
+		$query = $this->db->get();
         return $query->result();
     }
 
@@ -247,13 +275,14 @@ class Clients_model extends CI_Model
 	{
 		$id = (int) $id;
 		$client_payment = array();
-		$this -> db -> select('*,clients_accounts.id as id_account, SUM(customer_payments.amount) as amount, IFNULL(round(payment.payments,2),"00.00") as payment',false);
+		$this -> db -> select('*,clients_accounts.id as id_account, SUM(customer_payments.amount) as amount, IFNULL(round(payment.payments,2),"00.00") as payment, IFNULL(round(discount.discounts,2),"00.00") as discount',false);
 		$this -> db -> from('clients');
 		$this -> db -> where('clients_accounts.id_clients', $id);
 		$this -> db -> group_by('clients_accounts.accounts');
 		$this -> db -> join('clients_accounts', 'clients_accounts.id_clients = clients.id','left');
 		$this -> db -> join('customer_payments', 'customer_payments.id_account = clients_accounts.id', 'left');
 		$this -> db -> join("(SELECT *, round(sum( REPLACE( amount, ',','.' ) ),2) as payments FROM customer_encashment group by id_account) AS payment",'payment.id_account=clients_accounts.id','left');
+		$this -> db -> join("(SELECT *, round(sum( REPLACE( amount, ',','.' ) ),2) as discounts FROM customer_discounts group by id_account) AS discount",'discount.id_account=clients_accounts.id','left');
 		$client = $this -> db -> get();
 		if (0 < $client -> num_rows) {
 			foreach ($client -> result() as $info) {
@@ -278,6 +307,7 @@ class Clients_model extends CI_Model
 				$tmp -> id_service = $info -> id_service;
 				$tmp -> amount = $info -> amount;
 				$tmp -> payment = $info -> payment;
+				$tmp -> discount = $info -> discount;
 
 				$client_payment[$tmp -> id] = $tmp;
 			}

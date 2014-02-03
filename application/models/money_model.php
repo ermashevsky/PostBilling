@@ -220,15 +220,26 @@ class Money_model extends CI_Model
 
 	function getAllPayById($id=null)
 	{
-			$this -> db -> select('customer_encashment.id,customer_encashment.date,customer_encashment.amount,customer_encashment.id_account,
-			pay_comments.id as id_comment, pay_comments.pay_id as pay_id,pay_comments.comment');
+			$this -> db -> select('"no" as discount,customer_encashment.id,customer_encashment.date,customer_encashment.amount,customer_encashment.id_account,
+			pay_comments.id as id_comment, pay_comments.pay_id as pay_id,pay_comments.comment', FALSE);
 			$this -> db -> from('customer_encashment');
 			$this -> db -> join('pay_comments','pay_comments.pay_id = customer_encashment.id','left');
-			$this -> db -> where('id_account',$id);
-			$res = $this -> db -> get();
+			$this -> db -> where('customer_encashment.id_account',$id);
+			$this -> db -> get();
+			$query1 = $this->db->last_query();
+			
+			$this -> db -> select('"yes" as discount, customer_discounts.id,customer_discounts.date,customer_discounts.amount,customer_discounts.id_account,
+			pay_comments.id as id_comment, pay_comments.pay_id as pay_id,pay_comments.comment', FALSE);
+			$this -> db -> from('customer_discounts');
+			$this -> db -> join('pay_comments','pay_comments.pay_id = customer_discounts.id','left');
+			$this -> db -> where('customer_discounts.id_account',$id);
+			$this -> db -> get();
+			$query2 = $this->db->last_query();
+			$query = $this->db->query($query1." UNION ALL ".$query2);
+			$query->result();
 			$data = array();
-			if (0 < $res -> num_rows) {
-				foreach ($res -> result() as $row):
+			if (0 < $query -> num_rows) {
+				foreach ($query->result() as $row):
 				$money = new Money_model();
 				$money -> id = $row -> id;
 				$date = new DateTime($row->date);
@@ -238,6 +249,7 @@ class Money_model extends CI_Model
 				$money -> id_comment = $row -> id_comment;
 				$money -> comment = $row -> comment;
 				$money ->pay_id = $row -> pay_id;
+				$money -> discount = $row -> discount;
 				$data[$money -> id] = $money;
 			endforeach;
 			}
@@ -334,7 +346,61 @@ class Money_model extends CI_Model
 		$this->db->where('id', $id_comment);
 		$this->db->update('pay_comments', $data);
 	}
+	
+	
+	function addDiscount($id_account=null,$date=null,$amount=null,$id_client=null,$comment=null)
+	{
+		$date = new DateTime($date);
+		$formated_date = $date->format('Y-m-d');
+		$data = array(
+			'id_account' => $id_account,
+			'amount' => $amount,
+			'date' => $formated_date,
+			'id_client'=>$id_client
+			);
+		$this->db->insert('customer_discounts', $data,false);
 
+		if(isset($comment)):
+		$last_id = $this->db->insert_id();
+
+		$data_comment = array(
+			'pay_id' => $last_id,
+			'comment' => $comment
+		);
+
+		$this->db->insert('pay_comments',$data_comment,false);
+		endif;
+
+		//print_r($data);
+
+	}
+	
+	function addAdjustAmount($id_account=null,$date=null,$amount=null,$id_client=null,$comment=null)
+	{
+		$date = new DateTime($date);
+		$formated_date = $date->format('Y-m-d');
+		$data = array(
+			'id_account' => $id_account,
+			'amount' => $amount,
+			'date' => $formated_date,
+			'id_client'=>$id_client
+			);
+		$this->db->insert('customerAdjustAmount', $data,false);
+
+		if(isset($comment)):
+		$last_id = $this->db->insert_id();
+
+		$data_comment = array(
+			'pay_id' => $last_id,
+			'comment' => $comment
+		);
+
+		$this->db->insert('pay_comments',$data_comment,false);
+		endif;
+
+		//print_r($data);
+
+	}
 
 	function getPartialPeriods($id_assortment=null,$id_account=null,$amount=null,$periodStart=null,$periodEnd=null,$id_client=null)
 	{
