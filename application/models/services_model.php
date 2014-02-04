@@ -1345,6 +1345,7 @@ class Services_model extends CI_Model
 		$this -> db -> select('customer_service.id, customer_service.id_account, customer_service.payment_name, customer_service.uniq_id');
 		$this -> db -> from('customer_service');
 		$this -> db -> where('customer_service.identifier', $identifier);
+		$this -> db -> where('end_date IS NULL');
 
 		$data = array();
 		$id_list = $this -> db -> get();
