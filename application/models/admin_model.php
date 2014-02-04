@@ -244,7 +244,7 @@ class Admin_model extends CI_Model
 			$createDate = DateTime::createFromFormat('m', $month);
 			$start_date_period = $createDate -> format('Y-m-01');
 			$end_date_period = $createDate -> format('Y-m-t');
-			$this -> db -> select('customer_payments.id, accounts, SUM( customer_payments.amount ) AS price, IFNULL(round(SUM(REPLACE( customer_discounts.amount, ",","." )),2),"00.00") as discount', FALSE);
+			$this -> db -> select('customer_payments.id, clients_accounts.bindings_name, accounts, SUM( customer_payments.amount ) AS price, IFNULL(round(SUM(REPLACE( customer_discounts.amount, ",","." )),2),"00.00") as discount', FALSE);
 			$this -> db -> from('customer_payments');
 			$this -> db -> join('clients_accounts', 'clients_accounts.id =  customer_payments.id_account', 'left');
 			$this -> db -> join('customer_discounts', 'customer_discounts.id_account =  customer_payments.id_account', 'left');
@@ -262,6 +262,7 @@ class Admin_model extends CI_Model
 				$tmp = new Admin_model();
 				$tmp -> id = $row -> id;
 				$tmp -> accounts = $row -> accounts;
+				$tmp -> bindings_name = $row -> bindings_name;
 				$tmp -> payment_name = 'Услуги связи';
 				$tmp -> counter = 1;
 				$tmp -> price = $row -> price - $row->discount;
