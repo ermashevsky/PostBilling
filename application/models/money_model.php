@@ -599,6 +599,31 @@ class Money_model extends CI_Model
 		return $data;
 	}
 
+	function checkAccrualForThePeriod($id_assortment_customer, $id_account, $id_clients, $startDateAccrual, $endDateAccrual, $amountAccrual){
+		
+		$dateStart = DateTime::createFromFormat('d.m.Y', $startDateAccrual);
+		$dateEnd = DateTime::createFromFormat('d.m.Y', $endDateAccrual);
+
+		/* Привожу диапазон дат к первому числу месяца */
+		$periodStart = $dateStart -> format('Y-m-d');
+		$periodEnd = $dateEnd -> format('Y-m-d');
+		
+		$this -> db -> select('*');
+		$this -> db -> from('customer_payments');
+		$this -> db -> where('period_start', $periodStart);
+		$this -> db -> where('period_end', $periodEnd);
+		$this -> db -> where('id_assortment_customer', $id_assortment_customer);
+		$this -> db -> where('amount', $amountAccrual);
+		$counter = $this -> db -> count_all_results();
+		if ($counter === 0) {
+			//return $arr[$counter] = $id_clients;
+			$this -> setPayment($id_assortment_customer, $id_account, $amountAccrual, $periodStart, $periodEnd, $id_clients);
+			return 1;
+		}else{
+			return 0;
+		}
+	}
+	
 }
 
 //End of file money_model.php

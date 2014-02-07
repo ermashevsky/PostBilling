@@ -1,4 +1,44 @@
 <script type="text/javascript">
+
+function addAccrual(id_assortment_customer, id_account, id_clients) {
+		$('#addAccrual #startDate').datepicker($.datepicker.regional["ru"]);
+		$('#addAccrual #endDate').datepicker($.datepicker.regional["ru"]);
+
+		$('#addAccrual').dialog({
+			title: 'Ручное начисление',
+			modal: true, //булева переменная если она равно true -  то окно модальное, false -  то нет
+			draggable: false,
+			resizable: false,
+			width: 250,
+			show: 'slide',
+			dialogClass: 'no-close',
+			buttons: {
+				"Начислить": function() {
+
+					startDateAccrual = $('#addAccrual #startDate').val();
+					endDateAccrual = $('#addAccrual #endDate').val();
+					amountAccrual = $('#addAccrual #amountAccrual').val();
+
+					$.post('<?php echo site_url('/money/checkAccrual'); ?>', {'id_assortment_customer': id_assortment_customer,
+						'id_account': id_account, 'id_clients': id_clients, 'startDateAccrual': startDateAccrual, 'endDateAccrual': endDateAccrual,
+						'amountAccrual': amountAccrual},
+					function(data) {
+						if (data === 1) {
+							$.jnotify("Начисление на сумму " + amountAccrual + " за период " + startDateAccrual + " - " + endDateAccrual + " были произведены успешно!", "", {remove: function() {
+								}});
+						} else {
+							$.jnotify("Начисление на сумму " + amountAccrual + " за период " + startDateAccrual + " - " + endDateAccrual + " уже были произведены ранее", "error", {remove: function() {
+								}});
+						}
+						$('#addAccrual').dialog('close');
+					}, 'json');
+				},
+				"Закрыть": function() {
+					$(this).dialog("close");
+				}}
+		});
+	}
+
 function copyOptions(id,id_client){
 	$('#copyOptionsDialog').empty();
 	$('#copyOptionsDialog').append('<p style="margin:5px;">Выберите вариант копирования ЛС</p>');
@@ -671,6 +711,21 @@ bTable = $('#assortment').dataTable({
               id_rec = oObj.aData['id'].toString();
 		return "<a href='#' id='mybutton'  onClick=editAssortmentById('"+id_rec+"');><img src='/assets/images/edit_date.png' alt='Редактирование' title='Редактирование'/></a>";
 	},"mDataProp":null},
+		
+		{ "fnRender": function ( oObj ) {
+        
+		resources = oObj.aData['resources'];
+		identifier = oObj.aData['identifier'];
+		id_account = oObj.aData['id_account'].toString();
+		id_clients = oObj.aData['id_clients'].toString();
+		
+		if ( resources || identifier){
+			return "";
+		}else{
+			return "<a href='#' id='mybutton'  onClick=addAccrual("+id_rec+",'"+id_account+"','"+id_clients+"');><img src='/assets/images/add_currency.gif' alt='Произвести начисления' title='Произвести начисления'/></a>";
+		}
+
+	},"mDataProp":null},
         { "fnRender": function ( oObj ) {
               id_rec = oObj.aData['id'].toString();
 		return "<a href='#' id='mybutton'  onClick=getAssortmentById('"+id_rec+"');><img src='/assets/images/coins.png' alt='Начисления' title='Начисления'/></a>";
@@ -1166,10 +1221,6 @@ $('button#add_account_button2.add_account_button').click(function(){
 				}}
 	   })
 		},'json')
-
-
-
-
    }
 
    function getAllPay(id,account)
@@ -1181,6 +1232,7 @@ $('button#add_account_button2.add_account_button').click(function(){
 			n=1;
 		$('#allPay').append('<table border="1" id="tablesorter"><tr><th>№</th><th>Дата</th><th>Сумма</th><th>Действия</th></tr></table>');
 		   $.each(data, function(i, val) {
+//			   console.info(data[i].comment);
 		   if(!data[i].comment){
 			   $('#tablesorter').append('<tr id="row_'+row+++'" ><td>'+n+++'</td><td>'+data[i].date+'</td><td>'+data[i].amount+'</td><td><a href="#" onclick=editPay('+data[i].id+',"'+account+'");return false;>edit</a> | <a href="#" onclick="deletePay('+data[i].id+');return false;">delete</a></td></tr>');
 		   }else{
@@ -1407,7 +1459,9 @@ echo '<tr>
       </table>
                  <div id="link2"></div>
             </div>
+	  
        </div>
+					
                 </div>
 
 <div id="dialog"></div>
@@ -1486,5 +1540,16 @@ echo '<tr>
 		<button style="font-size:10px;margin:10px;" id="add_account_button" class="add_account_button"> Новый</button>
 		<button style="font-size:10px;margin:10px;" id="add_account_button2" class="add_account_button"> Другой.№</button>
             </div>
-
         </div>
+	
+	<div id="addAccrual" style="display: none;">
+						<p>Дата начала:<br />
+							<input type="text" name="startDate" id="startDate" />
+						</p>
+						<p>Дата окончания:<br />
+							<input type="text" name="endDate" id="endDate" />
+						</p>
+						<p>Сумма начисления:<br />
+							<input type="text" name="amountAccrual" id="amountAccrual" />
+						</p>
+					</div>

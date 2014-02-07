@@ -743,6 +743,22 @@ class Money extends CI_Controller
 		$data = $this -> money_model -> buildCompareDataTable();
 		echo json_encode($data);
 	}
+	
+	function checkAccrual(){
+	
+		$id_assortment_customer = $this -> input -> post('id_assortment_customer');
+		$id_account = $this -> input -> post('id_account');
+		$id_clients = $this -> input -> post('id_clients');
+		$startDateAccrual = $this -> input -> post('startDateAccrual');
+		$endDateAccrual = $this -> input -> post('endDateAccrual');
+		$amountAccrual = $this -> input -> post('amountAccrual');
+		
+		$this -> load -> model('money_model');
+		$data = $this -> money_model -> checkAccrualForThePeriod($id_assortment_customer, $id_account, $id_clients, $startDateAccrual, $endDateAccrual, $amountAccrual);
+		
+		echo json_encode($data);
+}
+
 }
 
 //End of file money.php
