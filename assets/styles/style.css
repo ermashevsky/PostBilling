@@ -786,3 +786,5 @@ color: #796616;
 padding: 10px 0;
 text-indent: 40px;
 font-size: 14px;}
+
+.no-close .ui-dialog-titlebar-close {display: none }
