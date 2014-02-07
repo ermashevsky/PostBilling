@@ -370,9 +370,10 @@ class Clients extends CI_Controller
 	{
 		$id = trim($this -> input -> post('uniq_id'));
 
-		$this -> datatables -> select('customer_service.id, id_account, payment_name, REPLACE(free_phone_pool.resources, "78452","(78452)") as resources, identifier,name,tariff_name, price, datepicker1, end_date',FALSE)
+		$this -> datatables -> select('customer_service.id, id_account, id_clients, tariffs, payment_name, REPLACE(free_phone_pool.resources, "78452","(78452)") as resources, identifier,name,tariff_name, price, datepicker1, end_date',FALSE)
 				-> from('customer_service')
 				-> join('tariffs', 'tariffs.id = customer_service.tariffs', 'left')
+				-> join('clients_accounts', 'clients_accounts.id = customer_service.id_account', 'left')
 				-> join('free_phone_pool', 'free_phone_pool.id = customer_service.resources', 'left')
 				-> where('customer_service.uniq_id', $id);
 				//-> orderby('identifier');
