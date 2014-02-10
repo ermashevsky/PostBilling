@@ -1,9 +1,18 @@
 <script type="text/javascript">
 
-function addAccrual(id_assortment_customer, id_account, id_clients) {
+function addAccrual(id_assortment_customer, id_account, id_clients,tariffs,price) {
+		$('#addAccrual').empty();
+		$('#addAccrual').append('<p>Дата начала:<br /><input type="text" name="startDate" id="startDate" /></p>');
+		$('#addAccrual').append('<p>Дата окончания:<br /><input type="text" name="endDate" id="endDate" /></p>');
+		if(tariffs && price){
+			$('#addAccrual').append('<p>Сумма начисления:<br /><input type="text" name="amountAccrual" id="amountAccrual" value="'+price+'" readonly/></p>');
+		}else{
+			$('#addAccrual').append('<p>Сумма начисления:<br /><input type="text" name="amountAccrual" id="amountAccrual" /></p>');
+		}
+		
 		$('#addAccrual #startDate').datepicker($.datepicker.regional["ru"]);
 		$('#addAccrual #endDate').datepicker($.datepicker.regional["ru"]);
-
+		
 		$('#addAccrual').dialog({
 			title: 'Ручное начисление',
 			modal: true, //булева переменная если она равно true -  то окно модальное, false -  то нет
@@ -18,7 +27,7 @@ function addAccrual(id_assortment_customer, id_account, id_clients) {
 					startDateAccrual = $('#addAccrual #startDate').val();
 					endDateAccrual = $('#addAccrual #endDate').val();
 					amountAccrual = $('#addAccrual #amountAccrual').val();
-
+					
 					$.post('<?php echo site_url('/money/checkAccrual'); ?>', {'id_assortment_customer': id_assortment_customer,
 						'id_account': id_account, 'id_clients': id_clients, 'startDateAccrual': startDateAccrual, 'endDateAccrual': endDateAccrual,
 						'amountAccrual': amountAccrual},
@@ -657,11 +666,11 @@ function deleteAssortmentById(id){
 
                       $.post('<?=site_url('services/deleteAssortmentItem');?>', {'id':id},
                             function(data){
-                               $('#dialog3').dialog("close");
-	               $('#dialog3').empty();
-                               $.jnotify("Номеклатура удалена.",{remove: function (){
-			bTable.fnClearTable( 0 );
-			bTable.fnDraw();}});
+								$('#dialog3').dialog("close");
+								$('#dialog3').empty();
+								$.jnotify("Номеклатура удалена.",{remove: function (){
+								bTable.fnClearTable( 0 );
+								bTable.fnDraw();}});
 
                             })
                     },
@@ -708,9 +717,9 @@ bTable = $('#assortment').dataTable({
         { "sTitle": "Дата начала", "mDataProp": "datepicker1","sWidth": "10%" },
         { "sTitle": "Дата окончания", "mDataProp": "end_date"},
          { "fnRender": function ( oObj ) {
-              id_rec = oObj.aData['id'].toString();
-		return "<a href='#' id='mybutton'  onClick=editAssortmentById('"+id_rec+"');><img src='/assets/images/edit_date.png' alt='Редактирование' title='Редактирование'/></a>";
-	},"mDataProp":null},
+				id_rec = oObj.aData['id'].toString();
+				return "<a href='#' id='mybutton'  onClick=editAssortmentById('"+id_rec+"');><img src='/assets/images/edit_date.png' alt='Редактирование' title='Редактирование'/></a>";
+		},"mDataProp":null},
 		
 		{ "fnRender": function ( oObj ) {
         
@@ -718,11 +727,13 @@ bTable = $('#assortment').dataTable({
 		identifier = oObj.aData['identifier'];
 		id_account = oObj.aData['id_account'].toString();
 		id_clients = oObj.aData['id_clients'].toString();
+		tariffs = oObj.aData['tariffs'].toString();
+		price = oObj.aData['price'];
 		
 		if ( resources || identifier){
 			return "";
 		}else{
-			return "<a href='#' id='mybutton'  onClick=addAccrual("+id_rec+",'"+id_account+"','"+id_clients+"');><img src='/assets/images/add_currency.gif' alt='Произвести начисления' title='Произвести начисления'/></a>";
+			return "<a href='#' id='mybutton'  onClick=addAccrual('"+id_rec+"','"+id_account+"','"+id_clients+"','"+tariffs+"','"+price+"');><img src='/assets/images/add_currency.gif' alt='Произвести начисления' title='Произвести начисления'/></a>";
 		}
 
 	},"mDataProp":null},
@@ -1543,13 +1554,7 @@ echo '<tr>
         </div>
 	
 	<div id="addAccrual" style="display: none;">
-						<p>Дата начала:<br />
-							<input type="text" name="startDate" id="startDate" />
-						</p>
-						<p>Дата окончания:<br />
-							<input type="text" name="endDate" id="endDate" />
-						</p>
-						<p>Сумма начисления:<br />
-							<input type="text" name="amountAccrual" id="amountAccrual" />
-						</p>
+						
+						
+						
 					</div>
