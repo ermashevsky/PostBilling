@@ -50,6 +50,10 @@
 
 		<div class="spacer"></div>
 			<footer>
+				<div class="submit_link" style="float:left; margin-left:10px;">
+					<label for="chbox">Показывать наименования клиентов</label>
+					<input id="chbox" type="checkbox" name="chbox" checked/>
+				</div>
 				<div class="submit_link">
 					<input type="submit" value="Сформировать" class="alt_btn" onclick="buildReport(); return false;">
 				</div>

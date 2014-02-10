@@ -220,14 +220,14 @@ class Admin_model extends CI_Model
 
 	function buildReport($month, $id_service)
 	{
-
+		$checkbox = filter_input(INPUT_POST, 'checkbox');
 		$reportArray = array();
 		if(!in_array (8, $id_service)) {
 			$createDate = DateTime::createFromFormat('m', $month);
-			$start_date_period = $createDate -> format('2013-m-01');
-			$end_date_period = $createDate -> format('2013-m-t');
+			$start_date_period = $createDate -> format('Y-m-01');
+			$end_date_period = $createDate -> format('Y-m-t');
 
-			$this -> db -> select('customer_payments.id , accounts , SUM( amount ) AS summ, payment_name, amount as price,COUNT( payment_name ) AS counter');
+			$this -> db -> select('customer_payments.id, clients_accounts.bindings_name, accounts , SUM( amount ) AS summ, payment_name, amount as price,COUNT( payment_name ) AS counter');
 			$this -> db -> from('customer_payments');
 			$this -> db -> join('clients_accounts', 'clients_accounts.id =  customer_payments.id_account', 'inner');
 			$this -> db -> join('customer_service', 'customer_service.id =  customer_payments.id_assortment_customer', 'inner');
@@ -256,8 +256,12 @@ class Admin_model extends CI_Model
 			
 			$report_rows = $this -> db -> get();
 		}
+		if($checkbox=='true'){
+		
 		if (0 < $report_rows -> num_rows) {
+			
 			foreach ($report_rows -> result() as $row) {
+				
 				if(empty($row->payment_name)){
 				$tmp = new Admin_model();
 				$tmp -> id = $row -> id;
@@ -268,18 +272,49 @@ class Admin_model extends CI_Model
 				$tmp -> price = $row -> price - $row->discount;
 				$tmp -> summ = $row -> price - $row->discount;
 				$reportArray[$tmp -> id] = $tmp;
-					
 				}else{
 				$tmp = new Admin_model();
 				$tmp -> id = $row -> id;
 				$tmp -> accounts = $row -> accounts;
 				$tmp -> payment_name = $row -> payment_name;
+				$tmp -> bindings_name = $row -> bindings_name;
 				$tmp -> counter = $row -> counter;
 				$tmp -> price = $row -> price;
 				$tmp -> summ = $row -> summ;
 				$reportArray[$tmp -> id] = $tmp;
 				}
 			}
+			
+		}
+		}
+		if($checkbox=='false'){
+			if (0 < $report_rows -> num_rows) {
+			
+			foreach ($report_rows -> result() as $row) {
+				
+				if(empty($row->payment_name)){
+				$tmp = new Admin_model();
+				$tmp -> id = $row -> id;
+				$tmp -> accounts = $row -> accounts;
+				//$tmp -> bindings_name = $row -> bindings_name;
+				$tmp -> payment_name = 'Услуги связи';
+				$tmp -> counter = 1;
+				$tmp -> price = $row -> price - $row->discount;
+				$tmp -> summ = $row -> price - $row->discount;
+				$reportArray[$tmp -> id] = $tmp;
+				}else{
+				$tmp = new Admin_model();
+				$tmp -> id = $row -> id;
+				$tmp -> accounts = $row -> accounts;
+				$tmp -> payment_name = $row -> payment_name;
+				//$tmp -> bindings_name = $row -> bindings_name;
+				$tmp -> counter = $row -> counter;
+				$tmp -> price = $row -> price;
+				$tmp -> summ = $row -> summ;
+				$reportArray[$tmp -> id] = $tmp;
+				}
+			}
+		}
 		}
 		return $reportArray;
 	}
