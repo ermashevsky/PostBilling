@@ -275,7 +275,7 @@ class Clients_model extends CI_Model
 	{
 		$id = (int) $id;
 		$client_payment = array();
-		$this -> db -> select('*,clients_accounts.id as id_account, SUM(customer_payments.amount) as amount, IFNULL(round(payment.payments,2),"00.00") as payment, IFNULL(round(discount.discounts,2),"00.00") as discount',false);
+		$this -> db -> select('clients_accounts.accounts,clients_accounts.id_service,clients_accounts.id as id_account, IFNULL(SUM(customer_payments.amount),"00.00") as amount, IFNULL(round(payment.payments,2),"00.00") as payment, IFNULL(round(discount.discounts,2),"00.00") as discount',false);
 		$this -> db -> from('clients');
 		$this -> db -> where('clients_accounts.id_clients', $id);
 		$this -> db -> group_by('clients_accounts.accounts');
@@ -287,29 +287,15 @@ class Clients_model extends CI_Model
 		if (0 < $client -> num_rows) {
 			foreach ($client -> result() as $info) {
 				$tmp = new Clients_model();
-				$tmp -> id = $info -> id;
 				$tmp -> id_client = $id;
 				$tmp -> id_account = $info->id_account;
-				$tmp -> bindings_name = $info -> bindings_name;
 				$tmp -> accounts = $info -> accounts;
-				$tmp -> dateFrom = $info -> dateFrom;
-				$tmp -> DateTo = $info -> DateTo;
-				$tmp -> client_name = $info -> client_name;
-				$tmp -> client_address = $info -> client_address;
-				$tmp -> post_client_address = $info -> 	post_client_address;
-				$tmp -> inn = $info -> inn;
-				$tmp -> kpp = $info -> kpp;
-				$tmp -> account = $info -> account;
-				$tmp -> account_date = $info -> account_date;
-				$tmp -> client_manager = $info -> client_manager;
-				$tmp -> phone_number = $info -> phone_number;
-				$tmp -> client_email = $info -> client_email;
 				$tmp -> id_service = $info -> id_service;
 				$tmp -> amount = $info -> amount;
 				$tmp -> payment = $info -> payment;
 				$tmp -> discount = $info -> discount;
 
-				$client_payment[$tmp -> id] = $tmp;
+				$client_payment[$tmp -> id_account] = $tmp;
 			}
 		}
 			return $client_payment;

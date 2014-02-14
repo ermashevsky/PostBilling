@@ -27,7 +27,7 @@ function addAccrual(id_assortment_customer, id_account, id_clients,tariffs,price
 					startDateAccrual = $('#addAccrual #startDate').val();
 					endDateAccrual = $('#addAccrual #endDate').val();
 					amountAccrual = $('#addAccrual #amountAccrual').val();
-					
+					console.info(amountAccrual);
 					$.post('<?php echo site_url('/money/checkAccrual'); ?>', {'id_assortment_customer': id_assortment_customer,
 						'id_account': id_account, 'id_clients': id_clients, 'startDateAccrual': startDateAccrual, 'endDateAccrual': endDateAccrual,
 						'amountAccrual': amountAccrual},
@@ -1406,7 +1406,7 @@ $('button#add_account_button2.add_account_button').click(function(){
 						<div class="fbbluebox">
 							<table border="1" cellspacing="0" cellpadding="0" id="clientPayments" class="tablesorter">
 <?php
- $n=1;
+$k = 1;
 $getPayment = new Clients_model();
 $payment = $getPayment->getPaymentByAccounts($client_info->id_client);
 
@@ -1420,7 +1420,7 @@ echo '<tr>
 	  </tr>';
     foreach($payment as $clients_account) {
 		echo '<tr>';
-		echo '<td>'.$n++.'</td>';
+		echo '<td>'.$k++.'</td>';
 		echo '<td>'.anchor("", $clients_account->accounts, array('id' => 'add_menu','onclick'=>"getCustomerGroup('$clients_account->id_account','$clients_account->id_service','$clients_account->id_client'); return false;")).'</td>';
 		echo '<td>'.$clients_account->amount.'</td>';
 		echo '<td>'.$clients_account->payment.'</td>';
