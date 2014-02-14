@@ -659,6 +659,14 @@ class Clients extends CI_Controller
 		$data = $this -> clients_model -> getCustomerPayments($id);
 		echo json_encode($data);
 	}
+	
+	function getPayGroupByMonth(){
+		$id_client = (int) trim($this -> input -> post('id_client'));
+		$id_account = (int) trim($this -> input -> post('id_account'));
+		$this -> load -> model('clients_model');
+		$data = $this -> clients_model -> getPaymentsGroupByMonth($id_client, $id_account);
+		echo json_encode($data);
+	}
 
 	/**
 	 * Метод возвращает список услуг клиента

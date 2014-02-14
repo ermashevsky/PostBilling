@@ -1,4 +1,32 @@
 <script type="text/javascript">
+function getPayGroupByMonth(id_account,id_client, account){
+	$('#allPay').empty();
+	$.post('<?php echo site_url('/clients/getPayGroupByMonth'); ?>', {'id_account': id_account, 'id_client': id_client},
+		function(data) {
+			n=1;
+			console.info(data);
+			$('#allPay').append('<table border="1" id="tablesorter"><tr><th>№</th><th>Период</th><th>Сумма</th></tr></table>');
+			$.each(data, function(i, val) {
+
+			   $('#tablesorter').append('<tr><td>'+n+++'</td><td>'+data[i].period+'</td><td>'+data[i].amount+'</td></tr>');
+		   });
+		   $('#allPay').dialog({
+		   title: "Ежемесячные начисления по ЛС - "+account,  //тайтл, заголовок окна
+                position: 'center',  //месторасположение окна [отступ слева,отступ сверху]
+                modal: true,           //булева переменная если она равно true -  то окно модальное, false -  то нет
+                draggable:false,
+                resizable: false,
+				width:'400px',
+				buttons: {
+                "Закрыть": function() {
+					$('#allPay').dialog("close");
+					location.reload();
+				}}
+
+	   });
+		},'json');
+}
+
 
 function addAccrual(id_assortment_customer, id_account, id_clients,tariffs,price) {
 		$('#addAccrual').empty();
@@ -1419,10 +1447,15 @@ echo '<tr>
 		<th>Действия</th>
 	  </tr>';
     foreach($payment as $clients_account) {
+		
 		echo '<tr>';
 		echo '<td>'.$k++.'</td>';
 		echo '<td>'.anchor("", $clients_account->accounts, array('id' => 'add_menu','onclick'=>"getCustomerGroup('$clients_account->id_account','$clients_account->id_service','$clients_account->id_client'); return false;")).'</td>';
-		echo '<td>'.$clients_account->amount.'</td>';
+		if($clients_account->amount!=0){
+			echo '<td>'.anchor("#", $clients_account->amount, array('id' => '','onclick'=>"getPayGroupByMonth('$clients_account->id_account','$clients_account->id_client','$clients_account->accounts'); return false;")).'</td>';
+		}else{
+			echo '<td>'.$clients_account->amount.'</td>';	
+		}
 		echo '<td>'.$clients_account->payment.'</td>';
 		echo '<td>'.$clients_account->discount.'</td>';
 		if($clients_account->payment!=0){
