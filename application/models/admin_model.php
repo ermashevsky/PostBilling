@@ -28,7 +28,7 @@ error_reporting(E_ALL);
  */
 class Admin_model extends CI_Model
 {
-
+	var $payment_name;
 	/**
 	 * Унифицированный метод-конструктор __construct()
 	 *
@@ -158,7 +158,7 @@ class Admin_model extends CI_Model
 						$tmp -> end_date = $row -> end_date;
 						$tmp -> period = $row -> period;
 						$searchResult[$tmp -> id] = $tmp;
-					};
+					}
 
 					echo json_encode($searchResult);
 				} else {
@@ -166,7 +166,7 @@ class Admin_model extends CI_Model
 				}
 
 				break;
-		};
+		}
 	}
 
 	function updateEndDateForCustomerAssortments($id, $modify_end_date)
@@ -227,7 +227,7 @@ class Admin_model extends CI_Model
 			$start_date_period = $createDate -> format('Y-m-01');
 			$end_date_period = $createDate -> format('Y-m-t');
 
-			$this -> db -> select('customer_payments.id, clients_accounts.bindings_name, accounts , SUM( amount ) AS summ, payment_name, amount as price,COUNT( payment_name ) AS counter');
+			$this -> db -> select('customer_payments.id, clients_accounts.bindings_name, accounts , SUM( amount ) AS summ, payment_name, amount as price,COUNT( payment_name ) AS counter, id_service');
 			$this -> db -> from('customer_payments');
 			$this -> db -> join('clients_accounts', 'clients_accounts.id =  customer_payments.id_account', 'inner');
 			$this -> db -> join('customer_service', 'customer_service.id =  customer_payments.id_assortment_customer', 'inner');
@@ -244,7 +244,7 @@ class Admin_model extends CI_Model
 			$createDate = DateTime::createFromFormat('m', $month);
 			$start_date_period = $createDate -> format('Y-m-01');
 			$end_date_period = $createDate -> format('Y-m-t');
-			$this -> db -> select('customer_payments.id, clients_accounts.bindings_name, accounts, SUM( customer_payments.amount ) AS price, IFNULL(round(SUM(REPLACE( customer_discounts.amount, ",","." )),2),"00.00") as discount', FALSE);
+			$this -> db -> select('customer_payments.id, clients_accounts.bindings_name, accounts, SUM( customer_payments.amount ) AS price, IFNULL(round(SUM(REPLACE( customer_discounts.amount, ",","." )),2),"00.00") as discount, id_service', FALSE);
 			$this -> db -> from('customer_payments');
 			$this -> db -> join('clients_accounts', 'clients_accounts.id =  customer_payments.id_account', 'left');
 			$this -> db -> join('customer_discounts', 'customer_discounts.id_account =  customer_payments.id_account', 'left');
@@ -283,6 +283,22 @@ class Admin_model extends CI_Model
 				$tmp -> summ = $row -> summ;
 				$reportArray[$tmp -> id] = $tmp;
 				}
+				if(!empty($row->payment_name) && $row->payment_name == 'Предоставление местного телефонного соединения с использованием повременной оплаты местных телефонных соединений за 1 минуту') {
+					$tmp = new Admin_model();
+					$tmp -> id = $row -> id;
+					$tmp -> accounts = $row -> accounts;
+					$tmp -> payment_name = $row -> payment_name;
+					$tmp -> bindings_name = $row -> bindings_name;
+					$tmp -> summ = $row -> summ;
+					if($row->id_service == 3){
+						$tmp -> counter = $row->summ/0.60;
+						$tmp -> price = 0.60;
+					}else{
+						$tmp -> counter = $row->summ/0.51;
+						$tmp -> price = 0.51;
+					}
+					$reportArray[$tmp -> id] = $tmp;
+				}
 			}
 			
 		}
@@ -312,6 +328,22 @@ class Admin_model extends CI_Model
 				$tmp -> price = $row -> price;
 				$tmp -> summ = $row -> summ;
 				$reportArray[$tmp -> id] = $tmp;
+				}
+				if(!empty($row->payment_name) && $row->payment_name == 'Предоставление местного телефонного соединения с использованием повременной оплаты местных телефонных соединений за 1 минуту' && $row->id_service!=8) {
+					$tmp = new Admin_model();
+					$tmp -> id = $row -> id;
+					$tmp -> accounts = $row -> accounts;
+					$tmp -> payment_name = $row -> payment_name;
+					//$tmp -> bindings_name = $row -> bindings_name;
+					$tmp -> summ = $row -> summ;
+					if($row->id_service == 3){
+						$tmp -> counter = $row->summ/0.60;
+						$tmp -> price = 0.60;
+					}else{
+						$tmp -> counter = $row->summ/0.51;
+						$tmp -> price = 0.51;
+					}
+					$reportArray[$tmp -> id] = $tmp;
 				}
 			}
 		}
