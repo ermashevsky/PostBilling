@@ -225,7 +225,7 @@ class Clients_model extends CI_Model
         $this->db->select("id, inn, client_name");
         //$whereCondition = array('client_name' =>$search);
         $this->db->like('inn',$search);
-		$this->db->not_like('inn',0000000000);
+		//$this->db->not_like('inn',0000000000);
         $this->db->from('clients');
         $query = $this->db->get();
         return $query->result();
@@ -562,7 +562,7 @@ class Clients_model extends CI_Model
 	function add_client($data)
 	{
 
-		echo $sql = "INSERT INTO clients (client_name, client_address, post_client_address, account,account_date, inn, kpp, client_manager, phone_number, client_email) VALUES ('" . $data['client_name'] . "','" . $data['client_address'] . "','" . $data['post_client_address'] . "','" . $data['account'] . "','" . date("Y-m-d", strtotime($data['date_account'])) . "','" . $data['inn'] . "','" . $data['kpp'] . "','" . $data['client_manager'] . "','" . $data['phone_number'] . "','" . $data['client_email'] . "')";
+		$sql = "INSERT INTO clients (client_name, client_address, post_client_address, account,account_date, inn, kpp, client_manager, phone_number, client_email) VALUES ('" . $data['client_name'] . "','" . $data['client_address'] . "','" . $data['post_client_address'] . "','" . $data['account'] . "','" . date("Y-m-d", strtotime($data['date_account'])) . "','" . $data['inn'] . "','" . $data['kpp'] . "','" . $data['client_manager'] . "','" . $data['phone_number'] . "','" . $data['client_email'] . "')";
 		$this -> db -> query($sql);
 		$last_id = $this -> db -> insert_id();
 		$account_num = $data['account'];

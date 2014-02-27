@@ -122,16 +122,16 @@ $('#submit_button').prop('disabled', true);
 
 		<?php echo form_open("clients/add_client", 'name=form, id=form'); ?>
         <p>Наименование клиента:<br />
-	    <?php echo form_input($client_name); ?>
+	    <?php echo form_input($client_name,'','id="client_name"'); ?>
         </p>
         <p>Адрес клиента:<br />
-	    <?php echo form_input($client_address); ?>
+	    <?php echo form_input($client_address,'','id="client_address"'); ?>
         </p>
 		<p>Почтовый адрес клиента:<br />
-	    <?php echo form_input($post_client_address); ?>
+	    <?php echo form_input($post_client_address,'','id="post_client_address"'); ?>
         </p>
         <p>Номер договора:<br />
-	    <?php echo form_input($account); ?>
+	    <?php echo form_input($account,'','id="account"'); ?>
         </p>
         <p>Дата договора:<br />
 	    <?php echo form_input('date_account', '', 'id="date_account"'); ?>
@@ -140,18 +140,18 @@ $('#submit_button').prop('disabled', true);
 	    <?php echo form_input($inn,'','id="inn"'); ?>
         </p>
 		<p>КПП:<br />
-	    <?php echo form_input($kpp); ?>
+	    <?php echo form_input($kpp,'', 'id="kpp"'); ?>
         </p>
         <p>Контакное лицо:<br />
-	    <?php echo form_input($client_manager); ?>
+	    <?php echo form_input($client_manager,'', 'id="client_manager"'); ?>
         </p>
 
         <p>Телефон:<br />
-	    <?php echo form_input($phone_number); ?>
+	    <?php echo form_input($phone_number,'', 'id="phone_number"'); ?>
         </p>
 
         <p>Email:<br />
-	    <?php echo form_input($client_email); ?>
+	    <?php echo form_input($client_email,'', 'id="client_email"'); ?>
         </p>
         <p>Тип услуги:<br />
 	<table style="width: 100px;">

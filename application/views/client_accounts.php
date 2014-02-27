@@ -33,7 +33,7 @@ function addAccrual(id_assortment_customer, id_account, id_clients,tariffs,price
 		$('#addAccrual').append('<p>Дата начала:<br /><input type="text" name="startDate" id="startDate" /></p>');
 		$('#addAccrual').append('<p>Дата окончания:<br /><input type="text" name="endDate" id="endDate" /></p>');
 		if(tariffs && price){
-			$('#addAccrual').append('<p>Сумма начисления:<br /><input type="text" name="amountAccrual" id="amountAccrual" value="'+price+'" readonly/></p>');
+			$('#addAccrual').append('<p>Сумма начисления:<br /><input type="text" name="amountAccrual" id="amountAccrual" value="'+price+'"/></p>');
 		}else{
 			$('#addAccrual').append('<p>Сумма начисления:<br /><input type="text" name="amountAccrual" id="amountAccrual" /></p>');
 		}
