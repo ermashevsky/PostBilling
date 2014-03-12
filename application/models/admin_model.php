@@ -236,6 +236,7 @@ class Admin_model extends CI_Model
 			$this -> db -> where('clients_accounts.id_service !=', 8);
 			$this -> db -> where_in('clients_accounts.id_service', $id_service);
 			$this -> db -> group_by('customer_payments.id_account');
+			$this -> db -> group_by('customer_payments.amount');
 			$this -> db -> group_by('clients_accounts.bindings_name');
 			$this -> db -> group_by('customer_service.payment_name');
 			
@@ -252,6 +253,7 @@ class Admin_model extends CI_Model
 			$this -> db -> where('customer_payments.period_start between "'.date($start_date_period).'" and "'.date($end_date_period).'"');
 			$this -> db -> where('customer_payments.period_end between "'.date($start_date_period).'" and "'.date($end_date_period).'"');
 			$this -> db -> group_by('customer_payments.id_account');
+			$this -> db -> group_by('customer_payments.amount');
 			$this -> db -> group_by('clients_accounts.bindings_name');
 			
 			$report_rows = $this -> db -> get();
