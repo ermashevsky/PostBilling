@@ -56,7 +56,6 @@
 								<option value="12">Декабрь</option>
 							</select>
 						</fieldset>
-
 				<div class="clear"></div>
 				<div id="report1C" style="display:none;">
 				
