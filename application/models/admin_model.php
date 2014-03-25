@@ -352,7 +352,132 @@ class Admin_model extends CI_Model
 		}
 		return $reportArray;
 	}
+	
+	function buildMergeReport($month1, $month2, $id_service)
+	{
+		$reportArray = array();
+		if(!in_array (8, $id_service)) {
+			$createDate1 = DateTime::createFromFormat('m', $month1);
+			$start_date_period1 = $createDate1 -> format('Y-m-01');
+			$end_date_period1 = $createDate1 -> format('Y-m-t');
+			
+			$createDate2 = DateTime::createFromFormat('m', $month2);
+			$start_date_period2 = $createDate2 -> format('Y-m-01');
+			$end_date_period2 = $createDate2 -> format('Y-m-t');
 
+			$this -> db -> select('customer_payments.id, clients_accounts.bindings_name, accounts , SUM( amount ) AS summ1, payment_name, amount as price1,COUNT( payment_name ) AS counter1, account2, payment_name2, price2, counter2, summ2, id_service');
+			$this -> db -> from('customer_payments');
+			$this -> db -> join('clients_accounts', 'clients_accounts.id =  customer_payments.id_account', 'inner');
+			$this -> db -> join('customer_service', 'customer_service.id =  customer_payments.id_assortment_customer', 'inner');
+			$this -> db -> join("(SELECT `customer_payments`.`id`, `clients_accounts`.`bindings_name`, `accounts` as `account2`, SUM( amount ) AS summ2, `payment_name` as `payment_name2`,
+				`amount` as price2, COUNT( payment_name ) AS counter2, `id_service` as `id_services`
+				FROM (`customer_payments`)
+				LEFT JOIN `clients_accounts` ON `clients_accounts`.`id` =  `customer_payments`.`id_account`
+				LEFT JOIN `customer_service` ON `customer_service`.`id` =  `customer_payments`.`id_assortment_customer`
+				WHERE `customer_payments`.`period_start` between '".$start_date_period2."' and '".$end_date_period2."'
+				AND `customer_payments`.`period_end` between '".$start_date_period2."' and '".$end_date_period2."'
+				AND `clients_accounts`.`id_service` != 8
+				AND `clients_accounts`.`id_service` IN ('".implode(",", $id_service)."') 
+				GROUP BY `customer_payments`.`id_account`, `customer_payments`.`amount`, `clients_accounts`.`bindings_name`,
+				`customer_service`.`payment_name`) as `A`", "A.account2 = accounts AND A.payment_name2 = payment_name","left");
+			$this -> db -> where('customer_payments.period_start between "'.date($start_date_period1).'" and "'.date($end_date_period1).'"');
+			$this -> db -> where('customer_payments.period_end between "'.date($start_date_period1).'" and "'.date($end_date_period1).'"');
+			$this -> db -> where('clients_accounts.id_service !=', 8);
+			$this -> db -> where_in('clients_accounts.id_service', $id_service);
+			$this -> db -> group_by('customer_payments.id_account');
+			$this -> db -> group_by('customer_payments.amount');
+			$this -> db -> group_by('clients_accounts.bindings_name');
+			$this -> db -> group_by('customer_service.payment_name');
+			$this -> db -> group_by('A.payment_name2');
+			
+			$report_rows = $this -> db -> get();
+		}else{
+			$createDate1 = DateTime::createFromFormat('m', $month1);
+			$start_date_period1 = $createDate1 -> format('Y-m-01');
+			$end_date_period1 = $createDate1 -> format('Y-m-t');
+			
+			$createDate2 = DateTime::createFromFormat('m', $month2);
+			$start_date_period2 = $createDate2 -> format('Y-m-01');
+			$end_date_period2 = $createDate2 -> format('Y-m-t');
+			
+			$this -> db -> select('customer_payments.id, clients_accounts.bindings_name, accounts , SUM( amount ) AS summ1, payment_name, amount as price1,COUNT( payment_name ) AS counter1, account2, payment_name2, price2, counter2, summ2, id_service', FALSE);
+			$this -> db -> from('customer_payments');
+			$this -> db -> join('clients_accounts', 'clients_accounts.id =  customer_payments.id_account', 'left');
+			$this -> db -> join('customer_discounts', 'customer_discounts.id_account =  customer_payments.id_account', 'left');
+			$this -> db -> join("(SELECT `customer_payments`.`id`, `clients_accounts`.`bindings_name`, `accounts` as `account2`, SUM( amount ) AS summ2, `payment_name` as `payment_name2`,
+				`amount` as price2, COUNT( payment_name ) AS counter2, `id_service` as `id_services`
+				FROM (`customer_payments`)
+				INNER JOIN `clients_accounts` ON `clients_accounts`.`id` =  `customer_payments`.`id_account`
+				INNER JOIN `customer_service` ON `customer_service`.`id` =  `customer_payments`.`id_assortment_customer`
+				WHERE `customer_payments`.`period_start` between ".$start_date_period2." and ".$end_date_period2."
+				AND `customer_payments`.`period_end` between ".$start_date_period2." and ".$end_date_period2."
+				AND `clients_accounts`.`id_service` != 8
+				AND `clients_accounts`.`id_service` IN ('".implode(",", $id_service)."') 
+				GROUP BY `customer_payments`.`id_account`, `customer_payments`.`amount`, `clients_accounts`.`bindings_name`,
+				`customer_service`.`payment_name`) as `A`", "A.account2 = accounts", "LEFT");
+			$this -> db -> where_in('clients_accounts.id_service', $id_service);
+			$this -> db -> where('customer_payments.period_start between "'.date($start_date_period1).'" and "'.date($end_date_period1).'"');
+			$this -> db -> where('customer_payments.period_end between "'.date($start_date_period1).'" and "'.date($end_date_period1).'"');
+			$this -> db -> group_by('customer_payments.id_account');
+			$this -> db -> group_by('customer_payments.amount');
+			$this -> db -> group_by('clients_accounts.bindings_name');
+			
+			$report_rows = $this -> db -> get();
+		}
+		
+		if (0 < $report_rows -> num_rows) {
+			
+			foreach ($report_rows -> result() as $row) {
+				
+				if(empty($row->payment_name)){
+				$tmp = new Admin_model();
+				$tmp -> id = $row -> id;
+				$tmp -> accounts = $row -> accounts;
+				$tmp -> bindings_name = $row -> bindings_name;
+				$tmp -> payment_name = 'Услуги связи';
+				$tmp -> counter1 = 1;
+				$tmp -> price1 = $row -> price1 - $row->discount;
+				$tmp -> summ1 = $row -> price1 - $row->discount;
+				$reportArray[$tmp -> id] = $tmp;
+				}else{
+				$tmp = new Admin_model();
+				$tmp -> id = $row -> id;
+				$tmp -> accounts = $row -> accounts;
+				$tmp -> account2 = $row -> account2;
+				$tmp -> payment_name = $row -> payment_name;
+				$tmp -> payment_name2 = $row -> payment_name2;
+				$tmp -> bindings_name = $row -> bindings_name;
+				$tmp -> counter1 = $row -> counter1;
+				$tmp -> counter2 = $row -> counter2;
+				$tmp -> price1 = $row -> price1;
+				$tmp -> price2 = $row -> price2;
+				$tmp -> summ1 = $row -> summ1;
+				$tmp -> summ2 = $row -> summ2;
+				$reportArray[$tmp -> id] = $tmp;
+				}
+				if(!empty($row->payment_name) && $row->payment_name == 'Предоставление местного телефонного соединения с использованием повременной оплаты местных телефонных соединений за 1 минуту') {
+					$tmp = new Admin_model();
+					$tmp -> id = $row -> id;
+					$tmp -> accounts = $row -> accounts;
+					$tmp -> payment_name = $row -> payment_name;
+					$tmp -> bindings_name = $row -> bindings_name;
+					$tmp -> summ1 = $row -> summ1;
+					if($row->id_service == 3){
+						$tmp -> counter1 = $row->summ1/0.60;
+						$tmp -> price1 = 0.60;
+					}else{
+						$tmp -> counter1 = $row->summ1/0.51;
+						$tmp -> price1 = 0.51;
+					}
+					$reportArray[$tmp -> id] = $tmp;
+				}
+			}
+			
+		}
+		return $reportArray;
+	}
+	
+	
 	function getData()
 	{
 		echo $this -> db -> count_all_results('compare_balance');

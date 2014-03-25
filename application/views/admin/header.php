@@ -41,6 +41,12 @@
 				font-size:13px;
 				padding:12px;
 			}
+			
+			#reportDataTable {
+			   float: right;
+			   position: relative;
+			   width: 300px;
+			}
 		</style>
 		<!--[if lt IE 9]>
 		<link rel="stylesheet" href="/assets/admin/css/ie.css" type="text/css" media="screen" />
@@ -73,6 +79,17 @@
 					width:'200',
 					selectedText: "# выбрано"
 				});
+				
+				$("#month1").multiselect({
+					multiple:false,
+					selectedText: "# выбрано"
+				});
+				
+				$("#month2").multiselect({
+					multiple:false,
+					selectedText: "# выбрано"
+				});
+				$('.ui-multiselect').css('width', '150px');
 				$('#flex1').dataTable({
 					"bJQueryUI": false,
 					"sPaginationType": "full_numbers",
@@ -335,6 +352,62 @@
 							"sUrl": "/assets/admin/js/russian-language-DataTables.txt"
 						},
 						"bAutoWidth": true,
+						"bDestroy": true,
+						"sScrollY": "320px",
+						"sDom": 'T<"clear">lfrtip',
+						"oTableTools": {
+							"aButtons": [
+								{
+									"sExtends": "csv",
+									"sButtonText": "Сохранить в CSV"
+								}
+							],
+							"sSwfPath": "/assets/admin/swf/copy_csv_xls_pdf.swf"
+						}
+					});
+					$('#report1C').show();
+				},'json');
+
+			}
+			
+			function buildMergeReport(){
+				$('#report1C').empty();
+				//id_service = $('#services').val();
+				var array_of_checked_values = $("#services").multiselect("getChecked").map(function(){
+					return this.value;    
+				}).get();
+				console.info(array_of_checked_values);
+				month1 = $('#month1').val();
+				month2 = $('#month2').val();
+				month1_text = $('#month1 option:selected').text();
+				month2_text = $('#month2 option:selected').text();
+				checkbox_flag = $('#chbox').is(':checked');
+				$.post('<?php echo site_url('/admin/buildMergeReport'); ?>',{month1: month1, month2: month2, id_service: array_of_checked_values},
+				function(data){
+					console.info(month1_text);
+				$('#report1C').append("<div style='text-align:center;'><h2>Сравнительный отчет за "+month1_text+" (1) и "+month2_text+" (2) 2014 года.</h2></div>");	
+				$('#report1C').append('<table  id="reportDataTable" class="table_wrapper_inner"><caption id="caption_text"></caption><thead><th>Клиент</th><th>ЛC (1)</th><th>Номенклатура (1)</th><th>Кол-во (1)</th><th>Цена (1)</th><th>Сумма (1)</th><th>Номенклатура (2)</th><th>Кол-во (2)</th><th>Цена (2)</th><th>Сумма (2)</th></thead><tbody></tbody></table>');
+					$.each(data, function(i, val) {
+						if (data[i].price1 !== data[i].price2 || data[i].summ1 !== data[i].summ2){
+						$('#reportDataTable').append('<tr style="color:red;"><td>'+data[i].bindings_name+'</td><td>'+data[i].accounts+'</td><td>'+data[i].payment_name+'</td><td>'+data[i].counter1+'</td><td>'+data[i].price1+'</td><td>'+data[i].summ1+'</td><td>'+data[i].payment_name2+'</td><td>'+data[i].counter2+'</td><td>'+data[i].price2+'</td><td>'+data[i].summ2+'</td></tr>');
+					}else{
+						if(checkbox_flag!==true){
+							$('#reportDataTable').append('<tr style="color:green;"><td>'+data[i].bindings_name+'</td><td>'+data[i].accounts+'</td><td>'+data[i].payment_name+'</td><td>'+data[i].counter1+'</td><td>'+data[i].price1+'</td><td>'+data[i].summ1+'</td><td>'+data[i].payment_name2+'</td><td>'+data[i].counter2+'</td><td>'+data[i].price2+'</td><td>'+data[i].summ2+'</td></tr>');
+						}
+					}
+						
+						alert(data[i].account2);
+					});
+					
+					oTable = $('#reportDataTable').dataTable({
+						"aaSorting": [[0, 'asc']],
+						"bJQueryUI": false,
+						"bProcessing":true,
+						"sPaginationType": "full_numbers",
+						"oLanguage": {
+							"sUrl": "/assets/admin/js/russian-language-DataTables.txt"
+						},
+						"bAutoWidth": false,
 						"bDestroy": true,
 						"sScrollY": "320px",
 						"sDom": 'T<"clear">lfrtip',
