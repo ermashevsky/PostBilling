@@ -270,6 +270,20 @@ class Clients_model extends CI_Model
 		$query = $this->db->get();
         return $query->result();
     }
+	
+	function getByDate($search){
+		
+		$date = new DateTime($search);
+		
+        $this->db->select("clients_accounts.id, clients_accounts.id_clients, clients_accounts.bindings_name, clients_accounts.accounts");
+        $this->db->like('customer_service.datepicker1',$date->format('Y-m-d'));
+        $this->db->from('clients_accounts');
+		$this->db->group_by('clients_accounts.bindings_name');
+		$this->db->join('customer_service', 'customer_service.id_account =  clients_accounts.id','inner');
+		//$this->db->join('free_phone_pool', 'free_phone_pool.id =  customer_service.resources','inner');
+		$query = $this->db->get();
+        return $query->result();
+    }
 
 	function getPaymentByAccounts($id)
 	{

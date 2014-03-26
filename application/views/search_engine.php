@@ -47,6 +47,21 @@
 				timepicker: false
 			});
 		}
+		
+		if (option_text === 'date') {
+			$("#LabelID").empty();
+			$("#LabelID").append("Введите дату начала действия номенклатур:");
+			$("#FormItem").empty();
+			$("#FormItem").append('Дата: <input type="text" name="date_timepicker_start" id="date_timepicker_start">');
+			$('#date_timepicker_start').datetimepicker({
+				format: 'd.m.Y',
+				lang:'ru',
+				onShow: function(ct) {
+					
+				},
+				timepicker: false
+			});
+		}
 	}
 
 	function search_bar() {
@@ -60,6 +75,10 @@
 		
 		if(select === 'phone_number'){
 			var url = '/clients/searchByPhone';
+		}
+		
+		if(select === 'date'){
+			var url = '/clients/searchByDate';
 		}
 		
 		if (kw != "") {

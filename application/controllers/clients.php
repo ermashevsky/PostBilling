@@ -229,6 +229,20 @@ class Clients extends CI_Controller
         echo json_encode ($query);
         //$this->load->view('add_clients', $query);
     }
+	
+	/**
+	 * Метод поиска лицевого счета при копировании
+	 * со счета на счет.
+	 * @author Денис Ермашевский <egrad77@mail.ru>
+	 * @return array Retun Array
+	 */
+	public function searchByDate(){
+        $search=  $this->input->post('search');
+		$this -> load -> model('clients_model');
+        $query = $this -> clients_model -> getByDate($search);
+        echo json_encode ($query);
+        //$this->load->view('add_clients', $query);
+    }
 
 
 	/**
