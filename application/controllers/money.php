@@ -78,13 +78,20 @@ class Money extends CI_Controller
 		$datePeriodStart = trim($this -> input -> post('dateStart'));
 		$datePeriodEnd = trim($this -> input -> post('dateEnd'));
 
-		$dateStart = DateTime::createFromFormat('m/y', $datePeriodStart);
-		$dateEnd = DateTime::createFromFormat('m/y', $datePeriodEnd);
-
+//		$dateStart = DateTime::createFromFormat('m/y', $datePeriodStart);
+//		$dateEnd = DateTime::createFromFormat('m/y', $datePeriodEnd);
+		
+		$dateStart = date_create_from_format('m/y', $datePeriodStart);
+		$dateEnd = date_create_from_format('m/y', $datePeriodEnd);
+		
 		/* Привожу диапазон дат к первому числу месяца */
-		$periodStart = $dateStart -> format('Y-m-01');
-		$periodEnd = $dateEnd -> format('Y-m-01');
+//		$periodStart = $dateStart -> format('Y-m-01');
+//		$periodEnd = $dateEnd -> format('Y-m-01');
+		
+		$periodStart = date_format($dateStart, 'Y-m-01');
+		$periodEnd = date_format($dateEnd, 'Y-m-01');
 
+		
 		/* Получаю все начисляемые номенклатуры в указаном диапазоне дат */
 		$data = $this -> money_model -> getPeriodData($periodStart, $periodEnd);
 		$datacheck = array();

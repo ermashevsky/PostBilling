@@ -44,12 +44,12 @@ class Welcome extends CI_Controller
 //		$objReader->setDelimiter(';');
 		//$objReader->setEnclosure('');
 		$objPHPExcel = $objReader -> load($inputFileName);
-		$objPHPExcel -> getActiveSheet(0)->insertNewRowBefore(1);
-		$objPHPExcel -> setActiveSheetIndex(0)
-				->setCellValue('A1', 'date')
-				->setCellValue('B1', 'time')
-				->setCellValue('C1', 'amount')
-				->setCellValue('D1', 'account');
+//		$objPHPExcel -> getActiveSheet(0)->insertNewRowBefore(1);
+//		$objPHPExcel -> setActiveSheetIndex(0)
+//				->setCellValue('A1', 'date')
+//				->setCellValue('B1', 'time')
+//				->setCellValue('C1', 'amount')
+//				->setCellValue('D1', 'account');
 
 
 

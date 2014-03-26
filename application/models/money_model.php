@@ -187,7 +187,7 @@ class Money_model extends CI_Model
 			$row = $res->row_array();
 			if (0 < $res -> num_rows) {
 			$timezone = new DateTimeZone('UTC');
-			$dateTime = DateTime::createFromFormat('d.m.y', $data['date'], $timezone);
+			$dateTime = DateTime::createFromFormat('d.m.yy', $data['date'], $timezone);
 			$dateTime -> format('Y-m-d');
 			$sql = "INSERT INTO customer_encashment (id_account, amount, date, time, id_client) VALUES ('" . $row['id'] . "','" . $data['amount'] . "','" . $dateTime->format('Y-m-d') . "','" . $data['time'] . "','" . $row['id_clients'] . "')";
 			$this -> db -> query($sql);
