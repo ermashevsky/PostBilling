@@ -227,9 +227,10 @@ class Admin_model extends CI_Model
 			$start_date_period = $createDate -> format('Y-m-01');
 			$end_date_period = $createDate -> format('Y-m-t');
 
-			$this -> db -> select('customer_payments.id, clients_accounts.bindings_name, accounts , SUM( amount ) AS summ, payment_name, amount as price,COUNT( payment_name ) AS counter, id_service');
+			$this -> db -> select('customer_payments.id, clients_accounts.bindings_name, inn, accounts , SUM( amount ) AS summ, payment_name, amount as price,COUNT( payment_name ) AS counter, id_service');
 			$this -> db -> from('customer_payments');
 			$this -> db -> join('clients_accounts', 'clients_accounts.id =  customer_payments.id_account', 'inner');
+			$this -> db -> join('clients', 'clients_accounts.id_clients =  clients.id', 'inner');
 			$this -> db -> join('customer_service', 'customer_service.id =  customer_payments.id_assortment_customer', 'inner');
 			$this -> db -> where('customer_payments.period_start between "'.date($start_date_period).'" and "'.date($end_date_period).'"');
 			$this -> db -> where('customer_payments.period_end between "'.date($start_date_period).'" and "'.date($end_date_period).'"');
@@ -245,9 +246,10 @@ class Admin_model extends CI_Model
 			$createDate = DateTime::createFromFormat('m', $month);
 			$start_date_period = $createDate -> format('Y-m-01');
 			$end_date_period = $createDate -> format('Y-m-t');
-			$this -> db -> select('customer_payments.id, clients_accounts.bindings_name, accounts, SUM( customer_payments.amount ) AS price, IFNULL(round(SUM(REPLACE( customer_discounts.amount, ",","." )),2),"00.00") as discount, id_service', FALSE);
+			$this -> db -> select('customer_payments.id, clients_accounts.bindings_name, inn, accounts, SUM( customer_payments.amount ) AS price, IFNULL(round(SUM(REPLACE( customer_discounts.amount, ",","." )),2),"00.00") as discount, id_service', FALSE);
 			$this -> db -> from('customer_payments');
 			$this -> db -> join('clients_accounts', 'clients_accounts.id =  customer_payments.id_account', 'left');
+			$this -> db -> join('clients', 'clients_accounts.id_clients =  clients.id', 'inner');
 			$this -> db -> join('customer_discounts', 'customer_discounts.id_account =  customer_payments.id_account', 'left');
 			$this -> db -> where_in('clients_accounts.id_service', $id_service);
 			$this -> db -> where('customer_payments.period_start between "'.date($start_date_period).'" and "'.date($end_date_period).'"');
@@ -269,6 +271,7 @@ class Admin_model extends CI_Model
 				$tmp -> id = $row -> id;
 				$tmp -> accounts = $row -> accounts;
 				$tmp -> bindings_name = $row -> bindings_name;
+				$tmp -> inn = $row -> inn;
 				$tmp -> payment_name = 'Услуги связи';
 				$tmp -> counter = 1;
 				$tmp -> price = $row -> price - $row->discount;
@@ -278,6 +281,7 @@ class Admin_model extends CI_Model
 				$tmp = new Admin_model();
 				$tmp -> id = $row -> id;
 				$tmp -> accounts = $row -> accounts;
+				$tmp -> inn = $row -> inn;
 				$tmp -> payment_name = $row -> payment_name;
 				$tmp -> bindings_name = $row -> bindings_name;
 				$tmp -> counter = $row -> counter;
@@ -290,6 +294,7 @@ class Admin_model extends CI_Model
 					$tmp -> id = $row -> id;
 					$tmp -> accounts = $row -> accounts;
 					$tmp -> payment_name = $row -> payment_name;
+					$tmp -> inn = $row -> inn;
 					$tmp -> bindings_name = $row -> bindings_name;
 					$tmp -> summ = $row -> summ;
 					if($row->id_service == 3){
@@ -314,6 +319,7 @@ class Admin_model extends CI_Model
 				$tmp = new Admin_model();
 				$tmp -> id = $row -> id;
 				$tmp -> accounts = $row -> accounts;
+				$tmp -> inn = $row -> inn;
 				//$tmp -> bindings_name = $row -> bindings_name;
 				$tmp -> payment_name = 'Услуги связи';
 				$tmp -> counter = 1;
@@ -324,6 +330,7 @@ class Admin_model extends CI_Model
 				$tmp = new Admin_model();
 				$tmp -> id = $row -> id;
 				$tmp -> accounts = $row -> accounts;
+				$tmp -> inn = $row -> inn;
 				$tmp -> payment_name = $row -> payment_name;
 				//$tmp -> bindings_name = $row -> bindings_name;
 				$tmp -> counter = $row -> counter;
@@ -335,6 +342,7 @@ class Admin_model extends CI_Model
 					$tmp = new Admin_model();
 					$tmp -> id = $row -> id;
 					$tmp -> accounts = $row -> accounts;
+					$tmp -> inn = $row -> inn;
 					$tmp -> payment_name = $row -> payment_name;
 					//$tmp -> bindings_name = $row -> bindings_name;
 					$tmp -> summ = $row -> summ;

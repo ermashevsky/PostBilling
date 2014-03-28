@@ -54,6 +54,14 @@
 					<label for="chbox">Показывать наименования клиентов</label>
 					<input id="chbox" type="checkbox" name="chbox" checked/>
 				</div>
+				<div class="submit_link" style="float:left; margin-left:10px;">
+					<label for="chbox_inn">Наличие ИНН у клиента</label>
+					<select id="flag_inn">
+						<option value="all">Все</option>
+						<option value="only_with_inn">Только с ИНН</option>
+						<option value="without_inn">Без ИНН</option>
+					</select>
+				</div>
 				<div class="submit_link">
 					<input type="submit" value="Сформировать" class="alt_btn" onclick="buildReport(); return false;">
 				</div>
