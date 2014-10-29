@@ -12233,3 +12233,120 @@ Stack trace:
 [31-Oct-2013 16:59:33] PHP   4. Money->readCSVFile() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
 [31-Oct-2013 16:59:33] PHP   5. Getcsv->get_array() /home/denic/web/ci.lcl/application/controllers/money.php:350
 [31-Oct-2013 16:59:33] PHP   6. fgetcsv() /home/denic/web/ci.lcl/system/libraries/Getcsv.php:41
+[06-Nov-2013 15:48:27] PHP Fatal error:  Class 'Money_model' not found in /home/denic/web/ci.lcl/application/views/admin/compare.php on line 65
+[06-Nov-2013 15:48:27] PHP Stack trace:
+[06-Nov-2013 15:48:27] PHP   1. {main}() /home/denic/web/ci.lcl/index.php:0
+[06-Nov-2013 15:48:27] PHP   2. require_once() /home/denic/web/ci.lcl/index.php:202
+[06-Nov-2013 15:48:27] PHP   3. call_user_func_array() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[06-Nov-2013 15:48:27] PHP   4. Admin->compare() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[06-Nov-2013 15:48:27] PHP   5. CI_Loader->view() /home/denic/web/ci.lcl/application/controllers/admin.php:588
+[06-Nov-2013 15:48:27] PHP   6. CI_Loader->_ci_load() /home/denic/web/ci.lcl/system/core/Loader.php:419
+[06-Nov-2013 15:48:27] PHP   7. include() /home/denic/web/ci.lcl/system/core/Loader.php:833
+[06-Nov-2013 15:49:02] PHP Fatal error:  Class 'Money' not found in /home/denic/web/ci.lcl/application/views/admin/compare.php on line 65
+[06-Nov-2013 15:49:02] PHP Stack trace:
+[06-Nov-2013 15:49:02] PHP   1. {main}() /home/denic/web/ci.lcl/index.php:0
+[06-Nov-2013 15:49:02] PHP   2. require_once() /home/denic/web/ci.lcl/index.php:202
+[06-Nov-2013 15:49:02] PHP   3. call_user_func_array() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[06-Nov-2013 15:49:02] PHP   4. Admin->compare() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[06-Nov-2013 15:49:02] PHP   5. CI_Loader->view() /home/denic/web/ci.lcl/application/controllers/admin.php:588
+[06-Nov-2013 15:49:02] PHP   6. CI_Loader->_ci_load() /home/denic/web/ci.lcl/system/core/Loader.php:419
+[06-Nov-2013 15:49:02] PHP   7. include() /home/denic/web/ci.lcl/system/core/Loader.php:833
+[06-Nov-2013 15:49:08] PHP Fatal error:  Class 'Money_model' not found in /home/denic/web/ci.lcl/application/views/admin/compare.php on line 65
+[06-Nov-2013 15:49:08] PHP Stack trace:
+[06-Nov-2013 15:49:08] PHP   1. {main}() /home/denic/web/ci.lcl/index.php:0
+[06-Nov-2013 15:49:08] PHP   2. require_once() /home/denic/web/ci.lcl/index.php:202
+[06-Nov-2013 15:49:08] PHP   3. call_user_func_array() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[06-Nov-2013 15:49:08] PHP   4. Admin->compare() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[06-Nov-2013 15:49:08] PHP   5. CI_Loader->view() /home/denic/web/ci.lcl/application/controllers/admin.php:588
+[06-Nov-2013 15:49:08] PHP   6. CI_Loader->_ci_load() /home/denic/web/ci.lcl/system/core/Loader.php:419
+[06-Nov-2013 15:49:08] PHP   7. include() /home/denic/web/ci.lcl/system/core/Loader.php:833
+[06-Nov-2013 15:51:17] PHP Fatal error:  Class 'Money_model' not found in /home/denic/web/ci.lcl/application/views/admin/compare.php on line 65
+[06-Nov-2013 15:51:17] PHP Stack trace:
+[06-Nov-2013 15:51:17] PHP   1. {main}() /home/denic/web/ci.lcl/index.php:0
+[06-Nov-2013 15:51:17] PHP   2. require_once() /home/denic/web/ci.lcl/index.php:202
+[06-Nov-2013 15:51:17] PHP   3. call_user_func_array() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[06-Nov-2013 15:51:17] PHP   4. Admin->compare() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[06-Nov-2013 15:51:17] PHP   5. CI_Loader->view() /home/denic/web/ci.lcl/application/controllers/admin.php:588
+[06-Nov-2013 15:51:17] PHP   6. CI_Loader->_ci_load() /home/denic/web/ci.lcl/system/core/Loader.php:419
+[06-Nov-2013 15:51:17] PHP   7. include() /home/denic/web/ci.lcl/system/core/Loader.php:833
+[06-Nov-2013 15:51:18] PHP Fatal error:  Class 'Money_model' not found in /home/denic/web/ci.lcl/application/views/admin/compare.php on line 65
+[06-Nov-2013 15:51:18] PHP Stack trace:
+[06-Nov-2013 15:51:18] PHP   1. {main}() /home/denic/web/ci.lcl/index.php:0
+[06-Nov-2013 15:51:18] PHP   2. require_once() /home/denic/web/ci.lcl/index.php:202
+[06-Nov-2013 15:51:18] PHP   3. call_user_func_array() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[06-Nov-2013 15:51:18] PHP   4. Admin->compare() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[06-Nov-2013 15:51:18] PHP   5. CI_Loader->view() /home/denic/web/ci.lcl/application/controllers/admin.php:588
+[06-Nov-2013 15:51:18] PHP   6. CI_Loader->_ci_load() /home/denic/web/ci.lcl/system/core/Loader.php:419
+[06-Nov-2013 15:51:18] PHP   7. include() /home/denic/web/ci.lcl/system/core/Loader.php:833
+[06-Nov-2013 15:51:23] PHP Fatal error:  Class 'Money_model' not found in /home/denic/web/ci.lcl/application/views/admin/compare.php on line 65
+[06-Nov-2013 15:51:23] PHP Stack trace:
+[06-Nov-2013 15:51:23] PHP   1. {main}() /home/denic/web/ci.lcl/index.php:0
+[06-Nov-2013 15:51:23] PHP   2. require_once() /home/denic/web/ci.lcl/index.php:202
+[06-Nov-2013 15:51:23] PHP   3. call_user_func_array() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[06-Nov-2013 15:51:23] PHP   4. Admin->compare() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[06-Nov-2013 15:51:23] PHP   5. CI_Loader->view() /home/denic/web/ci.lcl/application/controllers/admin.php:588
+[06-Nov-2013 15:51:23] PHP   6. CI_Loader->_ci_load() /home/denic/web/ci.lcl/system/core/Loader.php:419
+[06-Nov-2013 15:51:23] PHP   7. include() /home/denic/web/ci.lcl/system/core/Loader.php:833
+[06-Nov-2013 15:51:25] PHP Fatal error:  Class 'Money_model' not found in /home/denic/web/ci.lcl/application/views/admin/compare.php on line 65
+[06-Nov-2013 15:51:25] PHP Stack trace:
+[06-Nov-2013 15:51:25] PHP   1. {main}() /home/denic/web/ci.lcl/index.php:0
+[06-Nov-2013 15:51:25] PHP   2. require_once() /home/denic/web/ci.lcl/index.php:202
+[06-Nov-2013 15:51:25] PHP   3. call_user_func_array() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[06-Nov-2013 15:51:25] PHP   4. Admin->compare() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[06-Nov-2013 15:51:25] PHP   5. CI_Loader->view() /home/denic/web/ci.lcl/application/controllers/admin.php:588
+[06-Nov-2013 15:51:25] PHP   6. CI_Loader->_ci_load() /home/denic/web/ci.lcl/system/core/Loader.php:419
+[06-Nov-2013 15:51:25] PHP   7. include() /home/denic/web/ci.lcl/system/core/Loader.php:833
+[06-Nov-2013 15:51:30] PHP Fatal error:  Class 'Money_model' not found in /home/denic/web/ci.lcl/application/views/admin/compare.php on line 65
+[06-Nov-2013 15:51:30] PHP Stack trace:
+[06-Nov-2013 15:51:30] PHP   1. {main}() /home/denic/web/ci.lcl/index.php:0
+[06-Nov-2013 15:51:30] PHP   2. require_once() /home/denic/web/ci.lcl/index.php:202
+[06-Nov-2013 15:51:30] PHP   3. call_user_func_array() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[06-Nov-2013 15:51:30] PHP   4. Admin->compare() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[06-Nov-2013 15:51:30] PHP   5. CI_Loader->view() /home/denic/web/ci.lcl/application/controllers/admin.php:588
+[06-Nov-2013 15:51:30] PHP   6. CI_Loader->_ci_load() /home/denic/web/ci.lcl/system/core/Loader.php:419
+[06-Nov-2013 15:51:30] PHP   7. include() /home/denic/web/ci.lcl/system/core/Loader.php:833
+[06-Nov-2013 15:52:38] PHP Fatal error:  Class 'Admin_model' not found in /home/denic/web/ci.lcl/application/views/admin/compare.php on line 65
+[06-Nov-2013 15:52:38] PHP Stack trace:
+[06-Nov-2013 15:52:38] PHP   1. {main}() /home/denic/web/ci.lcl/index.php:0
+[06-Nov-2013 15:52:38] PHP   2. require_once() /home/denic/web/ci.lcl/index.php:202
+[06-Nov-2013 15:52:38] PHP   3. call_user_func_array() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[06-Nov-2013 15:52:38] PHP   4. Admin->compare() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[06-Nov-2013 15:52:38] PHP   5. CI_Loader->view() /home/denic/web/ci.lcl/application/controllers/admin.php:588
+[06-Nov-2013 15:52:38] PHP   6. CI_Loader->_ci_load() /home/denic/web/ci.lcl/system/core/Loader.php:419
+[06-Nov-2013 15:52:38] PHP   7. include() /home/denic/web/ci.lcl/system/core/Loader.php:833
+[06-Nov-2013 15:52:41] PHP Fatal error:  Class 'Admin_model' not found in /home/denic/web/ci.lcl/application/views/admin/compare.php on line 65
+[06-Nov-2013 15:52:41] PHP Stack trace:
+[06-Nov-2013 15:52:41] PHP   1. {main}() /home/denic/web/ci.lcl/index.php:0
+[06-Nov-2013 15:52:41] PHP   2. require_once() /home/denic/web/ci.lcl/index.php:202
+[06-Nov-2013 15:52:41] PHP   3. call_user_func_array() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[06-Nov-2013 15:52:41] PHP   4. Admin->compare() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[06-Nov-2013 15:52:41] PHP   5. CI_Loader->view() /home/denic/web/ci.lcl/application/controllers/admin.php:588
+[06-Nov-2013 15:52:41] PHP   6. CI_Loader->_ci_load() /home/denic/web/ci.lcl/system/core/Loader.php:419
+[06-Nov-2013 15:52:41] PHP   7. include() /home/denic/web/ci.lcl/system/core/Loader.php:833
+[06-Nov-2013 15:53:07] PHP Fatal error:  Class 'Admin_model' not found in /home/denic/web/ci.lcl/application/views/admin/compare.php on line 65
+[06-Nov-2013 15:53:07] PHP Stack trace:
+[06-Nov-2013 15:53:07] PHP   1. {main}() /home/denic/web/ci.lcl/index.php:0
+[06-Nov-2013 15:53:07] PHP   2. require_once() /home/denic/web/ci.lcl/index.php:202
+[06-Nov-2013 15:53:07] PHP   3. call_user_func_array() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[06-Nov-2013 15:53:07] PHP   4. Admin->compare() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[06-Nov-2013 15:53:07] PHP   5. CI_Loader->view() /home/denic/web/ci.lcl/application/controllers/admin.php:588
+[06-Nov-2013 15:53:07] PHP   6. CI_Loader->_ci_load() /home/denic/web/ci.lcl/system/core/Loader.php:419
+[06-Nov-2013 15:53:07] PHP   7. include() /home/denic/web/ci.lcl/system/core/Loader.php:833
+[06-Nov-2013 15:53:53] PHP Fatal error:  Class 'Admin_model' not found in /home/denic/web/ci.lcl/application/views/admin/compare.php on line 65
+[06-Nov-2013 15:53:53] PHP Stack trace:
+[06-Nov-2013 15:53:53] PHP   1. {main}() /home/denic/web/ci.lcl/index.php:0
+[06-Nov-2013 15:53:53] PHP   2. require_once() /home/denic/web/ci.lcl/index.php:202
+[06-Nov-2013 15:53:53] PHP   3. call_user_func_array() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[06-Nov-2013 15:53:53] PHP   4. Admin->compare() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[06-Nov-2013 15:53:53] PHP   5. CI_Loader->view() /home/denic/web/ci.lcl/application/controllers/admin.php:588
+[06-Nov-2013 15:53:53] PHP   6. CI_Loader->_ci_load() /home/denic/web/ci.lcl/system/core/Loader.php:419
+[06-Nov-2013 15:53:53] PHP   7. include() /home/denic/web/ci.lcl/system/core/Loader.php:833
+[06-Nov-2013 15:53:54] PHP Fatal error:  Class 'Admin_model' not found in /home/denic/web/ci.lcl/application/views/admin/compare.php on line 65
+[06-Nov-2013 15:53:54] PHP Stack trace:
+[06-Nov-2013 15:53:54] PHP   1. {main}() /home/denic/web/ci.lcl/index.php:0
+[06-Nov-2013 15:53:54] PHP   2. require_once() /home/denic/web/ci.lcl/index.php:202
+[06-Nov-2013 15:53:54] PHP   3. call_user_func_array() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[06-Nov-2013 15:53:54] PHP   4. Admin->compare() /home/denic/web/ci.lcl/system/core/CodeIgniter.php:359
+[06-Nov-2013 15:53:54] PHP   5. CI_Loader->view() /home/denic/web/ci.lcl/application/controllers/admin.php:588
+[06-Nov-2013 15:53:54] PHP   6. CI_Loader->_ci_load() /home/denic/web/ci.lcl/system/core/Loader.php:419
+[06-Nov-2013 15:53:54] PHP   7. include() /home/denic/web/ci.lcl/system/core/Loader.php:833

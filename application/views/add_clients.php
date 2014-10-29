@@ -139,6 +139,9 @@ $('#submit_button').prop('disabled', true);
         <p>ИНН:<br />
 	    <?php echo form_input($inn,'','id="inn"'); ?>
         </p>
+		<p>Физическое лицо:<br />
+	    <?php echo form_checkbox('checkbox_inn', 'accept', FALSE); ?>
+        </p>
 		<p>КПП:<br />
 	    <?php echo form_input($kpp,'', 'id="kpp"'); ?>
         </p>
