@@ -1379,7 +1379,9 @@ $('button#add_account_button2.add_account_button').click(function(){
                         </tr>
                         <tr>
                             <td><label style="font-weight: bold; vertical-align:middle;">Адрес клиента:</label><? echo $client_info->client_address; ?><input src="/assets/images/maps.png" id="button_map" type="image" style="border: 0px;vertical-align:middle" ></td>
-                            <td><label style="font-weight: bold;">Дата договора:</label><? echo date_format(new DateTime($client_info->account_date),'d.m.Y');?></td>
+                            <td><label style="font-weight: bold;">Дата договора:</label><?
+							date_default_timezone_set('Europe/Kaliningrad');
+							echo date_format(new DateTime($client_info->account_date),'d.m.Y');?></td>
                             <td><label style="font-weight: bold;">Менеджер:</label></td>
                         </tr>
 						<tr>
