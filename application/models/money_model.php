@@ -600,7 +600,7 @@ class Money_model extends CI_Model
 	}
 
 	function checkAccrualForThePeriod($id_assortment_customer, $id_account, $id_clients, $startDateAccrual, $endDateAccrual, $amountAccrual){
-		
+		date_default_timezone_set('Europe/Kaliningrad');
 		$dateStart = DateTime::createFromFormat('d.m.Y', $startDateAccrual);
 		$dateEnd = DateTime::createFromFormat('d.m.Y', $endDateAccrual);
 
