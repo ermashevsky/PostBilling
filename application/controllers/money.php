@@ -18,7 +18,7 @@ require_once APPPATH . "/third_party/PHPExcel.php";
 include (APPPATH . '/third_party/log4php/Logger.php');
 $config_log_file = APPPATH . 'config/config_log4php.xml';
 Logger::configure($config_log_file);
-
+date_default_timezone_set('Europe/Kaliningrad');
 /**
  * Класс Money содержит методы начислений за услуги
  *
