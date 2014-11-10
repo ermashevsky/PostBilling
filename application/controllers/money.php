@@ -18,7 +18,7 @@ require_once APPPATH . "/third_party/PHPExcel.php";
 include (APPPATH . '/third_party/log4php/Logger.php');
 $config_log_file = APPPATH . 'config/config_log4php.xml';
 Logger::configure($config_log_file);
-date_default_timezone_set('Europe/Kaliningrad');
+
 /**
  * Класс Money содержит методы начислений за услуги
  *
@@ -42,6 +42,7 @@ class Money extends CI_Controller
 	 */
 	function __construct()
 	{
+		date_default_timezone_set('Europe/Kaliningrad');
 		$this -> log = Logger::getLogger(__CLASS__);
 		parent::__construct();
 		$this -> load -> library('ion_auth');

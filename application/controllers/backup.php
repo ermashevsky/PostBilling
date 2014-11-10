@@ -36,7 +36,7 @@ class Backup extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-
+		date_default_timezone_set('Europe/Kaliningrad');
 		$this -> load -> library('session');
 		$this -> load -> helper('file');
 		$this -> load -> helper('date');

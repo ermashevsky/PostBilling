@@ -34,6 +34,7 @@ class Report extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
+		date_default_timezone_set('Europe/Kaliningrad');
 		$this -> load -> library('ion_auth');
 		$this -> load -> library('session');
 		$this -> load -> library('form_validation');

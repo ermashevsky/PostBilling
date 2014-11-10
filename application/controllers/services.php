@@ -37,6 +37,7 @@ class Services extends CI_Controller
 	 */
 	function __construct()
 	{
+		date_default_timezone_set('Europe/Kaliningrad');
 		$this->log = Logger::getLogger(__CLASS__);
 		parent::__construct();
 		$this -> load -> library('ion_auth');
