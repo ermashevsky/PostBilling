@@ -13,7 +13,7 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 ini_set('display_errors', 1);
-error_reporting(0);
+error_reporting(1);
 include ('application/third_party/log4php/Logger.php');
 $config_log_file = APPPATH.'config/config_log4php.xml';
 Logger::configure($config_log_file);
@@ -41,8 +41,9 @@ class Clients extends CI_Controller
 	 */
 	function __construct()
 	{
-		date_default_timezone_set('Europe/Kaliningrad');
+		
 		$this->log = Logger::getLogger(__CLASS__);
+		date_default_timezone_set('Europe/Kaliningrad');
 		parent::__construct();
 		$this -> load -> library('ion_auth');
 		$this -> load -> library('session');
@@ -482,7 +483,7 @@ class Clients extends CI_Controller
 			$rules[$key] = 'required';
 		}
 		$this -> form_validation -> set_rules($rules);
-		if ($this -> form_validation -> run() === TRUE) { //check to see if we are creating the user
+		//if ($this -> form_validation -> run() === TRUE) { //check to see if we are creating the user
 			//redirect them back to the admin page
 			$this -> session -> set_flashdata('message', 'Записано');
 			for ($i = 1; $i <= $_POST['counter']; $i ++ ) {
@@ -519,18 +520,19 @@ class Clients extends CI_Controller
 
 			$this -> load -> model('clients_model');
 			$this -> clients_model -> add_service_client($data);
-
+			echo "Нет ошибки";
 			redirect($_POST['referer'], 'refresh');
-		} else { //display the create user form
-			//set the flash data error message if there is one
-			$this -> data['message'] = (validation_errors() ? validation_errors() : $this -> session -> flashdata('message'));
-			$this -> data['payment_name'] = array('name' => 'payment_name', 'value' => $this -> form_validation -> set_value('payment_name'),);
-			$this -> data['resources'] = array('name' => 'resources', 'value' => $this -> form_validation -> set_value('resources'),);
-			$this -> data['name'] = array('name' => 'name', 'value' => $this -> form_validation -> set_value('name'),);
-			$this -> data['tariff'] = array('name' => 'tariff', 'value' => $this -> form_validation -> set_value('tariff'),);
-			$this -> data['period'] = array('name' => 'period', 'value' => $this -> form_validation -> set_value('period'),);
-			$this -> data['datepicker1'] = array('name' => 'datepicker1', 'value' => $this -> form_validation -> set_value('datepicker1'),);
-		}
+//		} else { //display the create user form
+//			//set the flash data error message if there is one
+//			$this -> data['message'] = (validation_errors() ? validation_errors() : $this -> session -> flashdata('message'));
+//			$this -> data['payment_name'] = array('name' => 'payment_name', 'value' => $this -> form_validation -> set_value('payment_name'),);
+//			$this -> data['resources'] = array('name' => 'resources', 'value' => $this -> form_validation -> set_value('resources'),);
+//			$this -> data['name'] = array('name' => 'name', 'value' => $this -> form_validation -> set_value('name'),);
+//			$this -> data['tariff'] = array('name' => 'tariff', 'value' => $this -> form_validation -> set_value('tariff'),);
+//			$this -> data['period'] = array('name' => 'period', 'value' => $this -> form_validation -> set_value('period'),);
+//			$this -> data['datepicker1'] = array('name' => 'datepicker1', 'value' => $this -> form_validation -> set_value('datepicker1'),);
+//			echo validation_errors();
+//		}
 	}
 
 	/**
