@@ -15,6 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 date_default_timezone_set('Europe/Kaliningrad');
+
 /**
  * Класс Admin содержит методы админки
  *
@@ -28,7 +29,9 @@ date_default_timezone_set('Europe/Kaliningrad');
  */
 class Admin_model extends CI_Model
 {
+
 	var $payment_name;
+
 	/**
 	 * Унифицированный метод-конструктор __construct()
 	 *
@@ -222,7 +225,7 @@ class Admin_model extends CI_Model
 	{
 		$checkbox = filter_input(INPUT_POST, 'checkbox');
 		$reportArray = array();
-		if(!in_array (8, $id_service)) {
+		if ( ! in_array(8, $id_service)) {
 			$createDate = DateTime::createFromFormat('m', $month);
 			$start_date_period = $createDate -> format('Y-m-01');
 			$end_date_period = $createDate -> format('Y-m-t');
@@ -232,17 +235,17 @@ class Admin_model extends CI_Model
 			$this -> db -> join('clients_accounts', 'clients_accounts.id =  customer_payments.id_account', 'inner');
 			$this -> db -> join('clients', 'clients_accounts.id_clients =  clients.id', 'inner');
 			$this -> db -> join('customer_service', 'customer_service.id =  customer_payments.id_assortment_customer', 'inner');
-			$this -> db -> where('customer_payments.period_start between "'.date($start_date_period).'" and "'.date($end_date_period).'"');
-			$this -> db -> where('customer_payments.period_end between "'.date($start_date_period).'" and "'.date($end_date_period).'"');
+			$this -> db -> where('customer_payments.period_start between "' . date($start_date_period) . '" and "' . date($end_date_period) . '"');
+			$this -> db -> where('customer_payments.period_end between "' . date($start_date_period) . '" and "' . date($end_date_period) . '"');
 			$this -> db -> where('clients_accounts.id_service !=', 8);
 			$this -> db -> where_in('clients_accounts.id_service', $id_service);
 			$this -> db -> group_by('customer_payments.id_account');
 			$this -> db -> group_by('customer_payments.amount');
 			$this -> db -> group_by('clients_accounts.bindings_name');
 			$this -> db -> group_by('customer_service.payment_name');
-			
+
 			$report_rows = $this -> db -> get();
-		}else{
+		} else {
 			$createDate = DateTime::createFromFormat('m', $month);
 			$start_date_period = $createDate -> format('Y-m-01');
 			$end_date_period = $createDate -> format('Y-m-t');
@@ -251,124 +254,201 @@ class Admin_model extends CI_Model
 			$this -> db -> join('clients_accounts', 'clients_accounts.id =  customer_payments.id_account', 'left');
 			$this -> db -> join('clients', 'clients_accounts.id_clients =  clients.id', 'inner');
 			$this -> db -> join('customer_discounts', 'customer_discounts.id_account =  customer_payments.id_account', 'left');
+			$this -> db -> join('customer_service', 'customer_service.id =  customer_payments.id_assortment_customer', 'inner');
 			$this -> db -> where_in('clients_accounts.id_service', $id_service);
-			$this -> db -> where('customer_payments.period_start between "'.date($start_date_period).'" and "'.date($end_date_period).'"');
-			$this -> db -> where('customer_payments.period_end between "'.date($start_date_period).'" and "'.date($end_date_period).'"');
+			$this -> db -> where('customer_payments.period_start between "' . date($start_date_period) . '" and "' . date($end_date_period) . '"');
+			$this -> db -> where('customer_payments.period_end between "' . date($start_date_period) . '" and "' . date($end_date_period) . '"');
 			$this -> db -> group_by('customer_payments.id_account');
 			$this -> db -> group_by('customer_payments.amount');
 			$this -> db -> group_by('clients_accounts.bindings_name');
-			
+
 			$report_rows = $this -> db -> get();
 		}
-		if($checkbox=='true'){
-		
-		if (0 < $report_rows -> num_rows) {
-			
-			foreach ($report_rows -> result() as $row) {
-				
-				if(empty($row->payment_name)){
-				$tmp = new Admin_model();
-				$tmp -> id = $row -> id;
-				$tmp -> accounts = $row -> accounts;
-				$tmp -> bindings_name = $row -> bindings_name;
-				$tmp -> inn = $row -> inn;
-				$tmp -> payment_name = 'Услуги связи';
-				$tmp -> counter = 1;
-				$tmp -> price = $row -> price - $row->discount;
-				$tmp -> summ = $row -> price - $row->discount;
-				$reportArray[$tmp -> id] = $tmp;
-				}else{
-				$tmp = new Admin_model();
-				$tmp -> id = $row -> id;
-				$tmp -> accounts = $row -> accounts;
-				$tmp -> inn = $row -> inn;
-				$tmp -> payment_name = $row -> payment_name;
-				$tmp -> bindings_name = $row -> bindings_name;
-				$tmp -> counter = $row -> counter;
-				$tmp -> price = $row -> price;
-				$tmp -> summ = $row -> summ;
-				$reportArray[$tmp -> id] = $tmp;
-				}
-				if(!empty($row->payment_name) && $row->payment_name == 'Предоставление местного телефонного соединения с использованием повременной оплаты местных телефонных соединений за 1 минуту') {
-					$tmp = new Admin_model();
-					$tmp -> id = $row -> id;
-					$tmp -> accounts = $row -> accounts;
-					$tmp -> payment_name = $row -> payment_name;
-					$tmp -> inn = $row -> inn;
-					$tmp -> bindings_name = $row -> bindings_name;
-					$tmp -> summ = $row -> summ;
-					if($row->id_service == 3){
-						$tmp -> counter = $row->summ/0.60;
-						$tmp -> price = 0.60;
-					}else{
-						$tmp -> counter = $row->summ/0.51;
-						$tmp -> price = 0.51;
-					}
-					$reportArray[$tmp -> id] = $tmp;
-				}
-			}
-			
-		}
-		}
-		if($checkbox=='false'){
+		if ($checkbox == 'true') {
+
 			if (0 < $report_rows -> num_rows) {
-			
-			foreach ($report_rows -> result() as $row) {
-				
-				if(empty($row->payment_name)){
-				$tmp = new Admin_model();
-				$tmp -> id = $row -> id;
-				$tmp -> accounts = $row -> accounts;
-				$tmp -> inn = $row -> inn;
-				//$tmp -> bindings_name = $row -> bindings_name;
-				$tmp -> payment_name = 'Услуги связи';
-				$tmp -> counter = 1;
-				$tmp -> price = $row -> price - $row->discount;
-				$tmp -> summ = $row -> price - $row->discount;
-				$reportArray[$tmp -> id] = $tmp;
-				}else{
-				$tmp = new Admin_model();
-				$tmp -> id = $row -> id;
-				$tmp -> accounts = $row -> accounts;
-				$tmp -> inn = $row -> inn;
-				$tmp -> payment_name = $row -> payment_name;
-				//$tmp -> bindings_name = $row -> bindings_name;
-				$tmp -> counter = $row -> counter;
-				$tmp -> price = $row -> price;
-				$tmp -> summ = $row -> summ;
-				$reportArray[$tmp -> id] = $tmp;
-				}
-				if(!empty($row->payment_name) && $row->payment_name == 'Предоставление местного телефонного соединения с использованием повременной оплаты местных телефонных соединений за 1 минуту' && $row->id_service!=8) {
-					$tmp = new Admin_model();
-					$tmp -> id = $row -> id;
-					$tmp -> accounts = $row -> accounts;
-					$tmp -> inn = $row -> inn;
-					$tmp -> payment_name = $row -> payment_name;
-					//$tmp -> bindings_name = $row -> bindings_name;
-					$tmp -> summ = $row -> summ;
-					if($row->id_service == 3){
-						$tmp -> counter = $row->summ/0.60;
-						$tmp -> price = 0.60;
-					}else{
-						$tmp -> counter = $row->summ/0.51;
-						$tmp -> price = 0.51;
+
+				foreach ($report_rows -> result() as $row) {
+
+					if (empty($row -> payment_name)) {
+						$tmp = new Admin_model();
+						$tmp -> id = $row -> id;
+						$tmp -> accounts = $row -> accounts;
+						$tmp -> bindings_name = $row -> bindings_name;
+						$tmp -> inn = $row -> inn;
+						$tmp -> payment_name = 'Услуги связи';
+						$tmp -> counter = 1;
+						$tmp -> price = $row -> price - $row -> discount;
+						$tmp -> summ = $row -> price - $row -> discount;
+						$reportArray[$tmp -> id] = $tmp;
+					} else {
+						$tmp = new Admin_model();
+						$tmp -> id = $row -> id;
+						$tmp -> accounts = $row -> accounts;
+						$tmp -> inn = $row -> inn;
+						$tmp -> payment_name = $row -> payment_name;
+						$tmp -> bindings_name = $row -> bindings_name;
+						$tmp -> counter = $row -> counter;
+						$tmp -> price = $row -> price;
+						$tmp -> summ = $row -> summ;
+						$reportArray[$tmp -> id] = $tmp;
 					}
-					$reportArray[$tmp -> id] = $tmp;
+					if ( ! empty($row -> payment_name) && $row -> payment_name == 'Предоставление местного телефонного соединения с использованием повременной оплаты местных телефонных соединений за 1 минуту') {
+						$tmp = new Admin_model();
+						$tmp -> id = $row -> id;
+						$tmp -> accounts = $row -> accounts;
+						$tmp -> payment_name = $row -> payment_name;
+						$tmp -> inn = $row -> inn;
+						$tmp -> bindings_name = $row -> bindings_name;
+						$tmp -> summ = $row -> summ;
+						if ($row -> id_service == 3) {
+							$tmp -> counter = $row -> summ / 0.60;
+							$tmp -> price = 0.60;
+						} else {
+							$tmp -> counter = $row -> summ / 0.51;
+							$tmp -> price = 0.51;
+						}
+						$reportArray[$tmp -> id] = $tmp;
+					}
 				}
 			}
 		}
+		if ($checkbox == 'false') {
+			if (0 < $report_rows -> num_rows) {
+
+				foreach ($report_rows -> result() as $row) {
+
+					if (empty($row -> payment_name)) {
+						$tmp = new Admin_model();
+						$tmp -> id = $row -> id;
+						$tmp -> accounts = $row -> accounts;
+						$tmp -> inn = $row -> inn;
+						//$tmp -> bindings_name = $row -> bindings_name;
+						$tmp -> payment_name = 'Услуги связи';
+						$tmp -> counter = 1;
+						$tmp -> price = $row -> price - $row -> discount;
+						$tmp -> summ = $row -> price - $row -> discount;
+						$reportArray[$tmp -> id] = $tmp;
+					} else {
+						$tmp = new Admin_model();
+						$tmp -> id = $row -> id;
+						$tmp -> accounts = $row -> accounts;
+						$tmp -> inn = $row -> inn;
+						$tmp -> payment_name = $row -> payment_name;
+						//$tmp -> bindings_name = $row -> bindings_name;
+						$tmp -> counter = $row -> counter;
+						$tmp -> price = $row -> price;
+						$tmp -> summ = $row -> summ;
+						$reportArray[$tmp -> id] = $tmp;
+					}
+					if ( ! empty($row -> payment_name) && $row -> payment_name == 'Предоставление местного телефонного соединения с использованием повременной оплаты местных телефонных соединений за 1 минуту' && $row -> id_service != 8) {
+						$tmp = new Admin_model();
+						$tmp -> id = $row -> id;
+						$tmp -> accounts = $row -> accounts;
+						$tmp -> inn = $row -> inn;
+						$tmp -> payment_name = $row -> payment_name;
+						//$tmp -> bindings_name = $row -> bindings_name;
+						$tmp -> summ = $row -> summ;
+						if ($row -> id_service == 3) {
+							$tmp -> counter = $row -> summ / 0.60;
+							$tmp -> price = 0.60;
+						} else {
+							$tmp -> counter = $row -> summ / 0.51;
+							$tmp -> price = 0.51;
+						}
+						$reportArray[$tmp -> id] = $tmp;
+					}
+				}
+			}
 		}
 		return $reportArray;
 	}
-	
+
+	function getMinAmounts($month, $id_service)
+	{
+
+		$createDate = DateTime::createFromFormat('m', $month);
+		$start_date_period = $createDate -> format('Y-m-01');
+		$end_date_period = $createDate -> format('Y-m-t');
+
+		$this -> db -> select('customer_payments.id, customer_payments.id_client, customer_service.id as customer_service_id, clients_accounts.bindings_name, inn,  customer_payments.id_account, accounts, SUM( customer_payments.amount ) AS price, IFNULL(round(SUM(REPLACE( customer_discounts.amount, ",","." )),2),"00.00") as discount, id_service', FALSE);
+		$this -> db -> from('customer_payments');
+		$this -> db -> join('clients_accounts', 'clients_accounts.id =  customer_payments.id_account', 'left');
+		$this -> db -> join('clients', 'clients_accounts.id_clients =  clients.id', 'inner');
+		$this -> db -> join('customer_discounts', 'customer_discounts.id_account =  customer_payments.id_account', 'left');
+		$this -> db -> join('customer_service', 'customer_service.id =  customer_payments.id_assortment_customer', 'inner');
+		$this -> db -> where_in('clients_accounts.id_service', $id_service);
+		$this -> db -> where('customer_payments.period_start between "' . date($start_date_period) . '" and "' . date($end_date_period) . '"');
+		$this -> db -> where('customer_payments.period_end between "' . date($start_date_period) . '" and "' . date($end_date_period) . '"');
+		$this -> db -> group_by('customer_payments.id_account');
+		$this -> db -> group_by('clients_accounts.bindings_name');
+
+		$report_rows = $this -> db -> get();
+
+
+		if (0 < $report_rows -> num_rows) {
+
+			foreach ($report_rows -> result() as $row) {
+
+				if (empty($row -> payment_name) && ($row -> price - $row -> discount) < 200 && $this -> checkMinPaid($row -> id_account) === 1) {
+					$tmp = new Admin_model();
+					$tmp -> id = $row -> id;
+					$tmp -> accounts = $row -> accounts;
+					$tmp -> bindings_name = $row -> bindings_name;
+					$tmp -> id_account = $row -> id_account;
+					$tmp -> inn = $row -> inn;
+					$tmp -> payment_name = 'Услуги связи';
+					$tmp -> counter = 1;
+					$tmp -> oldsumm = $row -> price - $row -> discount;
+					$tmp -> newsumm = 200;
+					$tmp -> difference = 200 - ($row -> price - $row -> discount);
+					$tmp -> customer_service_id = $row -> customer_service_id;
+					$tmp -> start_date_period = $start_date_period;
+					$tmp -> end_date_period = $end_date_period;
+					$tmp -> id_client = $row -> id_client;
+					#$this -> additional_charge($id_assortment_customer, $id_account, $amount, $period_start, $period_end, $id_client);
+					$reportArray[$tmp -> id] = $tmp;
+				}
+			}
+		}
+		return $reportArray;
+	}
+
+	function additional_charge($id_assortment_customer, $id_account, $amount, $period_start, $period_end, $id_client)
+	{
+		$data = array(
+			'id_assortment_customer' => $id_assortment_customer,
+			'id_account' => $id_account,
+			'amount' => $amount,
+			'period_start' => $period_start,
+			'period_end' => $period_end,
+			'id_client' => $id_client
+		);
+
+		$this -> db -> insert('customer_payments', $data);
+	}
+
+	function checkMinPaid($id_account)
+	{
+
+		$this -> db -> select('*');
+		$this -> db -> from('customer_service');
+		$this -> db -> where('id_account', $id_account);
+		$this -> db -> where('payment_name', 'Минимальный платеж');
+		$this -> db -> where('end_date IS NULL', null, false);
+		$query = $this -> db -> get();
+		$rowcount = $query -> num_rows();
+		return $rowcount;
+	}
+
 	function buildMergeReport($month1, $month2, $id_service)
 	{
 		$reportArray = array();
-		if(!in_array (8, $id_service)) {
+		if ( ! in_array(8, $id_service)) {
 			$createDate1 = DateTime::createFromFormat('m', $month1);
 			$start_date_period1 = $createDate1 -> format('Y-m-01');
 			$end_date_period1 = $createDate1 -> format('Y-m-t');
-			
+
 			$createDate2 = DateTime::createFromFormat('m', $month2);
 			$start_date_period2 = $createDate2 -> format('Y-m-01');
 			$end_date_period2 = $createDate2 -> format('Y-m-t');
@@ -382,14 +462,14 @@ class Admin_model extends CI_Model
 				FROM (`customer_payments`)
 				LEFT JOIN `clients_accounts` ON `clients_accounts`.`id` =  `customer_payments`.`id_account`
 				LEFT JOIN `customer_service` ON `customer_service`.`id` =  `customer_payments`.`id_assortment_customer`
-				WHERE `customer_payments`.`period_start` between '".$start_date_period2."' and '".$end_date_period2."'
-				AND `customer_payments`.`period_end` between '".$start_date_period2."' and '".$end_date_period2."'
+				WHERE `customer_payments`.`period_start` between '" . $start_date_period2 . "' and '" . $end_date_period2 . "'
+				AND `customer_payments`.`period_end` between '" . $start_date_period2 . "' and '" . $end_date_period2 . "'
 				AND `clients_accounts`.`id_service` != 8
-				AND `clients_accounts`.`id_service` IN ('".implode(",", $id_service)."') 
+				AND `clients_accounts`.`id_service` IN ('" . implode(",", $id_service) . "') 
 				GROUP BY `customer_payments`.`id_account`, `customer_payments`.`amount`, `clients_accounts`.`bindings_name`,
-				`customer_service`.`payment_name`) as `A`", "A.account2 = accounts AND A.payment_name2 = payment_name","left");
-			$this -> db -> where('customer_payments.period_start between "'.date($start_date_period1).'" and "'.date($end_date_period1).'"');
-			$this -> db -> where('customer_payments.period_end between "'.date($start_date_period1).'" and "'.date($end_date_period1).'"');
+				`customer_service`.`payment_name`) as `A`", "A.account2 = accounts AND A.payment_name2 = payment_name", "left");
+			$this -> db -> where('customer_payments.period_start between "' . date($start_date_period1) . '" and "' . date($end_date_period1) . '"');
+			$this -> db -> where('customer_payments.period_end between "' . date($start_date_period1) . '" and "' . date($end_date_period1) . '"');
 			$this -> db -> where('clients_accounts.id_service !=', 8);
 			$this -> db -> where_in('clients_accounts.id_service', $id_service);
 			$this -> db -> group_by('customer_payments.id_account');
@@ -397,17 +477,17 @@ class Admin_model extends CI_Model
 			$this -> db -> group_by('clients_accounts.bindings_name');
 			$this -> db -> group_by('customer_service.payment_name');
 			$this -> db -> group_by('A.payment_name2');
-			
+
 			$report_rows = $this -> db -> get();
-		}else{
+		} else {
 			$createDate1 = DateTime::createFromFormat('m', $month1);
 			$start_date_period1 = $createDate1 -> format('Y-m-01');
 			$end_date_period1 = $createDate1 -> format('Y-m-t');
-			
+
 			$createDate2 = DateTime::createFromFormat('m', $month2);
 			$start_date_period2 = $createDate2 -> format('Y-m-01');
 			$end_date_period2 = $createDate2 -> format('Y-m-t');
-			
+
 			$this -> db -> select('customer_payments.id, clients_accounts.bindings_name, accounts , SUM( amount ) AS summ1, payment_name, amount as price1,COUNT( payment_name ) AS counter1, account2, payment_name2, price2, counter2, summ2, id_service', FALSE);
 			$this -> db -> from('customer_payments');
 			$this -> db -> join('clients_accounts', 'clients_accounts.id =  customer_payments.id_account', 'left');
@@ -417,75 +497,73 @@ class Admin_model extends CI_Model
 				FROM (`customer_payments`)
 				INNER JOIN `clients_accounts` ON `clients_accounts`.`id` =  `customer_payments`.`id_account`
 				INNER JOIN `customer_service` ON `customer_service`.`id` =  `customer_payments`.`id_assortment_customer`
-				WHERE `customer_payments`.`period_start` between ".$start_date_period2." and ".$end_date_period2."
-				AND `customer_payments`.`period_end` between ".$start_date_period2." and ".$end_date_period2."
+				WHERE `customer_payments`.`period_start` between " . $start_date_period2 . " and " . $end_date_period2 . "
+				AND `customer_payments`.`period_end` between " . $start_date_period2 . " and " . $end_date_period2 . "
 				AND `clients_accounts`.`id_service` != 8
-				AND `clients_accounts`.`id_service` IN ('".implode(",", $id_service)."') 
+				AND `clients_accounts`.`id_service` IN ('" . implode(",", $id_service) . "') 
 				GROUP BY `customer_payments`.`id_account`, `customer_payments`.`amount`, `clients_accounts`.`bindings_name`,
 				`customer_service`.`payment_name`) as `A`", "A.account2 = accounts", "LEFT");
 			$this -> db -> where_in('clients_accounts.id_service', $id_service);
-			$this -> db -> where('customer_payments.period_start between "'.date($start_date_period1).'" and "'.date($end_date_period1).'"');
-			$this -> db -> where('customer_payments.period_end between "'.date($start_date_period1).'" and "'.date($end_date_period1).'"');
+			$this -> db -> where('customer_payments.period_start between "' . date($start_date_period1) . '" and "' . date($end_date_period1) . '"');
+			$this -> db -> where('customer_payments.period_end between "' . date($start_date_period1) . '" and "' . date($end_date_period1) . '"');
 			$this -> db -> group_by('customer_payments.id_account');
 			$this -> db -> group_by('customer_payments.amount');
 			$this -> db -> group_by('clients_accounts.bindings_name');
-			
+
 			$report_rows = $this -> db -> get();
 		}
-		
+
 		if (0 < $report_rows -> num_rows) {
-			
+
 			foreach ($report_rows -> result() as $row) {
-				
-				if(empty($row->payment_name)){
-				$tmp = new Admin_model();
-				$tmp -> id = $row -> id;
-				$tmp -> accounts = $row -> accounts;
-				$tmp -> bindings_name = $row -> bindings_name;
-				$tmp -> payment_name = 'Услуги связи';
-				$tmp -> counter1 = 1;
-				$tmp -> price1 = $row -> price1 - $row->discount;
-				$tmp -> summ1 = $row -> price1 - $row->discount;
-				$reportArray[$tmp -> id] = $tmp;
-				}else{
-				$tmp = new Admin_model();
-				$tmp -> id = $row -> id;
-				$tmp -> accounts = $row -> accounts;
-				$tmp -> account2 = $row -> account2;
-				$tmp -> payment_name = $row -> payment_name;
-				$tmp -> payment_name2 = $row -> payment_name2;
-				$tmp -> bindings_name = $row -> bindings_name;
-				$tmp -> counter1 = $row -> counter1;
-				$tmp -> counter2 = $row -> counter2;
-				$tmp -> price1 = $row -> price1;
-				$tmp -> price2 = $row -> price2;
-				$tmp -> summ1 = $row -> summ1;
-				$tmp -> summ2 = $row -> summ2;
-				$reportArray[$tmp -> id] = $tmp;
+
+				if (empty($row -> payment_name)) {
+					$tmp = new Admin_model();
+					$tmp -> id = $row -> id;
+					$tmp -> accounts = $row -> accounts;
+					$tmp -> bindings_name = $row -> bindings_name;
+					$tmp -> payment_name = 'Услуги связи';
+					$tmp -> counter1 = 1;
+					$tmp -> price1 = $row -> price1 - $row -> discount;
+					$tmp -> summ1 = $row -> price1 - $row -> discount;
+					$reportArray[$tmp -> id] = $tmp;
+				} else {
+					$tmp = new Admin_model();
+					$tmp -> id = $row -> id;
+					$tmp -> accounts = $row -> accounts;
+					$tmp -> account2 = $row -> account2;
+					$tmp -> payment_name = $row -> payment_name;
+					$tmp -> payment_name2 = $row -> payment_name2;
+					$tmp -> bindings_name = $row -> bindings_name;
+					$tmp -> counter1 = $row -> counter1;
+					$tmp -> counter2 = $row -> counter2;
+					$tmp -> price1 = $row -> price1;
+					$tmp -> price2 = $row -> price2;
+					$tmp -> summ1 = $row -> summ1;
+					$tmp -> summ2 = $row -> summ2;
+					$reportArray[$tmp -> id] = $tmp;
 				}
-				if(!empty($row->payment_name) && $row->payment_name == 'Предоставление местного телефонного соединения с использованием повременной оплаты местных телефонных соединений за 1 минуту') {
+				if ( ! empty($row -> payment_name) && $row -> payment_name == 'Предоставление местного телефонного соединения с использованием повременной оплаты местных телефонных соединений за 1 минуту') {
 					$tmp = new Admin_model();
 					$tmp -> id = $row -> id;
 					$tmp -> accounts = $row -> accounts;
 					$tmp -> payment_name = $row -> payment_name;
 					$tmp -> bindings_name = $row -> bindings_name;
 					$tmp -> summ1 = $row -> summ1;
-					if($row->id_service == 3){
-						$tmp -> counter1 = $row->summ1/0.60;
+					if ($row -> id_service == 3) {
+						$tmp -> counter1 = $row -> summ1 / 0.60;
 						$tmp -> price1 = 0.60;
-					}else{
-						$tmp -> counter1 = $row->summ1/0.51;
+					} else {
+						$tmp -> counter1 = $row -> summ1 / 0.51;
 						$tmp -> price1 = 0.51;
 					}
 					$reportArray[$tmp -> id] = $tmp;
 				}
 			}
-			
 		}
 		return $reportArray;
 	}
-	
-	
+
 	function getData()
 	{
 		echo $this -> db -> count_all_results('compare_balance');
@@ -495,6 +573,7 @@ class Admin_model extends CI_Model
 	{
 		echo $this -> db -> count_all_results('compare_balance_pb');
 	}
+
 }
 
 //End of file admin_model.php

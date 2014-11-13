@@ -398,6 +398,98 @@
 
 			}
 			
+			function getMinAmounts(){
+				$('#report1C').empty();
+				//id_service = $('#services').val();
+				var array_of_checked_values = $("#services").multiselect("getChecked").map(function(){
+					return this.value;    
+				}).get();
+				console.info(array_of_checked_values);
+				month = $('#month').val();
+				checkbox_flag = $('#chbox').is(':checked');
+				checkbox_flag_inn = $('#chbox_inn').is(':checked');
+				console.info(checkbox_flag);
+				$.post('<?php echo site_url('/admin/buildMinAmountsReport'); ?>',{month: month, id_service: array_of_checked_values, checkbox:checkbox_flag },
+				function(data){
+					console.info(data);
+					if(checkbox_flag===true){
+						console.info('TRUE');
+						$('#report1C').append('<table  id="reportDataTable" class="table_wrapper_inner"><thead><th>Клиент</th><th>Лицевой счет</th><th>Номенклатура</th><th>Количество</th><th>Начислено(руб.)</th><th>Мин.платеж(руб.)</th><th>Разница(руб.)</th></thead><tbody></tbody></table>');
+					$.each(data, function(i, val) {
+						
+						
+						if($('#flag_inn').val()==='all'){
+							console.info($('#flag_inn').val());
+							$('#reportDataTable').append('<tr><td>'+data[i].bindings_name+'</td><td>'+data[i].accounts+'</td><td>'+data[i].payment_name+'</td><td>'+data[i].counter+'</td><td>'+data[i].oldsumm+'</td><td>'+data[i].newsumm+'</td><td>'+data[i].difference+'</td></tr>');
+						} else if($('#flag_inn').val()==='only_with_inn'){
+							console.info($('#flag_inn').val());
+							if(data[i].inn!==''){
+							$('#reportDataTable').append('<tr><td>'+data[i].bindings_name+'</td><td>'+data[i].accounts+'</td><td>'+data[i].payment_name+'</td><td>'+data[i].counter+'</td><td>'+data[i].oldsumm+'</td><td>'+data[i].newsumm+'</td><td>'+data[i].difference+'</td></tr>');
+						}
+						}else{
+							if(data[i].inn===''){
+							$('#reportDataTable').append('<tr><td>'+data[i].bindings_name+'</td><td>'+data[i].accounts+'</td><td>'+data[i].payment_name+'</td><td>'+data[i].counter+'</td><td>'+data[i].oldsumm+'</td><td>'+data[i].newsumm+'</td><td>'+data[i].difference+'</td></tr>');
+						}
+						}
+						
+					});
+					}else{
+						console.info('FALSE');
+						$('#report1C').append('<table  id="reportDataTable" class="table_wrapper_inner"><thead><th>Лицевой счет</th><th>Номенклатура</th><th>Количество</th><th>Начислено(руб.)</th><th>Мин.платеж(руб.)</th><th>Разница(руб.)</th></thead><tbody></tbody></table>');
+					$.each(data, function(i, val) {
+						if($('#flag_inn').val()==='all'){
+							console.info($('#flag_inn').val());
+							$('#reportDataTable').append('<tr><td>'+data[i].accounts+'</td><td>'+data[i].payment_name+'</td><td>'+data[i].counter+'</td><td>'+data[i].oldsumm+'</td><td>'+data[i].newsumm+'</td><td>'+data[i].difference+'</td></tr>');
+						} else if($('#flag_inn').val()==='only_with_inn'){
+							console.info($('#flag_inn').val());
+							if(data[i].inn!==''){
+							$('#reportDataTable').append('<tr><td>'+data[i].accounts+'</td><td>'+data[i].payment_name+'</td><td>'+data[i].counter+'</td><td>'+data[i].oldsumm+'</td><td>'+data[i].newsumm+'</td><td>'+data[i].difference+'</td></tr>');
+						}
+						}else{
+							if(data[i].inn===''){
+							$('#reportDataTable').append('<tr><td>'+data[i].accounts+'</td><td>'+data[i].payment_name+'</td><td>'+data[i].counter+'</td><td>'+data[i].oldsumm+'</td><td>'+data[i].newsumm+'</td><td>'+data[i].difference+'</td></tr>');
+						}
+						}
+					});
+					}
+					
+					$( "#target" ).click(function() {
+						
+							console.info(data);
+							$.post('<?php echo site_url('/admin/additional_charge'); ?>',{data:data },
+							function(destination){
+
+							});
+						
+					});
+					
+					oTable = $('#reportDataTable').dataTable({
+						"aaSorting": [[0, 'asc']],
+						"bJQueryUI": false,
+						"bProcessing":true,
+						"sPaginationType": "full_numbers",
+						"oLanguage": {
+							"sUrl": "/assets/admin/js/russian-language-DataTables.txt"
+						},
+						"bAutoWidth": true,
+						"bDestroy": true,
+						"sScrollY": "320px",
+						"sDom": 'T<"clear">lfrtip',
+						"oTableTools": {
+							"aButtons": [
+								{
+									"sExtends": "csv",
+									"sButtonText": "Сохранить в CSV"
+								}
+							],
+							"sSwfPath": "/assets/admin/swf/copy_csv_xls_pdf.swf"
+						}
+					});
+					$('#report1C').show();
+				},'json');
+
+			}
+			
 			function buildMergeReport(){
 				$('#report1C').empty();
 				//id_service = $('#services').val();

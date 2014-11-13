@@ -101,7 +101,30 @@ class Admin extends CI_Controller
 //            $this->load->view('auth/footer');
 		}
 	}
-	
+
+	function getMinAmounts()
+	{
+		if ( ! $this -> ion_auth -> logged_in()) {
+			//redirect them to the login page
+			redirect('auth/login', 'refresh');
+		} elseif ( ! $this -> ion_auth -> is_admin()) {
+			//redirect them to the home page because they must be an administrator to view this
+			redirect($this -> config -> item('base_url'), 'refresh');
+		} else {
+			//set the flash data error message if there is one
+			$this -> data['message'] = (validation_errors()) ? validation_errors() : $this -> session -> flashdata('message');
+			//list the users
+			$this -> data['users'] = $this -> ion_auth -> users() -> result();
+			foreach ($this -> data['users'] as $k => $user) {
+				$this -> data['users'][$k] -> groups = $this -> ion_auth -> get_users_groups($user -> id) -> result();
+			}
+			$this -> load -> view('admin/header');
+			$this -> load -> view('admin/getMinAmounts');
+			$this -> load -> view('admin/left_sidebar');
+//            $this->load->view('auth/footer');
+		}
+	}
+
 	function mergeReport()
 	{
 		if ( ! $this -> ion_auth -> logged_in()) {
@@ -141,13 +164,13 @@ class Admin extends CI_Controller
 			return $data['serviceList'];
 		}
 	}
-	
+
 	function buildMergeReport()
 	{
 		$month1 = $this -> input -> post('month1');
 		$month2 = $this -> input -> post('month2');
 		$id_service = $this -> input -> post('id_service');
-		
+
 		$this -> load -> model('admin_model');
 		$data = $this -> admin_model -> buildMergeReport($month1, $month2, $id_service);
 		echo json_encode($data);
@@ -160,6 +183,37 @@ class Admin extends CI_Controller
 		$this -> load -> model('admin_model');
 		$data = $this -> admin_model -> buildReport($month, $id_service);
 		echo json_encode($data);
+	}
+
+	function buildMinAmountsReport()
+	{
+		$month = $this -> input -> post('month');
+		$id_service = $this -> input -> post('id_service');
+		$this -> load -> model('admin_model');
+		$data = $this -> admin_model -> getMinAmounts($month, $id_service);
+		echo json_encode($data);
+	}
+
+	function additional_charge()
+	{
+		$data_obj = $this -> input -> post('data');
+
+		foreach ($data_obj as $value => $key):
+
+			$id_assortment_customer = $key['customer_service_id'];
+			$id_account = $key['id_account'];
+			$amount = $key['difference'];
+			$period_start = $key['start_date_period'];
+			$period_end = $key['end_date_period'];
+			$id_client = $key['id_client'];
+			
+			echo $period_end;
+			
+			
+			$this -> load -> model('admin_model');
+			$data = $this -> admin_model -> additional_charge($id_assortment_customer, $id_account, $amount, $period_start, $period_end, $id_client);
+
+		endforeach;
 	}
 
 	/**
@@ -628,14 +682,15 @@ class Admin extends CI_Controller
 	function getCountRow()
 	{
 		$this -> load -> model('admin_model');
-		$this ->admin_model->getData();
-
+		$this -> admin_model -> getData();
 	}
 
-	function getCountRowPostBillingData(){
+	function getCountRowPostBillingData()
+	{
 		$this -> load -> model('admin_model');
-		$this ->admin_model->getDataPostbilling();
+		$this -> admin_model -> getDataPostbilling();
 	}
+
 }
 
 //End of file auth.php

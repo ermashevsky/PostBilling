@@ -12,7 +12,8 @@
 			<li class="icn_tags"><a href="<? echo site_url(); ?>admin/report">Экспорт в 1С</a></li>
 			<li class="icn_edit_article"><a href="<? echo site_url(); ?>admin/compare">Сравнение остатков</a></li>
 			<li class="icn_folder"><a href="<? echo site_url(); ?>admin/mergereport">Сравненительный отчет</a></li>
-			<li class="icn_video"><a href="#">Video</a></li>
+			<li class="icn_tags"><a href="<? echo site_url(); ?>admin/getMinAmounts">Минимальный платеж</a></li>
+			
 		</ul>
 		<h3>Администрирование</h3>
 		<ul class="toggle">
