@@ -93,6 +93,20 @@
 					<option value="11/14">Ноябрь 2014</option>
 					<option value="12/14">Декабрь 2014</option>
 				</optgroup>
+				<optgroup label="2015">
+					<option value="01/15">Январь 2015</option>
+					<option value="02/15">Февраль 2015</option>
+					<option value="03/15">Март 2015</option>
+					<option value="04/15">Апрель 2015</option>
+					<option value="05/15">Май 2015</option>
+					<option value="06/15">Июнь 2015</option>
+					<option value="07/15">Июль 2015</option>
+					<option value="08/15">Август 2015</option>
+					<option value="09/15">Сентябрь 2015</option>
+					<option value="10/15">Октябрь 2015</option>
+					<option value="11/15">Ноябрь 2015</option>
+					<option value="12/15">Декабрь 2015</option>
+				</optgroup>
 			</select>
 
 			<label for="valueBB">Конец периода:</label>
@@ -119,7 +133,7 @@
 					<option value="12/13">Декабрь 2013</option>
 				</optgroup>
 				<optgroup label="2014">
-					<option value="01/14" selected="selected">Январь 2014</option>
+					<option value="01/14">Январь 2014</option>
 					<option value="02/14">Февраль 2014</option>
 					<option value="03/14">Март 2014</option>
 					<option value="04/14">Апрель 2014</option>
@@ -131,6 +145,20 @@
 					<option value="10/14">Октябрь 2014</option>
 					<option value="11/14">Ноябрь 2014</option>
 					<option value="12/14">Декабрь 2014</option>
+				</optgroup>
+				<optgroup label="2015">
+					<option value="01/15" selected="selected">Январь 2015</option>
+					<option value="02/15">Февраль 2015</option>
+					<option value="03/15">Март 2015</option>
+					<option value="04/15">Апрель 2015</option>
+					<option value="05/15">Май 2015</option>
+					<option value="06/15">Июнь 2015</option>
+					<option value="07/15">Июль 2015</option>
+					<option value="08/15">Август 2015</option>
+					<option value="09/15">Сентябрь 2015</option>
+					<option value="10/15">Октябрь 2015</option>
+					<option value="11/15">Ноябрь 2015</option>
+					<option value="12/15">Декабрь 2015</option>
 				</optgroup>
 			</select>
 		</fieldset>
