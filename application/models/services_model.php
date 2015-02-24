@@ -162,7 +162,6 @@ class Services_model extends CI_Model
 		return $results;
 	}
 
-
 	/**
 	 * Метод возвращает список номенклатуры
 	 *
@@ -245,17 +244,16 @@ class Services_model extends CI_Model
 		$this -> db -> where('id', $id);
 		$row = $this -> db -> get();
 		foreach ($row -> result() as $res) {
-			echo $res -> resources;
+			//echo $res -> resources;
 			if ($res -> resources !== 'нет') {
 				echo $res -> resources;
-				$sql = 'UPDATE free_phone_pool SET status = "free" WHERE id ="' . $res -> resources.'"';
+				$sql = 'UPDATE free_phone_pool SET status = "free", date="1980-01-01" WHERE id ="' . $res -> resources . '"';
 				$this -> db -> query($sql);
 			}
 		}
 
 		$this -> db -> where('id', $id);
 		$this -> db -> delete('customer_service');
-
 	}
 
 	/**
@@ -275,15 +273,14 @@ class Services_model extends CI_Model
 		$row = $this -> db -> get();
 		foreach ($row -> result() as $rows) {
 			$tmp = new Services_model();
-				$tmp -> id = $rows -> id;
-				$tmp -> id_account = $rows -> id_account;
-				$tmp -> payment_name = $rows -> payment_name;
-				$tmp -> datepicker1 = $rows -> datepicker1;
-				$tmp -> end_date = $rows -> end_date;
-				$assortmentItem[$tmp -> id] = $tmp;
-			}
-			return $assortmentItem;
-
+			$tmp -> id = $rows -> id;
+			$tmp -> id_account = $rows -> id_account;
+			$tmp -> payment_name = $rows -> payment_name;
+			$tmp -> datepicker1 = $rows -> datepicker1;
+			$tmp -> end_date = $rows -> end_date;
+			$assortmentItem[$tmp -> id] = $tmp;
+		}
+		return $assortmentItem;
 	}
 
 	/**
@@ -303,15 +300,14 @@ class Services_model extends CI_Model
 		$row = $this -> db -> get();
 		foreach ($row -> result() as $rows) {
 			$tmp = new Services_model();
-				$tmp -> id = $rows -> id;
-				$tmp -> payment_name = $rows -> payment_name;
-				$tmp -> marker_service = $rows -> marker_service;
-				$tmp -> payment_type = $rows -> payment_type;
-				$tmp -> tariff = $rows -> tariff;
-				$assortment[$tmp -> id] = $tmp;
-			}
-			return $assortment;
-
+			$tmp -> id = $rows -> id;
+			$tmp -> payment_name = $rows -> payment_name;
+			$tmp -> marker_service = $rows -> marker_service;
+			$tmp -> payment_type = $rows -> payment_type;
+			$tmp -> tariff = $rows -> tariff;
+			$assortment[$tmp -> id] = $tmp;
+		}
+		return $assortment;
 	}
 
 	/**
@@ -322,7 +318,7 @@ class Services_model extends CI_Model
 	 * @author Ермашевский Денис
 	 * @return null
 	 */
-	function getAssortmentGroupByUniqID($uniq_id=NULL)
+	function getAssortmentGroupByUniqID($uniq_id = NULL)
 	{
 
 		$this -> db -> select('*');
@@ -331,16 +327,15 @@ class Services_model extends CI_Model
 		$row = $this -> db -> get();
 		foreach ($row -> result() as $rows) {
 			$tmp = new Services_model();
-				$tmp -> id = $rows -> id;
-				$tmp -> id_account = $rows -> id_account;
-				$tmp -> identifier = $rows -> identifier;
-				$tmp -> payment_name = $rows -> payment_name;
-				$tmp -> datepicker1 = $rows -> datepicker1;
-				$tmp -> end_date = $rows -> end_date;
-				$assortmentGroup[$tmp -> id] = $tmp;
-			}
-			return $assortmentGroup;
-
+			$tmp -> id = $rows -> id;
+			$tmp -> id_account = $rows -> id_account;
+			$tmp -> identifier = $rows -> identifier;
+			$tmp -> payment_name = $rows -> payment_name;
+			$tmp -> datepicker1 = $rows -> datepicker1;
+			$tmp -> end_date = $rows -> end_date;
+			$assortmentGroup[$tmp -> id] = $tmp;
+		}
+		return $assortmentGroup;
 	}
 
 	/**
@@ -367,9 +362,31 @@ class Services_model extends CI_Model
 	 */
 	function deleteGroupAssortments($uniq_id)
 	{
+		if ($this -> deleteGroupAssortmentsHelper($uniq_id) === TRUE) {
+			$this -> db -> where('uniq_id', $uniq_id);
+			$this -> db -> delete('customer_service');
+		} else {
+			$this -> db -> where('uniq_id', $uniq_id);
+			$this -> db -> delete('customer_service');
+		}
+	}
 
+	function deleteGroupAssortmentsHelper($uniq_id)
+	{
+		$this -> db -> select('*');
+		$this -> db -> from('customer_service');
 		$this -> db -> where('uniq_id', $uniq_id);
-		$this -> db -> delete('customer_service');
+		$this -> db -> where('resources !=', '');
+		$assortment_group = $this -> db -> get();
+		if (0 < $assortment_group -> num_rows) {
+
+			foreach ($assortment_group -> result() as $assortments_group) {
+				
+					$this -> deleteAssortmentItem($assortments_group -> id);
+					return TRUE;
+				
+			}
+		}
 	}
 
 	/**
@@ -455,10 +472,9 @@ class Services_model extends CI_Model
 				$tmp -> payment_type = $assortments_group -> payment_type;
 				$tmp -> id_group = $id; //Warning
 				$assortmentData[$n ++] = $tmp;
-
 			}
 			return $assortmentData;
-		}else{
+		} else {
 			return $assortmentData;
 		}
 	}
@@ -508,7 +524,7 @@ class Services_model extends CI_Model
 		}
 	}
 
-	function getAccountInfo($id=NULL)
+	function getAccountInfo($id = NULL)
 	{
 		$AccountData = array();
 		$id = (int) $id;
@@ -518,14 +534,13 @@ class Services_model extends CI_Model
 		$account_info = $this -> db -> get();
 
 		foreach ($account_info -> result() as $rows) {
-				$tmp = new Services_model();
-				$tmp -> id = $rows -> id;
-				$tmp -> bindings_name = $rows -> bindings_name;
-				$tmp -> accounts = $rows -> accounts;
-				$AccountData[$tmp->id] = $tmp;
-
-			}
-			return $AccountData;
+			$tmp = new Services_model();
+			$tmp -> id = $rows -> id;
+			$tmp -> bindings_name = $rows -> bindings_name;
+			$tmp -> accounts = $rows -> accounts;
+			$AccountData[$tmp -> id] = $tmp;
+		}
+		return $AccountData;
 	}
 
 	/**
@@ -553,7 +568,6 @@ class Services_model extends CI_Model
 			return $servicesList;
 		}
 	}
-
 
 	/**
 	 * Метод редактирования номеклатуры по идентификатору
@@ -667,6 +681,7 @@ class Services_model extends CI_Model
 			return 1;
 		}
 	}
+
 	/**
 	 * Метод удаления номеклатуры из группы у клиента по идентификатору
 	 *
@@ -682,7 +697,6 @@ class Services_model extends CI_Model
 		$this -> db -> where('id_group_service', $id_group);
 		$this -> db -> delete('group_assortment_link');
 	}
-
 
 	/**
 	 * Метод добавления номеклатуры в группы клиента по идентификатору
@@ -749,7 +763,6 @@ class Services_model extends CI_Model
 			}
 		}
 	}
-
 
 	/**
 	 * Метод возвращает данные номеклатуры по идентификатору
@@ -819,8 +832,7 @@ class Services_model extends CI_Model
 		$this -> db -> where('customer_service.tariffs', $id);
 		$tariffs = $this -> db -> get();
 
-		return $tariffs->result() ;
-
+		return $tariffs -> result();
 	}
 
 	function deleteTariff($id)
@@ -828,6 +840,7 @@ class Services_model extends CI_Model
 		$this -> db -> where('id', $id);
 		$this -> db -> delete('tariffs');
 	}
+
 	/**
 	 * Метод возвращает список отфильтрованных тарифов по идентификатору
 	 *
@@ -868,7 +881,7 @@ class Services_model extends CI_Model
 	 * @author Ермашевский Денис
 	 * @return mixed $tariff_list
 	 */
-	function getTariffById($id=NULL)
+	function getTariffById($id = NULL)
 	{
 
 		$this -> db -> select('*');
@@ -970,14 +983,14 @@ class Services_model extends CI_Model
 		$this -> db -> query($sql);
 	}
 
-
 	function updateIdentifier($id, $identifier)
 	{
-		$this->db->where('id', $id);
-		$this->db->set('identifier', $identifier);
-		$this->db->update('customer_service');
+		$this -> db -> where('id', $id);
+		$this -> db -> set('identifier', $identifier);
+		$this -> db -> update('customer_service');
 		return true;
 	}
+
 	/**
 	 * Вспомогательная функция "Кем занят телефон" для поиска номера телефона.
 	 *
@@ -986,23 +999,26 @@ class Services_model extends CI_Model
 	 */
 	function whoBusyPhone($resource)
 	{
-		$this->db->select('clients_accounts.id_clients, bindings_name, free_phone_pool.resources');
-		$this->db->from('clients_accounts');
-		$this->db->join('customer_service','customer_service.id_account = clients_accounts.id');
-		$this->db->join('free_phone_pool','free_phone_pool.id = customer_service.resources');
-		$this->db->like('free_phone_pool.resources', $resource);
-		$this->db->where('free_phone_pool.status', 'busy');
+		$this -> db -> select('clients_accounts.id_clients, bindings_name, free_phone_pool.resources');
+		$this -> db -> from('clients_accounts');
+		$this -> db -> join('customer_service', 'customer_service.id_account = clients_accounts.id');
+		$this -> db -> join('free_phone_pool', 'free_phone_pool.id = customer_service.resources');
+		$this -> db -> like('free_phone_pool.resources', $resource);
+		//$this->db->where('free_phone_pool.status', 'busy');
+		$this -> db -> where('free_phone_pool.date > ', date("Y-m-d", now()));
+
 		$result = $this -> db -> get();
 		$phone_list = array();
 		foreach ($result -> result() as $row) {
 			$findPhone = new Services_model();
-			$findPhone -> id_clients = $row->id_clients;
-			$findPhone -> bindings_name = $row->bindings_name;
-			$findPhone -> resources = $row->resources;
+			$findPhone -> id_clients = $row -> id_clients;
+			$findPhone -> bindings_name = $row -> bindings_name;
+			$findPhone -> resources = $row -> resources;
 			$phone_list[$findPhone -> id_clients] = $findPhone;
 		}
 		return $phone_list;
 	}
+
 	/**
 	 * Добавление нового тарифа
 	 *
@@ -1138,20 +1154,20 @@ class Services_model extends CI_Model
 			$row -> id_service = $row -> id_service;
 
 
-		$this -> db -> select('*');
-		$this -> db -> from('services');
-		//$this -> db -> where('id', $row->id_service);
-		$rs_list = $this -> db -> get();
+			$this -> db -> select('*');
+			$this -> db -> from('services');
+			//$this -> db -> where('id', $row->id_service);
+			$rs_list = $this -> db -> get();
 
-		if (0 < $rs_list -> num_rows) {
-			foreach ($rs_list -> result() as $list_accounts) {
-				$tmp = new Services_model();
-				$tmp -> id = $list_accounts -> id;
-				$tmp -> service_description = $list_accounts -> service_description;
-				$tmp -> marker = $list_accounts -> marker;
-				$accounts_list[$list_accounts -> id] = $tmp;
+			if (0 < $rs_list -> num_rows) {
+				foreach ($rs_list -> result() as $list_accounts) {
+					$tmp = new Services_model();
+					$tmp -> id = $list_accounts -> id;
+					$tmp -> service_description = $list_accounts -> service_description;
+					$tmp -> marker = $list_accounts -> marker;
+					$accounts_list[$list_accounts -> id] = $tmp;
+				}
 			}
-		}
 		}
 		return $accounts_list;
 	}
@@ -1262,7 +1278,7 @@ class Services_model extends CI_Model
 	function setPhoneNumberPool()
 	{
 
-		for ($i = 00; $i < 100; $i ++ ) {
+		for ($i = 00; $i < 100; $i ++) {
 			$n = sprintf('%02d', $i);
 
 			echo $sql = 'insert into free_phone_pool (resources,type,status) VALUES ("784527466' . $n . '","phone","free")';
@@ -1307,24 +1323,23 @@ class Services_model extends CI_Model
 		$data = array();
 		$id_list = $this -> db -> get();
 		if (0 < $id_list -> num_rows) {
-		foreach ($id_list -> result() as $row):
-			$tmp = new Services_model();
-			$tmp -> id = $row -> id;
-			//$tmp -> id_group = $row -> id_group;
-			$tmp -> id_account = $row -> id_account;
-			$tmp -> payment_name = $row -> payment_name;
-			$tmp -> uniq_id = $row -> uniq_id;
-			$tmp -> assortment = $assortment;
-			$tmp -> amount = $amount;
-			$tmp -> date = $date;
-			$myarray[$row -> id] = $tmp;
-		endforeach;
-		return $myarray;
-		}else{
-			$log = "Идентификатор с номером ".$resource." не найден ни у одного клиента.";
-				return $data['error']=$log;
+			foreach ($id_list -> result() as $row):
+				$tmp = new Services_model();
+				$tmp -> id = $row -> id;
+				//$tmp -> id_group = $row -> id_group;
+				$tmp -> id_account = $row -> id_account;
+				$tmp -> payment_name = $row -> payment_name;
+				$tmp -> uniq_id = $row -> uniq_id;
+				$tmp -> assortment = $assortment;
+				$tmp -> amount = $amount;
+				$tmp -> date = $date;
+				$myarray[$row -> id] = $tmp;
+			endforeach;
+			return $myarray;
+		}else {
+			$log = "Идентификатор с номером " . $resource . " не найден ни у одного клиента.";
+			return $data['error'] = $log;
 		}
-
 	}
 
 	/**
@@ -1350,23 +1365,23 @@ class Services_model extends CI_Model
 		$data = array();
 		$id_list = $this -> db -> get();
 		if (0 < $id_list -> num_rows) {
-		foreach ($id_list -> result() as $row):
-			$tmp = new Services_model();
-			$tmp -> id = $row -> id;
-			//$tmp -> id_group = $row -> id_group;
-			$tmp -> id_account = $row -> id_account;
-			$tmp -> payment_name = $row -> payment_name;
-			$tmp -> uniq_id = $row -> uniq_id;
-			$tmp -> assortment = $assortment;
-			$tmp -> amount = $amount;
-			$tmp -> date = $date;
-			$myarray[$row -> id] = $tmp;
+			foreach ($id_list -> result() as $row):
+				$tmp = new Services_model();
+				$tmp -> id = $row -> id;
+				//$tmp -> id_group = $row -> id_group;
+				$tmp -> id_account = $row -> id_account;
+				$tmp -> payment_name = $row -> payment_name;
+				$tmp -> uniq_id = $row -> uniq_id;
+				$tmp -> assortment = $assortment;
+				$tmp -> amount = $amount;
+				$tmp -> date = $date;
+				$myarray[$row -> id] = $tmp;
 
-		endforeach;
-		return $myarray;
-		}else{
-			$log = "Идентификатор ".$identifier." не найден ни у одного клиента.";
-				return $data['error']=$log;
+			endforeach;
+			return $myarray;
+		}else {
+			$log = "Идентификатор " . $identifier . " не найден ни у одного клиента.";
+			return $data['error'] = $log;
 		}
 	}
 
@@ -1434,8 +1449,8 @@ class Services_model extends CI_Model
 			$res = $this -> db -> query($sql);
 			return 1;
 		} else {
-			$log = $id_assortment.'=>'.$id_account.'=>'.$id_client.'=>'.$amount.'=>'.$date;
-			write_file(APPPATH.'/logs/no_add_payments_billing.php', $log,'a');
+			$log = $id_assortment . '=>' . $id_account . '=>' . $id_client . '=>' . $amount . '=>' . $date;
+			write_file(APPPATH . '/logs/no_add_payments_billing.php', $log, 'a');
 		}
 	}
 
@@ -1471,8 +1486,8 @@ class Services_model extends CI_Model
 			$res = $this -> db -> query($sql);
 			return 1;
 		} else {
-			$log = $id_assortment.'=>'.$id_account.'=>'.$id_client.'=>'.$amount.'=>'.$date."\n";
-			write_file(APPPATH.'/logs/no_add_payments_billing.php', $log,'a');
+			$log = $id_assortment . '=>' . $id_account . '=>' . $id_client . '=>' . $amount . '=>' . $date . "\n";
+			write_file(APPPATH . '/logs/no_add_payments_billing.php', $log, 'a');
 		}
 	}
 

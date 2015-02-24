@@ -302,11 +302,11 @@ class Admin_model extends CI_Model
 						$tmp -> bindings_name = $row -> bindings_name;
 						$tmp -> summ = $row -> summ;
 						if ($row -> id_service == 3) {
-							$tmp -> counter = $row -> summ / 0.60;
-							$tmp -> price = 0.60;
+							$tmp -> counter = $row -> summ / 0.70;
+							$tmp -> price = 0.70;
 						} else {
-							$tmp -> counter = $row -> summ / 0.51;
-							$tmp -> price = 0.51;
+							$tmp -> counter = $row -> summ / 0.59;
+							$tmp -> price = 0.59;
 						}
 						$reportArray[$tmp -> id] = $tmp;
 					}
@@ -350,11 +350,11 @@ class Admin_model extends CI_Model
 						//$tmp -> bindings_name = $row -> bindings_name;
 						$tmp -> summ = $row -> summ;
 						if ($row -> id_service == 3) {
-							$tmp -> counter = $row -> summ / 0.60;
-							$tmp -> price = 0.60;
+							$tmp -> counter = $row -> summ / 0.70;
+							$tmp -> price = 0.70;
 						} else {
-							$tmp -> counter = $row -> summ / 0.51;
-							$tmp -> price = 0.51;
+							$tmp -> counter = $row -> summ / 0.59;
+							$tmp -> price = 0.59;
 						}
 						$reportArray[$tmp -> id] = $tmp;
 					}
@@ -551,11 +551,11 @@ class Admin_model extends CI_Model
 					$tmp -> bindings_name = $row -> bindings_name;
 					$tmp -> summ1 = $row -> summ1;
 					if ($row -> id_service == 3) {
-						$tmp -> counter1 = $row -> summ1 / 0.60;
-						$tmp -> price1 = 0.60;
+						$tmp -> counter1 = $row -> summ1 / 0.70;
+						$tmp -> price1 = 0.70;
 					} else {
-						$tmp -> counter1 = $row -> summ1 / 0.51;
-						$tmp -> price1 = 0.51;
+						$tmp -> counter1 = $row -> summ1 / 0.59;
+						$tmp -> price1 = 0.59;
 					}
 					$reportArray[$tmp -> id] = $tmp;
 				}
