@@ -261,6 +261,11 @@ class Upload extends CI_Controller
 			return FALSE;
 		}
 	}
+	
+	function updatePhoneRows(){
+		$this -> load -> model('services_model');
+		$this -> clients_model -> updatePhoneRows();
+	}
 
 	/**
 	 * Метод возвращает полный путь до файла IP

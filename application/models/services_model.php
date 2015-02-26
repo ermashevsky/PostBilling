@@ -255,6 +255,26 @@ class Services_model extends CI_Model
 		$this -> db -> where('id', $id);
 		$this -> db -> delete('customer_service');
 	}
+	
+	function updatePhoneRows()
+	{
+
+		$this -> db -> select('free_phone_pool.id');
+		$this -> db -> from('customer_service');
+		$this -> db -> join('free_phone_pool', 'customer_service.resources = free_phone_pool.id');
+		$this -> db -> where('free_phone_pool.date', '');
+		$row = $this -> db -> get();
+		foreach ($row -> result() as $res) {
+			//echo $res -> resources;
+			
+				echo $res -> resources;
+				$sql = 'UPDATE free_phone_pool SET date="1980-01-01" WHERE id ="' . $res -> id . '"';
+				echo $sql;
+				//$this -> db -> query($sql);
+			
+		}
+
+	}
 
 	/**
 	 * Получение номеклатуры из таблицы customer_service
