@@ -264,7 +264,7 @@ class Upload extends CI_Controller
 	
 	function updatePhoneRows(){
 		$this -> load -> model('services_model');
-		$this -> clients_model -> updatePhoneRows();
+		$this -> services_model -> updatePhoneRows();
 	}
 
 	/**
