@@ -266,11 +266,9 @@ class Services_model extends CI_Model
 		$row = $this -> db -> get();
 		foreach ($row -> result() as $res) {
 			//echo $res -> resources;
-			
-				echo $res -> resources;
-				$sql = 'UPDATE free_phone_pool SET date="1980-01-01" WHERE id ="' . $res -> id . '"';
-				echo $sql;
-				//$this -> db -> query($sql);
+				$sql = 'UPDATE free_phone_pool SET date="3000-01-01" WHERE id ="' . $res -> id . '"';
+				
+				$this -> db -> query($sql);
 			
 		}
 
