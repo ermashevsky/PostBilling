@@ -13,7 +13,7 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 ini_set('display_errors', 1);
-error_reporting(0);
+error_reporting(E_ALL);
 include ('application/third_party/log4php/Logger.php');
 $config_log_file = APPPATH.'config/config_log4php.xml';
 Logger::configure($config_log_file);
@@ -363,7 +363,7 @@ class Upload extends CI_Controller
 		if(isset($data['error']))
 		{
 			$mdc->put('username','MTS_PaymentRobot');
-			$this -> log -> fatal($data);
+			$this -> log -> fatal($data['error']);
 		}else{
 			echo json_encode($data);
 		}
@@ -384,10 +384,18 @@ class Upload extends CI_Controller
 		$this -> load -> model('services_model');
 		$data = $this -> services_model -> searchAssortmentIDIP($identifier, $assortment, $amount, $date);
 		$mdc = new LoggerMDC();
+		
+//		if(isset($data['error']))
+//		{
+//			echo $data['error'];
+//		}else{
+//			echo "========>" . $data;
+//		}
 		if(isset($data['error']))
 		{
+			
 			$mdc->put('username','TK_PaymentRobot');
-			$this -> log -> fatal($data);
+			$this -> log -> fatal($data['error']);
 		}else{
 			echo json_encode($data);
 		}

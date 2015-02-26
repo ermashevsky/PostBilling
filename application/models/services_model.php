@@ -1380,8 +1380,8 @@ class Services_model extends CI_Model
 			endforeach;
 			return $myarray;
 		}else {
-			$log = "Идентификатор " . $identifier . " не найден ни у одного клиента.";
-			return $data['error'] = $log;
+			$data['error'] = "Идентификатор " . $identifier . " не найден ни у одного клиента.";
+			return $data;
 		}
 	}
 
