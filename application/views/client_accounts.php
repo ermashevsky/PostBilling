@@ -1328,7 +1328,9 @@ $('button#add_account_button2.add_account_button').click(function(){
     #map{
         display:none;
     }
-	div#example_wrapper .dataTables_wrapper{
+	#example_wrapper{
+		position: relative;
+		clear: both;
 		height:150px;
 	}
 
