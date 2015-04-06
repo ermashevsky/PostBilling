@@ -1328,11 +1328,12 @@ $('button#add_account_button2.add_account_button').click(function(){
     #map{
         display:none;
     }
-	#example_wrapper{
+/*	#example_wrapper{
 		position: relative;
 		clear: both;
 		height:150px;
-	}
+		overflow: scroll;
+	}*/
 
 </style>
 
