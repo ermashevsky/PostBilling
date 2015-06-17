@@ -1048,7 +1048,7 @@ class Clients_model extends CI_Model
 		$this -> db -> from('clients_accounts');
 		$this -> db -> where('id', $id);
 		$query = $this -> db -> get();
-        return $query -> result();
+        echo $query -> result();
 		
 	}
 
