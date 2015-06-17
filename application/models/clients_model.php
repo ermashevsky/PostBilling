@@ -1049,7 +1049,7 @@ class Clients_model extends CI_Model
 		$this -> db -> where('id', $id);
 		$this -> db -> limit(1);
 		$query = $this -> db -> get() -> row() -> id_clients;
-        echo $query;
+        return $query;
 		
 	}
 
@@ -1071,7 +1071,7 @@ class Clients_model extends CI_Model
 		$this -> db -> where('type', $type_resources);
 		//$this -> db -> where('status', 'free');
 		$this -> db -> where('date < ', date("Y-m-d", now()));
-		$this -> db -> where('id_client', '191');
+		$this -> db -> where('id_client', $this-> getIDClientByAccountID($id_client));
 		$res = $this -> db -> get();
 		if (0 < $res -> num_rows) {
 			foreach ($res -> result() as $phoneList) {
