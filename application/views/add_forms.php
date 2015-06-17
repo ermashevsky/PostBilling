@@ -402,7 +402,7 @@ $(document).ready(function(){
 
                     if ($rows->target != 'tariffs') {
 
-                        foreach ($this->clients_model->getResources($rows->target, $rows->type_resources) as $row):
+                        foreach ($this->clients_model->getResources($rows->target, $rows->id_client, $rows->type_resources) as $row):
                             $a[$counter][$row->id] = $row->resources;
                         endforeach;
 
@@ -424,7 +424,7 @@ $(document).ready(function(){
 
                     if ($rows->target != 'tariffs') {
 
-                        foreach ($this->clients_model->getResources($rows->target, $rows->type_resources) as $row):
+                        foreach ($this->clients_model->getResources($rows->target, $rows->id_client, $rows->type_resources) as $row):
                             $a[$counter][$row->id] = $row->resources;
                         endforeach;
 
@@ -479,7 +479,7 @@ $(document).ready(function(){
 
                     if ($rows->target != 'tariffs') {
 
-                        foreach ($this->clients_model->getResources($rows->target, $rows->type_resources) as $row):
+                        foreach ($this->clients_model->getResources($rows->target, $rows->id_client, $rows->type_resources) as $row):
                             $a[$counter][$row->id] = $row->resources;
                         endforeach;
 
@@ -500,7 +500,7 @@ $(document).ready(function(){
 
                     if ($rows->target != 'tariffs') {
 
-                        foreach ($this->clients_model->getResources($rows->target, $rows->type_resources) as $row):
+                        foreach ($this->clients_model->getResources($rows->target, $rows->id_client, $rows->type_resources) as $row):
                             $a[$counter][$row->id] = $row->resources;
                         endforeach;
 
