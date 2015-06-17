@@ -75,6 +75,17 @@ class Clients extends CI_Controller
 			$this -> load -> view('left_sidebar');
 		}
 	}
+	
+	function allocationOfnumber(){
+		if ( ! $this -> ion_auth -> logged_in()) {
+			redirect('auth/login', 'refresh');
+		} else {
+			$data['client_id'] = $this->uri->segment(3);
+			$this -> load -> view('header');
+			$this -> load -> view('allocationOfnumber', $data);
+			$this -> load -> view('left_sidebar');
+		}
+	}
 
 	/**
 	 * Возвращает список лицевых счетов клиента
@@ -421,7 +432,7 @@ class Clients extends CI_Controller
 	 * @return array $data;
 	 *
 	 */
-	function get_forms($id)
+	function get_forms($id,$id_client)
 	{
 		//$id =  trim($this->input->post('id'));
 		if ( ! $this -> ion_auth -> logged_in()) {
@@ -429,7 +440,7 @@ class Clients extends CI_Controller
 			redirect('auth/login', 'refresh');
 		} else {
 			$this -> load -> model('clients_model');
-			$data['forms'] = $this -> clients_model -> getElementsForm($id);
+			$data['forms'] = $this -> clients_model -> getElementsForm($id,$id_client);
 
 			$this -> load -> view('header');
 			$this -> load -> view('add_forms', $data);
