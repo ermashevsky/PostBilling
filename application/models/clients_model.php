@@ -1055,7 +1055,7 @@ class Clients_model extends CI_Model
 		$phones_arr = array();
 		$this -> db -> select('*');
 		$this -> db -> from($table);
-		$this -> db -> where('type', $type_resources);
+		$this -> db -> where('typ', $type_resources);
 		//$this -> db -> where('status', 'free');
 		$this -> db -> where('date < ', date("Y-m-d", now()));
 		$res = $this -> db -> get();
