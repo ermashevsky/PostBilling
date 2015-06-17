@@ -401,7 +401,7 @@ $(document).ready(function(){
                     $this->load->model('clients_model');
 
                     if ($rows->target != 'tariffs') {
-
+if(is_array($this->clients_model->getResources($rows->target, $rows->id_client, $rows->type_resources)) || is_object($this->clients_model->getResources($rows->target, $rows->id_client, $rows->type_resources))){
                         foreach ($this->clients_model->getResources($rows->target, $rows->id_client, $rows->type_resources) as $row):
                             $a[$counter][$row->id] = $row->resources;
                         endforeach;
@@ -411,6 +411,7 @@ $(document).ready(function(){
                         endforeach;
 
                         echo 'Ресурс: ' . form_dropdown('resources[' . $counter . ']', $a[$counter],'id="select_id" onchange="alert(3)"');
+}
                         echo '<br/>Тариф: ' . form_dropdown('tariff[' . $counter . ']', $tariff[$counter]);
                         $opt[$counter] = array(
                             'month' => 'Месяц',
@@ -423,13 +424,14 @@ $(document).ready(function(){
                     $this->load->model('clients_model');
 
                     if ($rows->target != 'tariffs') {
-
+					if(is_array($this->clients_model->getResources($rows->target, $rows->id_client, $rows->type_resources)) || is_object($this->clients_model->getResources($rows->target, $rows->id_client, $rows->type_resources))){
                         foreach ($this->clients_model->getResources($rows->target, $rows->id_client, $rows->type_resources) as $row):
                             $a[$counter][$row->id] = $row->resources;
                         endforeach;
-
+						
 
                         echo 'Ресурс: ' . form_dropdown('resources[' . $counter . ']" id="phones', $a[$counter]) . '</p></fieldset>';
+						}
                     }
                 }
             }else {
@@ -478,7 +480,7 @@ $(document).ready(function(){
                     $this->load->model('clients_model');
 
                     if ($rows->target != 'tariffs') {
-
+						if(is_array($this->clients_model->getResources($rows->target, $rows->id_client, $rows->type_resources)) || is_object($this->clients_model->getResources($rows->target, $rows->id_client, $rows->type_resources))){
                         foreach ($this->clients_model->getResources($rows->target, $rows->id_client, $rows->type_resources) as $row):
                             $a[$counter][$row->id] = $row->resources;
                         endforeach;
@@ -486,7 +488,7 @@ $(document).ready(function(){
                         foreach ($this->clients_model->getTariffById($rows->assortment_id) as $tariffList2):
                             $tariff[$counter][$tariffList2->id] = $tariffList2->tariff_name;
                         endforeach;
-
+						}
                         echo 'Ресурс: ' . form_dropdown('resources[' . $counter . ']" id="phones', $a[$counter]);
                         echo '<br/>Тариф: ' . form_dropdown('tariff[' . $counter . ']', $tariff[$counter]);
                         $opt[$counter] = array(
@@ -499,13 +501,14 @@ $(document).ready(function(){
                     $this->load->model('clients_model');
 
                     if ($rows->target != 'tariffs') {
-
+						if(is_array($this->clients_model->getResources($rows->target, $rows->id_client, $rows->type_resources)) || is_object($this->clients_model->getResources($rows->target, $rows->id_client, $rows->type_resources))){
                         foreach ($this->clients_model->getResources($rows->target, $rows->id_client, $rows->type_resources) as $row):
                             $a[$counter][$row->id] = $row->resources;
                         endforeach;
 
 
                         echo 'Ресурс: ' . form_dropdown('resources[' . $counter . ']" id="phones', $a[$counter]) . '</p></fieldset>';
+						}
                     }
                 }
                 if ($rows->element_type == 'identifier' & $rows->tariff != 1){
