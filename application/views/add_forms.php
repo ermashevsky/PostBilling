@@ -432,7 +432,7 @@ $(document).ready(function(){
 
                         echo 'Ресурс: ' . form_dropdown('resources[' . $counter . ']" id="phones', $a[$counter]) . '</p></fieldset>';
 						}else{
-							echo "У Клиента нет зарезервированных номеров"; 
+							echo "<p style='font-weight:bold; font-color:red;'>У Клиента нет зарезервированных номеров</p>"; 
 						}
                     }
                 }
@@ -489,7 +489,7 @@ $(document).ready(function(){
 
 							echo 'Ресурс: ' . form_dropdown('resources[' . $counter . ']" id="phones', $a[$counter]);
 						}else{
-							echo "У Клиента нет зарезервированных номеров"; 
+							echo "<p style='font-weight:bold; font-color:red;'>У Клиента нет зарезервированных номеров</p>"; 
 						}
 						foreach ($this->clients_model->getTariffById($rows->assortment_id) as $tariffList2):
                             $tariff[$counter][$tariffList2->id] = $tariffList2->tariff_name;
@@ -514,7 +514,7 @@ $(document).ready(function(){
 
                         echo 'Ресурс: ' . form_dropdown('resources[' . $counter . ']" id="phones', $a[$counter]) . '</p></fieldset>';
 						}else{
-							echo "У Клиента нет зарезервированных номеров"; 
+							echo "<p style='font-weight:bold; font-color:red;'>У Клиента нет зарезервированных номеров</p>"; 
 						}
                     }
                 }
