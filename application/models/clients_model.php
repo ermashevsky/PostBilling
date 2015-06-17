@@ -1512,7 +1512,7 @@ class Clients_model extends CI_Model
 	{
 
 		$sql = 'UPDATE free_phone_pool
-	SET status = "' . $status . '", date = "3000-01-01" WHERE id =' . $id;
+	SET status = "' . $status . '", date = "3000-01-01", id_client = "" WHERE id =' . $id;
 		$this -> db -> query($sql);
 	}
 
