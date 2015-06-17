@@ -1011,9 +1011,10 @@ class Clients_model extends CI_Model
 	 * @return mixed $elements_arr;
 	 *
 	 */
-	function getElementsForm($id)
+	function getElementsForm($id, $id_client)
 	{
 		echo $id;
+		echo $id_client;
 		$elements_arr = array();
 		$this -> db -> select('service_groups.id, service_groups.services_groups, assortment.id as assortment_id, payment_name, payment_type, element_type, target, default_value,type_resources,tariff');
 		$this -> db -> from('assortment');
