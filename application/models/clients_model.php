@@ -1043,10 +1043,17 @@ class Clients_model extends CI_Model
 	}
 	
 	function getIDClientByAccountID($id){
+		
 		$this->db->select('id_clients');
 		$this -> db -> from('clients_accounts');
 		$this -> db -> where('id', $id);
-		return $this -> db -> get();
+		$res = $this -> db -> get();
+		if (0 < $res -> num_rows) {
+			foreach ($res -> result() as $id_data) {
+				return $id_data -> id_clients;
+			}
+		}
+		
 	}
 
 	/**
