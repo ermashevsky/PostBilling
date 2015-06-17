@@ -1044,7 +1044,7 @@ class Clients_model extends CI_Model
 	
 	function getIDClientByAccountID($id){
 		
-		$this->db->select('id_clients');
+		$this -> db -> select('id_clients');
 		$this -> db -> from('clients_accounts');
 		$this -> db -> where('id', $id);
 		$query = $this -> db -> get();
@@ -1063,13 +1063,14 @@ class Clients_model extends CI_Model
 	 */
 	function getResources($table, $id_client, $type_resources = NULL)
 	{
+		echo $this-> getIDClientByAccountID($id_client);
 		$phones_arr = array();
 		$this -> db -> select('*');
 		$this -> db -> from($table);
 		$this -> db -> where('type', $type_resources);
 		//$this -> db -> where('status', 'free');
 		$this -> db -> where('date < ', date("Y-m-d", now()));
-		$this -> db -> where('id_client', $this-> getIDClientByAccountID($id_client));
+		$this -> db -> where('id_client', '191');
 		$res = $this -> db -> get();
 		if (0 < $res -> num_rows) {
 			foreach ($res -> result() as $phoneList) {
