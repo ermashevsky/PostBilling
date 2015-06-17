@@ -1037,6 +1037,7 @@ class Clients_model extends CI_Model
 				$tmp -> default_value = $service -> default_value;
 				$tmp -> tariff = $service -> tariff;
 				$tmp -> services_groups = $service -> services_groups;
+				$tmp -> id_client = $id_client;
 				$elements_arr[$n ++] = $tmp;
 			}
 			return $elements_arr;
@@ -1052,7 +1053,7 @@ class Clients_model extends CI_Model
 	 * @author Ермашевский Денис
 	 * @return array $phones_arr;
 	 */
-	function getResources($table, $type_resources = NULL)
+	function getResources($table, $id_client, $type_resources = NULL)
 	{
 		$phones_arr = array();
 		$this -> db -> select('*');
@@ -1060,7 +1061,7 @@ class Clients_model extends CI_Model
 		$this -> db -> where('type', $type_resources);
 		//$this -> db -> where('status', 'free');
 		$this -> db -> where('date < ', date("Y-m-d", now()));
-		$this -> db -> where('id_client', '191');
+		$this -> db -> where('id_client', $id_client);
 		$res = $this -> db -> get();
 		if (0 < $res -> num_rows) {
 			foreach ($res -> result() as $phoneList) {
