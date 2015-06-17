@@ -401,7 +401,7 @@ $(document).ready(function(){
                     $this->load->model('clients_model');
 
                     if ($rows->target != 'tariffs') {
-if(is_array($this->clients_model->getResources($rows->target, $rows->id_client, $rows->type_resources)) || is_object($this->clients_model->getResources($rows->target, $rows->id_client, $rows->type_resources))){
+
                         foreach ($this->clients_model->getResources($rows->target, $rows->id_client, $rows->type_resources) as $row):
                             $a[$counter][$row->id] = $row->resources;
                         endforeach;
@@ -411,7 +411,7 @@ if(is_array($this->clients_model->getResources($rows->target, $rows->id_client, 
                         endforeach;
 
                         echo 'Ресурс: ' . form_dropdown('resources[' . $counter . ']', $a[$counter],'id="select_id" onchange="alert(3)"');
-}
+
                         echo '<br/>Тариф: ' . form_dropdown('tariff[' . $counter . ']', $tariff[$counter]);
                         $opt[$counter] = array(
                             'month' => 'Месяц',
@@ -485,11 +485,12 @@ if(is_array($this->clients_model->getResources($rows->target, $rows->id_client, 
                             $a[$counter][$row->id] = $row->resources;
                         endforeach;
 
-                        foreach ($this->clients_model->getTariffById($rows->assortment_id) as $tariffList2):
+                        echo 'Ресурс: ' . form_dropdown('resources[' . $counter . ']" id="phones', $a[$counter]);
+						}
+						foreach ($this->clients_model->getTariffById($rows->assortment_id) as $tariffList2):
                             $tariff[$counter][$tariffList2->id] = $tariffList2->tariff_name;
                         endforeach;
-						}
-                        echo 'Ресурс: ' . form_dropdown('resources[' . $counter . ']" id="phones', $a[$counter]);
+						
                         echo '<br/>Тариф: ' . form_dropdown('tariff[' . $counter . ']', $tariff[$counter]);
                         $opt[$counter] = array(
                             'single_payment' => 'Разовый платеж',
