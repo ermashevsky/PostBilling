@@ -375,7 +375,7 @@ class Clients extends CI_Controller
 		$id = trim($this -> input -> post('id'));
 		$old_text = '78452';
 		$new_text = "(78452)";
-		$this -> datatables -> select('customer_service.uniq_i,sum(customer_payments.amount) as `balance`, GROUP_CONCAT(identifier SEPARATOR " ") as identifier, GROUP_CONCAT(DISTINCT REPLACE(`free_phone_pool`.`resources`, "78452", "(78452)")) as resources', FALSE)
+		$this -> datatables -> select('customer_service.uniq_id,sum(customer_payments.amount) as `balance`, GROUP_CONCAT(identifier SEPARATOR " ") as identifier, GROUP_CONCAT(DISTINCT REPLACE(`free_phone_pool`.`resources`, "78452", "(78452)")) as resources', FALSE)
 				-> from('customer_service', 'free_phone_pool')
 				//-> join('service_groups', 'service_groups.id = customer_service.id_group', 'inner')
 				-> join('free_phone_pool', 'free_phone_pool.id = customer_service.resources', 'left')
